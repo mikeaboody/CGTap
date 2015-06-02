@@ -1,2 +1,47 @@
+<!DOCTYPE html>
 <html>
+ <head>
+  <title>CGTap</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ </head>
+ <script>
+
+ 	$(document).ready(function() {
+ 		var randomNumber = function(start, end) { //not including end
+ 			return Math.floor(Math.random() * (end - start) + start);
+ 		}
+
+	  	var employeeData, projectData;
+		$.when(
+	    	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
+	        	employeeData = data;
+  				var randomPerson = employeeData[randomNumber(0, employeeData.length)];
+  				console.log(randomPerson);
+	    	}),
+	    	$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=brian.forster@controlgroup.com", function(data) {
+	        	projectData = data;
+	        	console.log(projectData);
+	    	})
+		).then(function() {
+	    	if (employeeData) {
+	        	document.write(employeeData);
+	    	}
+	    	else {
+	        	document.write("failed employee data");
+	    	}
+	    	if (projectData) {
+	        	document.write(projectData);
+	    	}
+	    	else {
+	        	document.write("failed project data");
+	    	}
+		});
+	});
+	
+ </script> 
+
+ <body>
+ 	h
+  
+ </body>
 </html>
