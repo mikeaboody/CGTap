@@ -36,6 +36,22 @@
 	        	document.write("failed project data");
 	    	}
 		});
+
+		var asyncDataRetrieve = function(urls) {
+			var i = 0;
+			result = [];
+			var next = function() {
+				if (i < urls.length) {
+					$.getJSON(urls[i], function(data) {
+						result.push(data);
+						i += 1;
+						next();
+					});
+				}
+			}
+			next();
+			return result;
+		}
 	});
 	
  </script> 
