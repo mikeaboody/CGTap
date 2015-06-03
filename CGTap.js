@@ -91,24 +91,19 @@ var load = function() {
 var updatePage = function() {
 	$(".welcome").html("Welcome " + randomUser.first_name + "!");
 
-	var $projects = $(".projects");
+	$(".projects").empty();
+	$(".projects").append("<select></select>");
 	for (var i = 0; i < randomUser.projects.length; i += 1) {
 		var currProj = randomUser.projects[i];
-		$projects.append("<div>");
+		
 		if (i == 0) {
-			$projects.append("<input class = proj" + currProj.id + " type = 'radio' name = 'projectform' checked='checked' value = '"
-				+ currProj.id + "'/>");
+			$(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
 		} else {
-			$projects.append("<input class = proj" + currProj.id + " type = 'radio' name = 'projectform' value = '"
-				+ currProj.id + "'/>");
+			$(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 		}
-		$projects.append("<label for='small'>" + (i + 1) + "</label>");
-		$projects.append("<article><p>" + currProj.name + "</p></article>");
-		$projects.append("</div>");
 	}
-	$('.projects input').on('change', function() {
-   		console.log($('input[name=projectform]:checked', '.projects').val());
-   		updateTasks($('input[name=projectform]:checked', '.projects').val());
+	$('.projects select').on('change', function() {
+   		updateTasks($(".projects select").val());
 	});
 }
 
@@ -127,6 +122,15 @@ var asyncDataRetrieve = function(urls) {
 	}
 	next();
 	return result;
+}
+
+var submit = function() {
+	var output = "You are submitting " + $('input[name="hours"]').val() + ":" + $('input[name="minutes"]').val() +
+				" hours on EMKI for project " + $(".projects select option:selected").text() + " with task " +
+				$(".tasks select option:selected").text();
+	$(".output").text(output);
+	console.log(output);
+
 }
 
 $(document).ready(function() {

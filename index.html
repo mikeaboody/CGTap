@@ -11,17 +11,20 @@
     <header>
       <h1>Tap App </h1>
       <h2 class="welcome"></h2>
-      <h3>Are you ready track some hours?</h2>
+      <h3>Are you ready track some hours? What's your project?</h2>
     <section>
-    <form class="projects">
-    </form>
+    <div class = "projects">
+      <select>
+            <option value =""selected>Project</option>
+      </select>
+  		</div>
     </ul>
   </section>
       <div>
       <p>What's your task?'</p>
       <div class = "tasks">
       <select>
-            <option value ="3"selected>Task</option>
+            <option value =""selected>Task</option>
       </select>
   		</div>
 
@@ -49,8 +52,23 @@
           <input type = "text"
                  id = "payment"
                  value = "payment type" />
-        </section>  
-      </form>        
+        </section>
+        <br/>
+        <form name="input">
+			Hours: <input type="text" name="hours" />
+			<br/>
+			Minutes: <input type="text" name="minutes" />
+		</form>
+		<br/>
+
+		<label class="output"> </label>
+
+
+
+      </form>
+      <br/>
+      <br/>
+      <button onclick="submit()">Submit</button>
 </body>
   
  </body>
