@@ -7,10 +7,10 @@
   <div class="wrapper">
     <header>
       <h1>Tap App </h1>
-      <h2> Welcome, <%=user.name%></h2>
+      <h2>Welcome, <%= @user.name%></h2>
       <h3>Are you ready track some hours?</h2>
     <section class="projects">
-    <form>
+    <form class= "projects">
       <div>
         <input type="radio" name="size" id="small" value="small" checked="checked" /> 
         <label for="small">1</label>
@@ -34,13 +34,11 @@
         <article><p>Project 4 info goes here</p></article>
       </div>
     </form>
-    </ul>
   </section>
       <div>
-      <p>What was your role?</p>
+      <p>What was your task?</p>
       <select>
         <section class="task">
-            
               <option value =""selected>Dev</option>
               <option value =""> Marketing</option>
               <option value ="">R & D</option>
