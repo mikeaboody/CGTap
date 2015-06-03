@@ -4,116 +4,54 @@
   <title>CGTap</title>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
  </head>
- <script>
- 	function user(first_name, last_name, email) {
-		this.first_name = first_name;
-		this.last_name = last_name;
-		this.email = email;
-		this.projects = [];
-		this.setProjects = function(lst) {
-			this.projects = lst;
-		}
 
-	};
-	function project(name, id) {
-		this.name = name;
-		this.id = id;
-	};
-
-
-
-	var randomNumber = function(start, end) { //not including end
-		return Math.floor(Math.random() * (end - start) + start);
-	}
-
-	var employeeData, projectData, taskData, randomUser;
-
-  	var updateTasks = function(proj_id) {
-  		$.when(
-			$.getJSON("https://cgp-api.controlgroup.com/timeentry/tasklist?id=" + proj_id, function(data) {
-				for (var i = 1; i <= data.length; i += 1) {
-					document.write(i + ". " + data[i-1].proj_task_nm + "<br>");
-				}
-    		})
-    	).then(function() {
-  			console.log(randomUser);
-    	});
-
-  	}
-
-  	var postProcess = function() {
-  		console.log(randomUser);
-			
-	}
- 	var load = function() {
-		$.when(
-	    	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
-  				var personObj = data[randomNumber(0, data.length)];
-  				randomUser = new user(personObj.first_nm, personObj.last_nm, personObj.email);
-	    	})
-		).then(function() {
-	    	if (randomUser) {
-	        	$.when(
-	        		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
-			        	projectData = data;
-			        	var projectList = [];
-			        	for(var i = 0; i < data.length; i += 1) {
-			        		var currProj = data[i];
-			        		var newProj = new project(currProj.proj_nm, currProj.proj_id);
-			        		projectList.push(newProj);
-			        	}
-			        	randomUser.setProjects(projectList);
-	    			})
-	        	).then(function() {
-	        		if (randomUser.projects != []) {
-	        			document.write("First Name: " + randomUser.first_name + "<br>");
-	        			document.write("Last Name: " + randomUser.last_name + "<br>");
-	        			document.write("Email: " + randomUser.email + "<br>");
-	        			document.write("<h1>Projects:</h1>");
-	        			for (var i = 1; i <= randomUser.projects.length; i += 1) {
-	        				document.write(i + ". " + randomUser.projects[i-1].name + "<br>");
-	        			}
-	        			//only handles first project's tasks for now
-	        			document.write("<h1>Tasks of First Project</h1>");
-	        			updateTasks(randomUser.projects[0].id);
-
-
-
-	    			} else {
-	        			document.write("failed task data");
-	    			}
-	        	});
-    		}
-    		else {
-        		document.write("failed employee data");
-    		}
-		});
-	}
-	//currently unused
-	var asyncDataRetrieve = function(urls) {
-		var i = 0;
-		result = [];
-		var next = function() {
-			if (i < urls.length) {
-				$.getJSON(urls[i], function(data) {
-					result.push(data);
-					i += 1;
-					next();
-				});
-			}
-		}
-		next();
-		return result;
-	}
- 	$(document).ready(function() {
- 		load();
- 		
-	});
-	
- </script> 
-
+ <script src="CGTap.js"></script>
  <body>
- 	loading...
+ 	<div class="wrapper">
+    <header>
+      <h1>Tap App </h1>
+      <h2 class="welcome"></h2>
+      <h3>Are you ready track some hours?</h2>
+    <section>
+    <form class="projects">
+    </form>
+    </ul>
+  </section>
+      <div>
+      <p>What's your task?'</p>
+      <div class = "tasks">
+      <select>
+            <option value ="3"selected>Task</option>
+      </select>
+  		</div>
+
+        <section class="payment">
+
+          <label>Payment type</label>            
+          <input type = "radio"
+                 name = "radSize"
+                 id = "billable"
+                 value = "billable"
+                 checked = "checked" />
+          <label for = "sizeSmall">billable</label>
+          
+          <input type = "radio"
+                 name = "radSize"
+                 id = "nonbillable"
+                 value = "nonbillable" />
+          <label for = "sizeMed">nonbillable</label>
+ 
+          <input type = "radio"
+                 name = "radSize"
+                 id = "other"
+                 value = "other" />
+          <label for = "sizeLarge">other</label>
+          <input type = "text"
+                 id = "payment"
+                 value = "payment type" />
+        </section>  
+      </form>        
+</body>
   
  </body>
 </html>
