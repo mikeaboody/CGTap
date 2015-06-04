@@ -8,68 +8,40 @@
  <script src="CGTap.js"></script>
  <body>
  	<div class="wrapper">
-    <header>
       <h1>Tap App </h1>
-      <h2 class="welcome"></h2>
-      <h3>Are you ready track some hours? What's your project?</h2>
-    <section>
+      <h2 class="welcome">Loading user...</h2>
+      <h3>Are you ready track some hours? What's your project?</h3>
     <div class = "projects">
       <select>
             <option value =""selected>Project</option>
       </select>
   		</div>
-  </section>
-      <div>
-      <p>What's your task?'</p>
+      <p>What's your task?</p>
       <div class = "tasks">
       <select>
             <option value =""selected>Task</option>
       </select>
   		</div>
-      <br/>
-
-        <section class="payment">
-
-          <label>Payment type</label>            
-          <input type = "radio"
-                 name = "radSize"
-                 id = "billable"
-                 value = "billable"
-                 checked = "checked" />
-          <label for = "sizeSmall">billable</label>
-          
-          <input type = "radio"
-                 name = "radSize"
-                 id = "nonbillable"
-                 value = "nonbillable" />
-          <label for = "sizeMed">nonbillable</label>
- 
-          <input type = "radio"
-                 name = "radSize"
-                 id = "other"
-                 value = "other" />
-          <label for = "sizeLarge">other</label>
-          <input type = "text"
-                 id = "payment"
-                 value = "payment type" />
-        </section>
+        <p>Payment type?</p>
+        <div class="payment">
+          <select>
+            <option value =""selected>Payment Type</option>
+          </select>
+        </div>
         <br/>
         <form name="input">
-			Hours: <input type="text" name="hours" />
+			Hours: <input class = "hours" type="text" name="hours" placeholder="Enter your hours..." />
 			<br/>
-			Minutes: <input type="text" name="minutes" />
+			Minutes: <input class = "minutes" type="text" name="minutes" placeholder="Enter your minutes..." />
 		</form>
 		<br/>
 
 		<label class="output"> </label>
 
-
-
-      </form>
       <br/>
       <br/>
       <button onclick="submit()">Submit</button>
-</body>
+    </div>
   
  </body>
 </html>

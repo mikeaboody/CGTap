@@ -20,26 +20,6 @@ var randomNumber = function(start, end) { //not including end
 
 var randomUser;
 
-var updateTasks = function(proj_id) {
-	$.when(
-		$.getJSON("https://cgp-api.controlgroup.com/timeentry/tasklist?id=" + proj_id, function(data) {
-			$(".tasks").empty();
-			$(".tasks").append("<select></select>");
-			$(".tasks select").append("<section></section>");
-			for (var i = 0; i < data.length; i += 1) {
-				var currTask = data[i];
-				if (i == 0) {
-					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-				} else {
-					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-				}
-			}
-		})
-	).then(function() {
-		console.log(randomUser);
-	});
-}
-
 var load = function() {
 	$.when(
     	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
@@ -60,23 +40,9 @@ var load = function() {
     			})
         	).then(function() {
         		if (randomUser.projects != []) {
-        			// document.write("First Name: " + randomUser.first_name + "<br>");
-        			// document.write("Last Name: " + randomUser.last_name + "<br>");
-        			// document.write("Email: " + randomUser.email + "<br>");
-        			// document.write("<h1>Projects:</h1>");
-        			// for (var i = 1; i <= randomUser.projects.length; i += 1) {
-        			// 	document.write(i + ". " + randomUser.projects[i-1].name + "<br>");
-        			// }
-        			// //only handles first project's tasks for now
-        			// document.write("<h1>Tasks of First Project</h1>");
-
-        			
         			updatePage();
         			updateTasks(randomUser.projects[0].id);
-        			console.log(randomUser);
-
-
-
+        			updateLabel();
     			} else {
         			document.write("failed task data");
     			}
@@ -91,8 +57,7 @@ var load = function() {
 var updatePage = function() {
 	$(".welcome").html("Welcome " + randomUser.first_name + "!");
 
-	$(".projects").empty();
-	$(".projects").append("<select></select>");
+	$(".projects select").empty();
 	for (var i = 0; i < randomUser.projects.length; i += 1) {
 		var currProj = randomUser.projects[i];
 		
@@ -104,8 +69,62 @@ var updatePage = function() {
 	}
 	$('.projects select').on('change', function() {
    		updateTasks($(".projects select").val());
+   		updateLabel();
+	});
+	$('.tasks select').on('change', function() {
+   		updateLabel();
+	});
+	$('.payment select').on('change', function() {
+   		updateLabel();
+	});
+
+	$('.hours').on('change', function() {
+   		updateLabel();
+	});
+
+	$('.minutes').on('change', function() {
+   		updateTasks($(".projects select").val());
+   		updateLabel();
 	});
 }
+
+var updateTasks = function(proj_id) {
+	$.when(
+		$.getJSON("https://cgp-api.controlgroup.com/timeentry/tasklist?id=" + proj_id, function(data) {
+			$(".tasks select").empty();
+			for (var i = 0; i < data.length; i += 1) {
+				var currTask = data[i];
+				if (i == 0) {
+					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+				} else {
+					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+				}
+			}
+		})
+	).then(function() {
+		updateTimeType(proj_id);
+	});
+}
+
+var updateTimeType = function(proj_id) {
+	$.when(
+		$.getJSON("https://cgp-api.controlgroup.com/timeentry/timetypelist?id=" + proj_id, function(data) {
+			$(".payment select").empty();
+			for (var i = 0; i < data.length; i += 1) {
+				var currTimeType = data[i];
+				if (i == 0) {
+					$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
+				} else {
+					$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+				}
+			}
+		})
+	).then(function() {
+		// updateLabel();
+	});
+}
+
+
 
 //currently unused
 var asyncDataRetrieve = function(urls) {
@@ -124,14 +143,16 @@ var asyncDataRetrieve = function(urls) {
 	return result;
 }
 
-var submit = function() {
-	var minutes = parseInt($('input[name="minutes"]').val(), 10);
-	var output = "You are submitting " + $('input[name="hours"]').val() + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
-				+ " hours on EMKI for project " + $(".projects select option:selected").text() + " with task " +
-				$(".tasks select option:selected").text();
+var updateLabel = function() {
+	var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
+	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
+	var output = "You are submitting " + hours + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
+				+ " hours for project " + $(".projects select option:selected").text() + " with task " +
+				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text();
 	$(".output").text(output);
-	console.log(output);
-
+}
+var submit = function() {
+	//nothing yet
 }
 
 $(document).ready(function() {
