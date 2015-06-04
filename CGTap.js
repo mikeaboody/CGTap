@@ -13,18 +13,30 @@ function project(name, id) {
 	this.id = id;
 };
 
+function submittable() {
+	this.user_email = "";
+	this.proj_id = "";
+	this.hours = 0;
+	this.epoch_date = 0;
+	this.task_id = 0;
+	this.task_type = 0;
+}
+
 
 var randomNumber = function(start, end) { //not including end
 	return Math.floor(Math.random() * (end - start) + start);
 }
 
 var randomUser;
+var submitObj;
 
 var load = function() {
 	$.when(
     	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
 			var personObj = data[randomNumber(0, data.length)];
 			randomUser = new user(personObj.first_nm, personObj.last_nm, personObj.email);
+			submitObj = new submittable();
+			submitObj.user_email = randomUser.email;
     	})
 	).then(function() {
     	if (randomUser) {
@@ -124,8 +136,6 @@ var updateTimeType = function(proj_id) {
 	});
 }
 
-
-
 //currently unused
 var asyncDataRetrieve = function(urls) {
 	var i = 0;
@@ -151,8 +161,22 @@ var updateLabel = function() {
 				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text();
 	$(".output").text(output);
 }
+
 var submit = function() {
-	//nothing yet
+	submitObj.proj_id = $(".projects select option:selected").val();
+	submitObj.task_id = $(".tasks select option:selected").val();
+	submitObj.task_type = $(".payment select option:selected").val();
+	var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
+	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
+	var post_hours = hours;
+	if (minutes % 15 < 6) {
+		post_hours += Math.floor(minutes / 15) / 4;
+	} else {
+		post_hours += Math.ceil(minutes / 15) / 4;
+	}
+	submitObj.hours = post_hours;
+	submitObj.epoch_date = (new Date()).getTime();
+	alert(JSON.stringify(submitObj));
 }
 
 $(document).ready(function() {
