@@ -1,4 +1,4 @@
-function user(first_name, last_name, email) {
+function User(first_name, last_name, email) {
 	this.first_name = first_name;
 	this.last_name = last_name;
 	this.email = email;
@@ -8,12 +8,12 @@ function user(first_name, last_name, email) {
 	}
 
 };
-function project(name, id) {
+function Project(name, id) {
 	this.name = name;
 	this.id = id;
 };
 
-function submittable() {
+function Submittable() {
 	this.user_email = "";
 	this.proj_id = "";
 	this.hours = 0;
@@ -34,8 +34,8 @@ var load = function() {
 	$.when(
     	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
 			var personObj = data[randomNumber(0, data.length)];
-			randomUser = new user(personObj.first_nm, personObj.last_nm, personObj.email);
-			submitObj = new submittable();
+			randomUser = new User(personObj.first_nm, personObj.last_nm, personObj.email);
+			submitObj = new Submittable();
 			submitObj.user_email = randomUser.email;
     	})
 	).then(function() {
@@ -45,7 +45,7 @@ var load = function() {
 		        	var projectList = [];
 		        	for(var i = 0; i < data.length; i += 1) {
 		        		var currProj = data[i];
-		        		var newProj = new project(currProj.proj_nm, currProj.proj_id);
+		        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
 		        		projectList.push(newProj);
 		        	}
 		        	randomUser.setProjects(projectList);
@@ -54,7 +54,6 @@ var load = function() {
         		if (randomUser.projects != []) {
         			updatePage();
         			updateTasks(randomUser.projects[0].id);
-        			updateLabel();
     			} else {
         			document.write("failed task data");
     			}
@@ -132,7 +131,7 @@ var updateTimeType = function(proj_id) {
 			}
 		})
 	).then(function() {
-		// updateLabel();
+		updateLabel();
 	});
 }
 
