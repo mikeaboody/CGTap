@@ -103,6 +103,7 @@ var updateTasks = function(proj_id) {
 	$.when(
 		$.getJSON("https://cgp-api.controlgroup.com/timeentry/tasklist?id=" + proj_id, function(data) {
 			$(".tasks select").empty();
+
 			for (var i = 0; i < data.length; i += 1) {
 				var currTask = data[i];
 				if (i == 0) {
@@ -123,11 +124,17 @@ var updateTimeType = function(proj_id) {
 			$(".payment select").empty();
 			for (var i = 0; i < data.length; i += 1) {
 				var currTimeType = data[i];
-				if (i == 0) {
-					$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
-				} else {
-					$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
+				console.log(currTimeType.time_type_nm);
+				console.log($.inArray(currTimeType.time_type_nm, includableTimeTypes));
+				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
+					if (i == 0) {
+						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
+					} else {
+						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+					}	
 				}
+				
 			}
 		})
 	).then(function() {
