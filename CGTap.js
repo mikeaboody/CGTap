@@ -125,8 +125,9 @@ var asyncDataRetrieve = function(urls) {
 }
 
 var submit = function() {
-	var output = "You are submitting " + $('input[name="hours"]').val() + ":" + $('input[name="minutes"]').val() +
-				" hours on EMKI for project " + $(".projects select option:selected").text() + " with task " +
+	var minutes = parseInt($('input[name="minutes"]').val(), 10);
+	var output = "You are submitting " + $('input[name="hours"]').val() + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
+				+ " hours on EMKI for project " + $(".projects select option:selected").text() + " with task " +
 				$(".tasks select option:selected").text();
 	$(".output").text(output);
 	console.log(output);
