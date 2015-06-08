@@ -1,3 +1,8 @@
+var randomUser;
+var submitObj;
+var timer;
+var time = 0;
+
 function User(first_name, last_name, email) {
 	this.first_name = first_name;
 	this.last_name = last_name;
@@ -27,8 +32,7 @@ var randomNumber = function(start, end) { //not including end
 	return Math.floor(Math.random() * (end - start) + start);
 }
 
-var randomUser;
-var submitObj;
+
 
 var load = function() {
 	$.when(
@@ -166,7 +170,8 @@ var updateLabel = function() {
 	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
 	var output = "You are submitting " + hours + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
 				+ " hours for project " + $(".projects select option:selected").text() + " with task " +
-				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text();
+				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text()
+				+ "... Would you like to submit?";
 	$(".output").text(output);
 }
 
@@ -184,9 +189,9 @@ var submit = function() {
 	}
 	submitObj.hours = post_hours;
 	submitObj.epoch_date = (new Date()).getTime();
-	// alert(JSON.stringify(submitObj));
 	submitObj.user_email = "paul.gasbarra.controlgroup.com"; //for now
 	console.log("SUBMITTING");
+	alert("You've submitted your hours!");
 	postRequest(submitObj);
 }
 
@@ -200,6 +205,36 @@ var postRequest = function(submitObj) {
 	});
 }
 
+var switchTimer = function() {
+	var updateTimer = function() {
+		//update the timer with it
+		time += 1000;
+		var hours = Math.floor(time / (3600*1000));
+		var minutes = Math.floor(time / (60*1000)) % 60;
+		var seconds = Math.floor(time / 1000) % 60;
+		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
+						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
+						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
+		$(".timer label").html(newLabel);
+	}
+
+	if (timer == null) {
+		timer = setInterval(updateTimer, 1000);
+	} else {
+		clearInterval(timer);
+		timer = null;
+		var hours = Math.floor(time / (3600*1000));
+		var minutes = Math.floor(time / (60*1000)) % 60;
+		$('input[name="minutes"]').val(minutes);
+		$('input[name="hours"]').val(hours);
+		updateLabel();
+	}
+
+}
+$(document).on('click', '#timer_button', function () {
+	switchTimer();
+	$("#timer_button").toggleClass('highlight');
+});
 $(document).ready(function() {
 	load();
 });
