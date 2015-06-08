@@ -189,7 +189,7 @@ var submit = function() {
 	}
 	submitObj.hours = post_hours;
 	submitObj.epoch_date = (new Date()).getTime();
-	submitObj.user_email = "paul.gasbarra.controlgroup.com"; //for now
+	submitObj.user_email = "paul.gasbarra@controlgroup.com"; //for now
 	console.log("SUBMITTING");
 	alert("You've submitted your hours!");
 	postRequest(submitObj);
