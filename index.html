@@ -1,76 +1,50 @@
-<DOCTYPE <html>
-<head>
-  <title>CG Tap App</title>
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-  <div class="wrapper">
-    <header>
-      <h1>Tap App </h1>
-      <h2>Welcome, <%= @user.name%></h2>
-      <h3>Are you ready track some hours?</h2>
-    <section class="projects">
-    <form class= "projects">
-      <div>
-        <input type="radio" name="size" id="small" value="small" checked="checked" /> 
-        <label for="small">1</label>
-            <article><p>Project 1 info goes here></p></article>
-      </div>
-                
-      <div>
-        <input type="radio" name="size" id="medium" value="medium" />     
-        <label for="medium">2</label>
-        <article><p>Project 2 info goes here</p>
-        </article>    
-      </div>
-      <div>
-        <input type="radio" name="size" id="large" value="large" />     
-       <label for="large">3</label>
-        <article><p>Project 3 info goes here</p></article>
-      </div>
-      <div>    
-       <input type="radio" name="size" id="xlarge" value="xlarge" />     
-        <label for="xlarge">4</label>
-        <article><p>Project 4 info goes here</p></article>
-      </div>
-    </form>
-  </section>
-      <div>
-      <p>What was your task?</p>
-      <select>
-        <section class="task">
-              <option value =""selected>Dev</option>
-              <option value =""> Marketing</option>
-              <option value ="">R & D</option>
-        </section>
-      </select>
+<<html><head>
+  <title>CGTap</title>
+  <style>
+  #timer_button.highlight { 
+    background-color: #00bfff;
+  }  
+  </style>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ <script src="CGTap.js"></script></head>
 
-        <section class="payment">
-
-          <label>Payment type</label>            
-          <input type = "radio"
-                 name = "radSize"
-                 id = "billable"
-                 value = "billable"
-                 checked = "checked" />
-          <label for = "sizeSmall">billable</label>
-          
-          <input type = "radio"
-                 name = "radSize"
-                 id = "nonbillable"
-                 value = "nonbillable" />
-          <label for = "sizeMed">nonbillable</label>
  
-          <input type = "radio"
-                 name = "radSize"
-                 id = "other"
-                 value = "other" />
-          <label for = "sizeLarge">other</label>
-          <input type = "text"
-                 id = "payment"
-                 value = "payment type" />
-        </section>  
-      </form>       
-    </div> 
-</body>
-</html>
+ <body>
+  <div class="wrapper">
+      <h1>Tap App </h1>
+      <h2 class="welcome">Welcome Christina!</h2>
+      <h3>Are you ready track some hours? What's your project?</h3>
+    <div class="projects">
+      <select><option value="10" selected="">CG Internal Time</option><option value="1046">CG Internal Time 2014</option><option value="848">CG Platforms Eval</option><option value="1349">COMCAST - FLAT RATE SUPPORT 2015</option><option value="1140">Comcast XFinity P2</option><option value="1331">Comcast XFinity P2  BI Change Order</option><option value="1318">Comcast XFinity P2 DB/Website Change Order</option><option value="1156">NYC-CSI (Citywide Systems Integration Internal)</option><option value="1152">RAA AT&amp;T EBC Project</option></select>
+      </div>
+      <p>What's your task?</p>
+      <div class="tasks">
+      <select><option value="90"> CG Internal</option><option value="236"> CG Media Events &amp; PR</option><option value="237"> CG Recruiting</option><option value="235"> CG Research</option><option value="234"> CG SDLC</option><option value="509"> Hurricane Sandy: regular work hours lost</option></select>
+      </div>
+        <p>Billing?</p>
+        <div class="payment">
+          <select><option value="3"> Non-Billable</option></select>
+        </div>
+      <p> Time your hours: </p>
+      <div class="timer">
+        <button id="timer_button">Time</button>
+        <label>00:00:00</label>
+      </div>
+      <p> Or record them manually: </p>
+        <form name="input">
+      Hours: <input class="hours" type="text" name="hours" placeholder="0">
+      <br>
+      Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
+    </form>
+    <br>
+
+    <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... Would you like to submit?</label>
+
+      <br>
+      <br>
+      <button onclick="submit()">Submit</button>
+    </div>
+  
+ 
+</body></html>
