@@ -124,6 +124,8 @@ var updateTimeType = function(proj_id) {
 			$(".payment select").empty();
 			for (var i = 0; i < data.length; i += 1) {
 				var currTimeType = data[i];
+				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
+				// "Off-Hours Support", "On-Site Support", "Remote Support"]
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
 				console.log(currTimeType.time_type_nm);
 				console.log($.inArray(currTimeType.time_type_nm, includableTimeTypes));
@@ -182,7 +184,20 @@ var submit = function() {
 	}
 	submitObj.hours = post_hours;
 	submitObj.epoch_date = (new Date()).getTime();
-	alert(JSON.stringify(submitObj));
+	// alert(JSON.stringify(submitObj));
+	submitObj.user_email = "paul.gasbarra.controlgroup.com"; //for now
+	console.log("SUBMITTING");
+	postRequest(submitObj);
+}
+
+var postRequest = function(submitObj) {
+	var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?email=" + submitObj.user_email + "&project_id=" + submitObj.proj_id
+	 		+ "&hours=" + submitObj.hours + "&date=" + submitObj.epoch_date + "&task_id=" + submitObj.task_id
+	 		+ "&task_type=" + submitObj.task_type + "&zendesk_ticket=1";
+	console.log(url);
+	$.post(url, function(data) {
+  		console.log(data);
+	});
 }
 
 $(document).ready(function() {
