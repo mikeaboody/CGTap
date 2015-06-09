@@ -120,8 +120,6 @@ var updateTimeType = function(proj_id) {
 				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
 				// "Off-Hours Support", "On-Site Support", "Remote Support"]
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-				console.log(currTimeType.time_type_nm);
-				console.log($.inArray(currTimeType.time_type_nm, includableTimeTypes));
 				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 					if (i == 0) {
 						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
@@ -239,7 +237,6 @@ var setup = function() {
 		randomUser = new User(personObj.first_nm, personObj.last_nm, personObj.email);
 		submitObj = new Submittable();
 		submitObj.user_email = randomUser.email;
-		console.log("REACHED");
     	load();
 	});
 
