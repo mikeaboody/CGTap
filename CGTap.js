@@ -1,4 +1,5 @@
 var randomUser;
+var master_email;
 var submitObj;
 var timer;
 var time = 0;
@@ -35,38 +36,26 @@ var randomNumber = function(start, end) { //not including end
 
 
 var load = function() {
-	$.when(
-    	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
-			var personObj = data[randomNumber(0, data.length)];
-			randomUser = new User(personObj.first_nm, personObj.last_nm, personObj.email);
-			submitObj = new Submittable();
-			submitObj.user_email = randomUser.email;
-    	})
-	).then(function() {
-    	if (randomUser) {
-        	$.when(
-        		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
-		        	var projectList = [];
-		        	for(var i = 0; i < data.length; i += 1) {
-		        		var currProj = data[i];
-		        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
-		        		projectList.push(newProj);
-		        	}
-		        	randomUser.setProjects(projectList);
-    			})
-        	).then(function() {
-        		if (randomUser.projects != []) {
-        			updatePage();
-        			updateTasks(randomUser.projects[0].id);
-    			} else {
-        			document.write("failed task data");
-    			}
-        	});
-		}
-		else {
-    		document.write("failed employee data");
-		}
-	});
+	if (randomUser) {
+    	$.when(
+    		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
+	        	var projectList = [];
+	        	for(var i = 0; i < data.length; i += 1) {
+	        		var currProj = data[i];
+	        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
+	        		projectList.push(newProj);
+	        	}
+	        	randomUser.setProjects(projectList);
+			})
+    	).then(function() {
+    		if (randomUser.projects != []) {
+    			updatePage();
+    			updateTasks(randomUser.projects[0].id);
+			} else {
+    			document.write("failed task data");
+			}
+    	});
+	}
 }
 
 var updatePage = function() {
@@ -231,10 +220,36 @@ var switchTimer = function() {
 	}
 
 }
+var setup = function() {
+	master_email = $(".email_info").html();
+	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
+		var personObj = null;
+		for (var i = 0; i < data.length; i += 1) {
+			var currEmployee = data[i]
+			if (currEmployee.email.toUpperCase() == master_email.toUpperCase()) {
+				personObj = currEmployee;
+				break;
+			}
+		}
+		if (personObj == null) {
+			$(document).empty();
+			document.write("Error, no email " + master_email);
+			return;
+		}
+		randomUser = new User(personObj.first_nm, personObj.last_nm, personObj.email);
+		submitObj = new Submittable();
+		submitObj.user_email = randomUser.email;
+		console.log("REACHED");
+    	load();
+	});
+
+}
 $(document).on('click', '#timer_button', function () {
 	switchTimer();
 	$("#timer_button").toggleClass('highlight');
 });
+
 $(document).ready(function() {
-	load();
+	setup();
 });
+
