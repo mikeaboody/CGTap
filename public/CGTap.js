@@ -204,17 +204,18 @@ var submit = function() {
 	submitObj.epoch_date = (new Date()).getTime();
 	console.log("SUBMITTING");
 	alert("You've submitted your hours!");
-	postRequest(submitObj);
+	getRequest(submitObj);
 }
 
-var postRequest = function(submitObj) {
-	var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?email=" + submitObj.user_email + "&project_id=" + submitObj.proj_id
-	 		+ "&hours=" + submitObj.hours + "&date=" + submitObj.epoch_date + "&task_id=" + submitObj.task_id
-	 		+ "&task_type=" + submitObj.task_type + "&zendesk_ticket=1";
-	console.log(url);
-	$.post(url, function(data) {
-  		console.log(data);
-	});
+var getRequest = function(submitObj) {
+	console.log(submitObj.user_email)
+	var postObj = { email: submitObj.user_email, project_id: submitObj.proj_id, hours: submitObj.hours, date: submitObj.epoch_date,
+					task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
+	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?email=" + submitObj.user_email + "&project_id=" + submitObj.proj_id
+	//  		+ "&hours=" + submitObj.hours + "&date=" + submitObj.epoch_date + "&task_id=" + submitObj.task_id
+	//  		+ "&task_type=" + submitObj.task_type + "&zendesk_ticket=1";
+	var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?"
+	$.get(url, postObj);
 }
 
 var switchTimer = function() {
