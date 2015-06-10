@@ -9,13 +9,19 @@
   </style>
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+  var master_email = "<%= @carry %>";
+  </script>
+  <script src="./CGTap.js"></script>
  </head>
 
- <script src="CGTap.js"></script>
  <body>
  	<div class="wrapper">
       <h1>Tap App </h1>
       <h2 class="welcome">Loading user...</h2>
+      <form class = "disconnect" action="/disconnect">
+        <input type="submit" value="Log Out">
+      </form>
       <h3>Are you ready track some hours? What's your project?</h3>
     <div class = "projects">
       <select>

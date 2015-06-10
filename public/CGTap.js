@@ -32,41 +32,61 @@ var randomNumber = function(start, end) { //not including end
 	return Math.floor(Math.random() * (end - start) + start);
 }
 
+var findEmployeeInfo = function(email, data) {
+	for (var i = 0; i < data.length; i += 1) {
+		if (data[i].email.toLowerCase() == email.toLowerCase()) {
+			return [data[i].first_nm, data[i].last_nm, email];
+		}
+	}
+	return null;
+}
 
-
-var load = function() {
+var setup = function() {
 	$.when(
     	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
-			var personObj = data[randomNumber(0, data.length)];
-			randomUser = new User(personObj.first_nm, personObj.last_nm, personObj.email);
+			var personData = findEmployeeInfo(master_email, data);
+			if (personData == null) {
+				return;
+			}
+			randomUser = new User(personData[0], personData[1], personData[2]);
 			submitObj = new Submittable();
 			submitObj.user_email = randomUser.email;
     	})
 	).then(function() {
-    	if (randomUser) {
-        	$.when(
-        		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
-		        	var projectList = [];
-		        	for(var i = 0; i < data.length; i += 1) {
-		        		var currProj = data[i];
-		        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
-		        		projectList.push(newProj);
-		        	}
-		        	randomUser.setProjects(projectList);
-    			})
-        	).then(function() {
-        		if (randomUser.projects != []) {
-        			updatePage();
-        			updateTasks(randomUser.projects[0].id);
-    			} else {
-        			document.write("failed task data");
-    			}
-        	});
-		}
-		else {
-    		document.write("failed employee data");
-		}
+    	load();
 	});
+}
+
+
+var load = function() {
+	if (randomUser) {
+    	$.when(
+    		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
+	        	var projectList = [];
+	        	for(var i = 0; i < data.length; i += 1) {
+	        		var currProj = data[i];
+	        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
+	        		projectList.push(newProj);
+	        	}
+	        	randomUser.setProjects(projectList);
+			})
+    	).then(function() {
+    		if (randomUser.projects != []) {
+    			updatePage();
+    			updateTasks(randomUser.projects[0].id);
+			} else {
+    			document.write("failed task data");
+			}
+    	});
+	}
+	else {
+		var $disconnect = $(".disconnect");
+		$(".wrapper").empty();
+		$(".wrapper").append("<p>Your email " + master_email + " was not found as a valid ControlGroup email. </p>")
+		$(".wrapper").append($disconnect);
+		console.log("hi");
+		
+	}
 }
 
 var updatePage = function() {
@@ -189,7 +209,6 @@ var submit = function() {
 	}
 	submitObj.hours = post_hours;
 	submitObj.epoch_date = (new Date()).getTime();
-	submitObj.user_email = "paul.gasbarra@controlgroup.com"; //for now
 	console.log("SUBMITTING");
 	alert("You've submitted your hours!");
 	postRequest(submitObj);
@@ -207,7 +226,6 @@ var postRequest = function(submitObj) {
 
 var switchTimer = function() {
 	var updateTimer = function() {
-		//update the timer with it
 		time += 1000;
 		var hours = Math.floor(time / (3600*1000));
 		var minutes = Math.floor(time / (60*1000)) % 60;
@@ -236,5 +254,5 @@ $(document).on('click', '#timer_button', function () {
 	$("#timer_button").toggleClass('highlight');
 });
 $(document).ready(function() {
-	load();
+	setup();
 });
