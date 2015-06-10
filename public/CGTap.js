@@ -1,4 +1,4 @@
-var randomUser;//PJG: Is this variable needed? 
+var master_user;
 var submitObj;
 var timer;
 var time = 0;
@@ -28,11 +28,6 @@ function Submittable() {
 	this.task_type = 0;
 }
 
-//PJG: What do we need a random number for? 
-var randomNumber = function(start, end) { //not including end
-	return Math.floor(Math.random() * (end - start) + start);
-}
-
 var findEmployeeInfo = function(email, data) {
 	for (var i = 0; i < data.length; i += 1) {
 		if (data[i].email.toLowerCase() == email.toLowerCase()) {
@@ -49,32 +44,31 @@ var setup = function() {
 			if (personData == null) {
 				return;
 			}
-			randomUser = new User(personData[0], personData[1], personData[2]);
+			master_user = new User(personData[0], personData[1], personData[2]);
 			submitObj = new Submittable();
-			submitObj.user_email = randomUser.email;
+			submitObj.user_email = master_user.email;
     	})
 	).then(function() {
-    	load();
+    	loadUserData();
 	});
 }
 
-//PJG: What is being loaded here? May be helpful to use a more specific function name.
-var load = function() {
-	if (randomUser) {
+var loadUserData = function() {
+	if (master_user) {
     	$.when(
-    		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + randomUser.email, function(data) {
+    		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + master_user.email, function(data) {
 	        	var projectList = [];
 	        	for(var i = 0; i < data.length; i += 1) {
 	        		var currProj = data[i];
 	        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
 	        		projectList.push(newProj);
 	        	}
-	        	randomUser.setProjects(projectList);
+	        	master_user.setProjects(projectList);
 			})
     	).then(function() {
-    		if (randomUser.projects != []) {
+    		if (master_user.projects != []) {
     			updatePage();
-    			updateTasks(randomUser.projects[0].id);
+    			updateTasks(master_user.projects[0].id);
 			} else {
     			document.write("failed task data");
 			}
@@ -85,18 +79,15 @@ var load = function() {
 		$(".wrapper").empty();
 		$(".wrapper").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>")
 		$(".wrapper").append($disconnect);
-		//PJG: How useful is this message?
-		console.log("hi");
-		
 	}
 }
 
 var updatePage = function() {
-	$(".welcome").html("Welcome " + randomUser.first_name + "!");
+	$(".welcome").html("Welcome " + master_user.first_name + "!");
 
 	$(".projects select").empty();
-	for (var i = 0; i < randomUser.projects.length; i += 1) {
-		var currProj = randomUser.projects[i];
+	for (var i = 0; i < master_user.projects.length; i += 1) {
+		var currProj = master_user.projects[i];
 		
 		if (i == 0) {
 			$(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
