@@ -1,11 +1,7 @@
-<<<<<<< HEAD
+
 <html><head>
   <title>CGTap</title>
-  <style>
-  #timer_button.highlight { 
-    background-color: #00bfff;
-  }  
-  </style>
+  <link rel=stylesheet href="style.css" type="text/css" media=screen>
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
  <script src="CGTap.js"></script></head>
@@ -13,15 +9,17 @@
  
  <body>
   <div class="wrapper">
-      <h1>Tap App </h1>
-      <h2 class="welcome">Welcome Christina!</h2>
-      <h3>Are you ready track some hours? What's your project?</h3>
-    <div class="projects">
-      <select><option value="10" selected="">CG Internal Time</option><option value="1046">CG Internal Time 2014</option><option value="848">CG Platforms Eval</option><option value="1349">COMCAST - FLAT RATE SUPPORT 2015</option><option value="1140">Comcast XFinity P2</option><option value="1331">Comcast XFinity P2  BI Change Order</option><option value="1318">Comcast XFinity P2 DB/Website Change Order</option><option value="1156">NYC-CSI (Citywide Systems Integration Internal)</option><option value="1152">RAA AT&amp;T EBC Project</option></select>
+    <h1>Tap App </h1>
+    <h2 class="welcome">Welcome Christina!</h2>
+    <div class="row">
+    <h3>Are you ready track some hours? What's your project?</h3>
+    <section></section>
+      <div class="projects">
+        <select><option value="10" selected="">CG Internal Time</option><option value="1046">CG Internal Time 2014</option><option value="848">CG Platforms Eval</option><option value="1349">COMCAST - FLAT RATE SUPPORT 2015</option><option value="1140">Comcast XFinity P2</option><option value="1331">Comcast XFinity P2  BI Change Order</option><option value="1318">Comcast XFinity P2 DB/Website Change Order</option><option value="1156">NYC-CSI (Citywide Systems Integration Internal)</option><option value="1152">RAA AT&amp;T EBC Project</option></select>
       </div>
-      <p>What's your task?</p>
+        <p>What's your task?</p>
       <div class="tasks">
-      <select><option value="90"> CG Internal</option><option value="236"> CG Media Events &amp; PR</option><option value="237"> CG Recruiting</option><option value="235"> CG Research</option><option value="234"> CG SDLC</option><option value="509"> Hurricane Sandy: regular work hours lost</option></select>
+        <select><option value="90"> CG Internal</option><option value="236"> CG Media Events &amp; PR</option><option value="237"> CG Recruiting</option><option value="235"> CG Research</option><option value="234"> CG SDLC</option><option value="509"> Hurricane Sandy: regular work hours lost</option></select>
       </div>
         <p>Billing?</p>
         <div class="payment">
@@ -32,6 +30,7 @@
         <button id="timer_button">Time</button>
         <label>00:00:00</label>
       </div>
+    </div>
       <p> Or record them manually: </p>
         <form name="input">
       Hours: <input class="hours" type="text" name="hours" placeholder="0">
@@ -44,25 +43,11 @@
 
       <br>
       <br>
-      <button onclick="submit()">Submit</button>
+      <div class="submit">
+        <button onclick="submit()">Submit</button>
+      </div>
     </div>
   
  
 </body></html>
-=======
-<!DOCTYPE html>
-<html>
- <head>
-  <title>Sign In</title>
- </head>
- <body>
- 	<h1>Tap App </h1>
- 	<h2>Sign in with your email:</h2>
- 	<form action="/main.php" method="post">
-  		<input name="email" placeholder="Enter your email...">
-  		<button>Log in</button>
-	</form>
-  
- </body>
-</html>
->>>>>>> ac23481c51d0044ec2ab818b99b4cd3fde04d24d
+

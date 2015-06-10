@@ -3,9 +3,9 @@ require 'json'
 require 'google/api_client'
  
 #register your project with google at https://code.google.com/apis/console/, get the below constants
-CLIENT_ID = 'YOUR CLIENT ID'
-CLIENT_SECRET = 'YOUR CLIENT SECRET'
-REDIRECT_URI = 'http://YOUR_SITE/googleauth'
+CLIENT_ID = '888815399122-do0rcarso1ujftnjhenpf5qbl397rtt7.apps.googleusercontent.com'
+CLIENT_SECRET = 'oCQj4fgZwiXSa1q_iumxVRi2'
+REDIRECT_URI = 'https://www.example.com/oauth2callback'
  
 #first we send users to this URL:
 google_contacts_api_uri = 'https://www.google.com/m8/feeds'
