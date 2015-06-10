@@ -1,4 +1,4 @@
-var randomUser;
+var randomUser;//PJG: Is this variable needed? 
 var submitObj;
 var timer;
 var time = 0;
@@ -27,7 +27,7 @@ function Submittable() {
 	this.task_type = 0;
 }
 
-
+//PJG: What do we need a random number for? 
 var randomNumber = function(start, end) { //not including end
 	return Math.floor(Math.random() * (end - start) + start);
 }
@@ -57,7 +57,7 @@ var setup = function() {
 	});
 }
 
-
+//PJG: What is being loaded here? May be helpful to use a more specific function name.
 var load = function() {
 	if (randomUser) {
     	$.when(
@@ -82,8 +82,9 @@ var load = function() {
 	else {
 		var $disconnect = $(".disconnect");
 		$(".wrapper").empty();
-		$(".wrapper").append("<p>Your email " + master_email + " was not found as a valid ControlGroup email. </p>")
+		$(".wrapper").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>")
 		$(".wrapper").append($disconnect);
+		//PJG: How useful is this message?
 		console.log("hi");
 		
 	}
