@@ -2,6 +2,7 @@ var randomUser;
 var submitObj;
 var timer;
 var time = 0;
+master_email = "paul.gasbarra@controlgroup.com"
 
 function User(first_name, last_name, email) {
 	this.first_name = first_name;

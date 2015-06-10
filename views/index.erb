@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
- <head>
+
+<html><head>
   <title>CGTap</title>
-  <style>
-  #timer_button.highlight { 
-    background-color: #00bfff;
-  }  
-  </style>
+  <link rel=stylesheet href="style.css" type="text/css" media=screen>
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
@@ -22,6 +17,7 @@
       <form class = "disconnect" action="/disconnect">
         <input type="submit" value="Log Out">
       </form>
+    <div class="row">
       <h3>Are you ready track some hours? What's your project?</h3>
     <div class = "projects">
       <select>
@@ -45,24 +41,28 @@
         <textarea rows="4" cols="50" placeholder="Enter a description..."></textarea>
       </div>
       <p> Time your hours: </p>
-      <div class = "timer">
-        <button id = "timer_button">Time</button>
+      <div class="timer">
+        <button id="timer_button">Time</button>
         <label>00:00:00</label>
       </div>
+    </div>
       <p> Or record them manually: </p>
         <form name="input">
-			Hours: <input class = "hours" type="text" name="hours" placeholder="0" />
-			<br/>
-			Minutes: <input class = "minutes" type="text" name="minutes" placeholder="0" />
-		</form>
-		<br/>
+      Hours: <input class="hours" type="text" name="hours" placeholder="0">
+      <br>
+      Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
+    </form>
+    <br>
 
-		<label class="output"> </label>
+    <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... Would you like to submit?</label>
 
-      <br/>
-      <br/>
-      <button onclick="submit()">Submit</button>
+      <br>
+      <br>
+      <div class="submit">
+        <button onclick="submit()">Submit</button>
+      </div>
     </div>
   
- </body>
-</html>
+ 
+</body></html>
+
