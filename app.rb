@@ -106,7 +106,7 @@ post "/submit" do
 end
 
 get "/display" do
-  @time_sheets = TimeSheets.all
+  @time_sheets = TimeSheets.timeFrom(1434057037908)
   erb :display
 end
 
