@@ -5,6 +5,9 @@ require 'google/api_client/auth/file_storage'
 require 'sinatra'
 require 'logger'
 require 'net/http'
+require 'sinatra/activerecord'
+require './config/environments' #database configuration
+require './models/time_sheets'  #TimeSheets
 
 enable :sessions
 
@@ -68,7 +71,6 @@ get '/' do
   unless user_credentials.access_token 
     redirect to('/oauth2authorize')
   else
-    puts session.methods - Object.methods
     result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
@@ -86,3 +88,42 @@ get '/disconnect' do
   response = Net::HTTP.get(URI.parse("https://accounts.google.com/o/oauth2/revoke?token=" + token))
   redirect to("/")
 end
+ 
+# post '/submit' do
+#   @time_sheets = TimeSheets.new(params[:time_sheets])
+#   if @time_sheets.save
+#     redirect '/'
+#   else
+#     "Sorry, there was an error!"
+#   end
+# end
+
+post "/submit" do
+  first_name = params.delete("first_name")
+  last_name = params.delete("last_name")
+  email = params["email"]
+  #cannot fix right now since date has to have larger limit
+  submission_time = params["date"]
+  hours = params["hours"]
+  @time_sheets = TimeSheets.new({first_name: first_name, last_name: last_name, email: email, submission_time: submission_time, hours: hours})
+  # Net::HTTP.get(URI.parse("google.com"))
+  if @time_sheets.save
+    puts "SUCCESS"
+    # redirect '/'
+  else
+    "Sorry, there was an error!"
+  end
+end
+
+
+
+
+
+# get '/models' do
+#   @time_sheets = TimeSheets.all
+#   erb :display_temp
+# end
+
+
+
+

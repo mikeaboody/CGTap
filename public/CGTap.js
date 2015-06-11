@@ -20,8 +20,10 @@ function Project(name, id) {
 };
 
 function Submittable() {
-	this.user_email = "";
-	this.proj_id = "";
+	this.user_email = null;
+	this.first_name = null;
+	this.last_name = null;
+	this.proj_id = 0;
 	this.hours = 0;
 	this.epoch_date = 0;
 	this.task_id = 0;
@@ -46,6 +48,8 @@ var setup = function() {
 			}
 			master_user = new User(personData[0], personData[1], personData[2]);
 			submitObj = new Submittable();
+			submitObj.first_name = master_user.first_name;
+			submitObj.last_name = master_user.last_name;
 			submitObj.user_email = master_user.email;
     	})
 	).then(function() {
@@ -204,18 +208,20 @@ var submit = function() {
 	submitObj.epoch_date = (new Date()).getTime();
 	console.log("SUBMITTING");
 	alert("You've submitted your hours!");
-	getRequest(submitObj);
+	postRequest(submitObj);
 }
 
-var getRequest = function(submitObj) {
-	console.log(submitObj.user_email)
-	var postObj = { email: submitObj.user_email, project_id: submitObj.proj_id, hours: submitObj.hours, date: submitObj.epoch_date,
-					task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
+var postRequest = function(submitObj) {
+	// console.log(submitObj.user_email)
+	var postObj = {email: submitObj.user_email, first_name: submitObj.first_name, last_name: submitObj.last_name, project_id: submitObj.proj_id, 
+					hours: submitObj.hours, date: submitObj.epoch_date, task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
 	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?email=" + submitObj.user_email + "&project_id=" + submitObj.proj_id
 	//  		+ "&hours=" + submitObj.hours + "&date=" + submitObj.epoch_date + "&task_id=" + submitObj.task_id
 	//  		+ "&task_type=" + submitObj.task_type + "&zendesk_ticket=1";
-	var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?"
-	$.get(url, postObj);
+
+	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?"
+	var url = "/submit"; //for now
+	$.post(url, postObj); //for now
 }
 
 var switchTimer = function() {
