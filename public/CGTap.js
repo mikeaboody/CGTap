@@ -221,7 +221,10 @@ var postRequest = function(submitObj) {
 
 	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?"
 	var url = "/submit"; //for now
-	$.post(url, postObj); //for now
+	$.post(url, postObj, function() {
+		window.location.replace("/display");
+		window.location.href = "/display";
+	}); //for now
 }
 
 var switchTimer = function() {

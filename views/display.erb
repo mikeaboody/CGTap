@@ -1,0 +1,23 @@
+<h3>Timesheet Data</h3>
+<TABLE>
+<TR>
+	<TD> ID </TD>
+	<TD> First Name </TD>
+	<TD> Last Name </TD>
+	<TD> Email </TD>
+	<TD> Submission Time </TD>
+	<TD> Hours (rounded) </TD>
+	</TR> 
+	<% @time_sheets.each do |time_sheet| %>
+		<TR>
+		<TD> <%= time_sheet.id %> </TD>
+		<TD> <%= time_sheet.first_name %> </TD>
+		<TD> <%= time_sheet.last_name %> </TD>
+		<TD> <%= time_sheet.email %>  </TD>
+		<TD> <%= time_sheet.submission_time%> </TD>
+		<TD> <%= time_sheet.hours %> </TD>
+		</TR> 
+	<% end %>
+</TABLE>
+<a href="/">Back to Home</a>
+
