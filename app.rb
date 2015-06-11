@@ -100,13 +100,14 @@ post "/submit" do
   # Net::HTTP.get(URI.parse("google.com"))
   if @time_sheets.save
     puts "SUCCESS"
+    puts 
   else
     "Sorry, there was an error!"
   end
 end
 
 get "/display" do
-  @time_sheets = TimeSheets.timeFrom(1434057037908)
+  @time_sheets = TimeSheets.fromFiveDaysAgo
   erb :display
 end
 
