@@ -2,7 +2,8 @@ var master_user;
 var submitObj;
 var timer;
 var time = 0;
-master_email = "paul.gasbarra@controlgroup.com" //for now
+var base = "https://cgp-api-dev.controlgroup.com";
+master_email = "brian.forster@controlgroup.com" //for now
 
 function User(first_name, last_name, email) {
 	this.first_name = first_name;
@@ -40,8 +41,9 @@ var findEmployeeInfo = function(email, data) {
 }
 
 var setup = function() {
+	var url = base + "/employees";
 	$.when(
-    	$.getJSON("https://cgp-api.controlgroup.com/employees", function(data) {
+    	$.getJSON(url, function(data) {
 			var personData = findEmployeeInfo(master_email, data);
 			if (personData == null) {
 				return;
@@ -60,7 +62,7 @@ var setup = function() {
 var loadUserData = function() {
 	if (master_user) {
     	$.when(
-    		$.getJSON("https://cgp-api.controlgroup.com/timeentry/projectlist?id=" + master_user.email, function(data) {
+    		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, function(data) {
 	        	var projectList = [];
 	        	for(var i = 0; i < data.length; i += 1) {
 	        		var currProj = data[i];
@@ -122,7 +124,7 @@ var updatePage = function() {
 
 var updateTasks = function(proj_id) {
 	$.when(
-		$.getJSON("https://cgp-api.controlgroup.com/timeentry/tasklist?id=" + proj_id, function(data) {
+		$.getJSON(base + "/timeentry/tasklist?id=" + proj_id, function(data) {
 			$(".tasks select").empty();
 
 			for (var i = 0; i < data.length; i += 1) {
@@ -141,7 +143,7 @@ var updateTasks = function(proj_id) {
 
 var updateTimeType = function(proj_id) {
 	$.when(
-		$.getJSON("https://cgp-api.controlgroup.com/timeentry/timetypelist?id=" + proj_id, function(data) {
+		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, function(data) {
 			$(".payment select").empty();
 			for (var i = 0; i < data.length; i += 1) {
 				var currTimeType = data[i];
@@ -193,9 +195,6 @@ var updateLabel = function() {
 }
 
 var submit = function() {
-	submitObj.proj_id = $(".projects select option:selected").val();
-	submitObj.task_id = $(".tasks select option:selected").val();
-	submitObj.task_type = $(".payment select option:selected").val();
 	var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
 	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
 	var post_hours = hours;
@@ -204,24 +203,32 @@ var submit = function() {
 	} else {
 		post_hours += Math.ceil(minutes / 15) / 4;
 	}
-	submitObj.hours = post_hours;
-	submitObj.epoch_date = (new Date()).getTime();
-	console.log("SUBMITTING");
-	alert("You've submitted your hours!");
-	postRequest(submitObj);
+	if (post_hours > 0) {
+		submitObj.proj_id = $(".projects select option:selected").val();
+		submitObj.task_id = $(".tasks select option:selected").val();
+		submitObj.task_type = $(".payment select option:selected").val();
+		submitObj.hours = post_hours;
+		submitObj.epoch_date = (new Date()).getTime();
+		postRequest(submitObj);
+		alert("You've submitted your hours!");
+	} else {
+		alert("You cannot submit time under 6 minutes!");
+	}
 }
 
 var postRequest = function(submitObj) {
-	// console.log(submitObj.user_email)
 	var postObj = {email: submitObj.user_email, first_name: submitObj.first_name, last_name: submitObj.last_name, project_id: submitObj.proj_id, 
 					hours: submitObj.hours, date: submitObj.epoch_date, task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
-	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?email=" + submitObj.user_email + "&project_id=" + submitObj.proj_id
-	//  		+ "&hours=" + submitObj.hours + "&date=" + submitObj.epoch_date + "&task_id=" + submitObj.task_id
-	//  		+ "&task_type=" + submitObj.task_type + "&zendesk_ticket=1";
+	var url = "/submit";
+	$.post(url, postObj, function() {
+		postToOpenAir();
+	});
+}
 
-	// var url = "https://cgp-api-dev.controlgroup.com/timeentry/submit?"
-	var url = "/submit"; //for now
-	$.post(url, postObj);
+var postToOpenAir = function() {
+	var postObj = {email: submitObj.user_email, project_id: submitObj.proj_id, hours: submitObj.hours, date: submitObj.epoch_date, 
+					task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
+	$.post(base + "/timeentry/submit", postObj);
 }
 
 var switchTimer = function() {

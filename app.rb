@@ -94,8 +94,6 @@ post "/submit" do
   submission_time = params["date"]
   hours = params["hours"]
   @time_sheets = TimeSheets.new({first_name: first_name, last_name: last_name, email: email, submission_time: submission_time, hours: hours})
-  #TODO: make appropriate get to open air uri
-  # Net::HTTP.get(URI.parse("google.com"))
   if @time_sheets.save
     puts "SUCCESS"
   else
@@ -107,14 +105,3 @@ get "/display" do
   @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
   erb :display
 end
-
-
-
-# get '/models' do
-#   @time_sheets = TimeSheets.all
-#   erb :display_temp
-# end
-
-
-
-
