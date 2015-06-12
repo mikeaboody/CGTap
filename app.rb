@@ -101,7 +101,7 @@ post "/submit" do
   end
 end
 
-get "/display" do
+post "/display" do
   @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
   erb :display
 end
