@@ -2,7 +2,7 @@ var master_user;
 var submitObj;
 var timer;
 var time = 0;
-var base = "https://cgp-api-dev.controlgroup.com";
+var base = "https://cgp-api.controlgroup.com";
 // master_email = "brian.forster@controlgroup.com" //for now
 
 function User(first_name, last_name, email) {
