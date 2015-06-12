@@ -5,7 +5,7 @@
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
-  var master_email = "<%= @carry %>";
+  var master_email = "<%= @email %>";
   </script>
   <script src="./CGTap.js"></script>
  </head>
@@ -14,8 +14,12 @@
  	<div class="wrapper">
       <h1>Tap App </h1>
       <h2 class="welcome">Loading user...</h2>
-      <form class = "disconnect" action="/disconnect">
-        <input type="submit" value="Log Out">
+      <form class = "disconnect" action="/disconnect" style = "display: inline;">
+        <input type="submit" value="Log Out" >
+      </form>
+      <form class = "display" action="/display"  style = "display: inline;">
+        <input name = "email" value = "paul.gasbarra@controlgroup.com" hidden> <!-- for now -->
+        <input type="submit" value="Your Timesheet Submissions">
       </form>
     <div class="row">
       <h3>Are you ready track some hours? What's your project?</h3>

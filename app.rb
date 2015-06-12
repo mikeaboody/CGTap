@@ -74,9 +74,7 @@ get '/' do
     result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
-    @carry = result.data.to_json
-    @carry = JSON.parse(@carry)["summary"]
-    [result.status, {'Content-Type' => 'application/json'}, result.data.to_json]
+    @email = JSON.parse(result.data.to_json)["summary"]
     erb :index
   end
 end
@@ -100,14 +98,13 @@ post "/submit" do
   # Net::HTTP.get(URI.parse("google.com"))
   if @time_sheets.save
     puts "SUCCESS"
-    puts 
   else
     "Sorry, there was an error!"
   end
 end
 
 get "/display" do
-  @time_sheets = TimeSheets.fromFiveDaysAgo
+  @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
   erb :display
 end
 

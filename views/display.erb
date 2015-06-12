@@ -1,7 +1,7 @@
 
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <TABLE BORDER="3" CELLSPACING="1" CELLPADDING="1">
-<CAPTION>Timesheet Data</CAPTION>
+<CAPTION>Timesheet Data (last 5 days)</CAPTION>
 <TR>
 	<TD ALIGN = "center"> ID </TD>
 	<TD ALIGN = "center"> First Name </TD>
@@ -21,7 +21,10 @@
 		</TR> 
 	<% end %>
 </TABLE>
-<a href="/">Back to Home</a>
+<br/>
+<form class = "back" action="/">
+    <input type="submit" value="Back to Home" >
+</form>
 
 <script>
  $(".sub_time_td").each(function() {
