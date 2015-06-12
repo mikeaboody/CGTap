@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(version: 20150611173639) do
     t.string  "first_name"
     t.string  "last_name"
     t.string  "email"
-    t.integer "submission_time"
-    t.integer "hours"
+    t.integer "submission_time", limit: 8
+    t.float   "hours"
   end
 
 end
