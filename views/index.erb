@@ -18,7 +18,7 @@
         <input type="submit" value="Log Out" >
       </form>
       <form class = "display" action="/display"  style = "display: inline;" method = "post">
-        <input name = "email" value = "brian.forster@controlgroup.com" hidden> <!-- for now -->
+        <input name = "email" value = "<%= @email %>" hidden> <!-- fixed -->
         <input type="submit" value="Your Timesheet Submissions">
       </form>
     <div class="row">
