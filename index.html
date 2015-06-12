@@ -4,8 +4,8 @@
   <title>CGTap</title>
   <link rel="stylesheet" href="bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="bootstrap-table.css">
-<!--   <link href="style.css" rel="stylesheet"> -->
+ <link rel="stylesheet" type="text/css" href="editable-table.css">
+<script src="editable-table.js"></script><!--   <link href="style.css" rel="stylesheet"> -->
   
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
@@ -24,6 +24,7 @@
         <span class='icon-bar'></span>
       
         </button>
+      </div>
 
  <!--  <div class="container">
     <div class="col-md-12">
@@ -44,7 +45,7 @@
         <div class="container">
           <div class="row">
             <div class="table-responsive">
-              <table class="table table-hover">
+              <table data-editable data-editable-spy class="table table-hover">
                 <thread>
                   <tr>
                     <th>Project</th>
@@ -111,7 +112,7 @@
               <br>
              Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
             </form>
-            <br>
+            <br
           </div>
         </td>
       </tr>
