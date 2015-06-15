@@ -218,7 +218,7 @@ var submit = function() {
 
 var postRequest = function(submitObj) {
 	var postObj = {email: submitObj.user_email, first_name: submitObj.first_name, last_name: submitObj.last_name, project_id: submitObj.proj_id, 
-					hours: submitObj.hours, date: submitObj.epoch_date, task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
+					hours: submitObj.hours, date: submitObj.epoch_date, task_id: submitObj.task_id, task_type: submitObj.task_type}
 	var url = "/submit";
 	$.post(url, postObj, function() {
 		postToOpenAir();
@@ -227,7 +227,7 @@ var postRequest = function(submitObj) {
 
 var postToOpenAir = function() {
 	var postObj = {email: submitObj.user_email, project_id: submitObj.proj_id, hours: submitObj.hours, date: submitObj.epoch_date, 
-					task_id: submitObj.task_id, task_type: submitObj.task_type, zendesk_ticket: 1}
+					task_id: submitObj.task_id, task_type: submitObj.task_type}
 	$.post(base + "/timeentry/submit", postObj);
 }
 
