@@ -1,146 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+<html><head>
   <title>CGTap</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
- <!--  <link rel="stylesheet" href="bootstrap-table.css"> -->
-<!--   <link href="style.css" rel="stylesheet"> -->
+  <link rel=stylesheet href="style.css" type="text/css" media=screen>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script>
   var master_email = "<%= @email %>";
   </script>
   <script src="./CGTap.js"></script>
-</head>
-<body>
-  <div class='navbar navbar-default navbar-fixed-top'>
-    <div class='container'>
-      <a href='index.html' class='navbar-brand'>Tap App</a>
-      <button type='button' class='navbar-toggle' data-toggle='collapse' data-target = '.navbar-collapse'>
-        <span class='sr-only'>Toggle navigation</span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-      
-        </button>
+ </head>
 
- <!--  <div class="container">
-    <div class="col-md-12">
+ <body>
+ 	<div class="wrapper">
       <h1>Tap App </h1>
-    </div>
-  </div> -->
-    <h2 class="welcome">Loading user...</h2>
-
+      <h2 class="welcome">Loading user...</h2>
       <form class = "disconnect" action="/disconnect" style = "display: inline;">
         <input type="submit" value="Log Out" >
       </form>
       <form class = "display" action="/display"  style = "display: inline;" method = "post">
-        <input name = "email" value = "<%= @email %>"> hidden> <!-- fixed -->
+        <input name = "email" value = "<%= @email %>" hidden> <!-- fixed -->
         <input type="submit" value="Your Timesheet Submissions">
       </form>
-    </div>
-  </div>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-  <br/>
-
-        <div class="container">
-          <div class="row">
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thread>
-                  <tr>
-                    <th>Project</th>
-                    <th>Task</th>
-                    <th>Billing</th>
-                    <th>Description</th>
-                    <th>Timer</th>
-                    <th>Manual</th>
-                  </tr>
-                </thread>
-              <tbody>
-                <tr>
-                  <td>
-
-                    <div class="col-md-2">
-                      <!--  <p>Are you ready track some hours? What's your project?</p> -->
-                      <div class = "projects">
-                      <select>
-                      <option value =""selected>Project</option>
-                      </select>
-                    </div>
-           
-                  </td>
-                </div>
-                  <td>
-                    <div class="col-md-2">
-
-                    <!--     <p>What's your task?</p> -->
-                <div class = "tasks">
-                  <select>
-                  <option value =""selected>Task</option>
-                   </select>
-                </div>
-                  </div>
-                 </td>
-                <td>
-                <div class="col-md-2">
-        <!--     <p>Billing?</p> -->
-              <div class="payment">
-                <select>
-                <option value =""selected>Billing</option>
-                </select>
-              </div>
-              </div>
-              </td>
-               <td>
-               <div class="col-md-2">
-         <!--    <p>Description?</p> -->
-              <div class = "notes">
-               <textarea rows="4" cols="20" placeholder="Enter a description..."></textarea>
-              </div>
-            </div>
-            </td>
-        <td>
-          <div class="col-md-2">
-           <!--  <p> Time your hours: </p> -->
-           <div class="timer">
-            <button id="timer_button">Start</button>
-            <label>00:00:00</label>
-          </div>
-        </div>
-        </td>
-        <td>
-          <div class="col-md-2">
-            <!-- <p> Or record them manually: </p> -->
-            <form name="input">
-            Hours: <input class="hours" type="text" name="hours" placeholder="0">
-              <br>
-             Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
-            </form>
-            <br>
-          </div>
-        </td>
-      </tr>
-//   <script type='text/javascript'>//<![CDATA[ 
-// $(window).load(function(){
-// $(function () {
-//     $("#addRow").click(function () {
-//         var row = $("<tr><td>1</td><td>E</td><td>E</td><td>E</td></tr>");
-//         $("#mt > tbody").append(row);
-//     });
-// });
-// });
-// </script>
- 
-<!--        <button id="addProject" class="btn default">
-    Add row</button> -->
-        </div>
+    <div class="row">
+      <h3>Are you ready track some hours? What's your project?</h3>
+    <div class = "projects">
+      <select>
+            <option value =""selected>Project</option>
+      </select>
+  		</div>
+      <p>What's your task?</p>
+      <div class = "tasks">
+      <select>
+            <option value =""selected>Task</option>
+      </select>
+  		</div>
+      <p>Billing?</p>
+      <div class="payment">
+        <select>
+          <option value =""selected>Billing</option>
+        </select>
       </div>
+      <p>Description?</p>
+      <div class = "notes">
+        <textarea rows="4" cols="50" placeholder="Enter a description..."></textarea>
+      </div>
+      <p> Time your hours: </p>
+      <div class="timer">
+        <button id="timer_button">Time</button>
+        <label>00:00:00</label>
+      </div>
+    </div>
+      <p> Or record them manually: </p>
+        <form name="input">
+      Hours: <input class="hours" type="text" name="hours" placeholder="0">
+      <br>
+      Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
+    </form>
+    <br>
 
     <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... Would you like to submit?</label>
 
@@ -153,4 +69,4 @@
   
  
 </body></html>
-<script src="js/bootstrap.min.js"></script>
+
