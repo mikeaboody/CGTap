@@ -52,10 +52,31 @@
         </div>
       </div>
       <br>
-
-
-
+      <br>
+      <br>
+    <div class="btn-group" role="group">
+      <div class="submit" style = "display:inline;">
+        <button onclick="submit()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+      </div>
+        <div class="add-row" style = "display:inline;">
+          <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="  Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+         </button>
+        </div>
+        <div class="delete-row" style = "display:inline;">
+         <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </div>
+  <!--   <div class="container">
+      
+    </div>
+ -->
       <div class="container">
+        <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... <!-- Would you like to submit? --></label>
+      </div>
+      
+      <div class="container"> 
         <div class="row">
             <table data-editable="table table-responsive table-hover">
               <thread>
@@ -103,7 +124,7 @@
                     <td>
                       <div class="col-md-2">
                       <div class = "notes">
-                       <textarea rows="4" cols="50" placeholder="Enter a description..."></textarea>
+                       <textarea rows="4" cols="30" placeholder="Enter a description..."></textarea>
                       </div>
                       </div>
                     </td>
@@ -126,6 +147,7 @@
                       </div>
                     </td>
                   </tr>
+                </table>
                  
 <!-- allow projects to be sortable -->
 
@@ -149,8 +171,8 @@
     });
   </script>
  
-        </div>
-      </div>
+      <!--   </div>
+      </div> -->
 
 
       <br>
@@ -163,25 +185,11 @@
     })
   </script>
 <!--   <div class="row"> -->
-    <div class="btn-group" role="group">
-      <div class="submit" style = "display:inline;">
-        <button onclick="submit()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Submit">Submit<span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
-      </div>
-      <div class="add-row" style = "display:inline;">
-        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-      </div>
-      <div class="delete-row" style = "display:inline;">
-        <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Delete a project" aria-label="Delete">
-        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-      </div>
-    </div>
-  </div>
 
   
 
     <br>
-    <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... <!-- Would you like to submit? --></label>
+    
   </div>
 </div>
   </body>
