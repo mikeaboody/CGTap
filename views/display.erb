@@ -1,0 +1,34 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<TABLE BORDER="3" CELLSPACING="1" CELLPADDING="1">
+<CAPTION>Timesheet Data (last 5 days)</CAPTION>
+<TR>
+	<TD ALIGN = "center"> ID </TD>
+	<TD ALIGN = "center"> First Name </TD>
+	<TD ALIGN = "center"> Last Name </TD>
+	<TD ALIGN = "center"> Email </TD>
+	<TD ALIGN = "center"> Submission Time </TD>
+	<TD ALIGN = "center"> Hours (rounded) </TD>
+	</TR> 
+	<% @time_sheets.each do |time_sheet| %>
+		<TR>
+		<TD ALIGN = "center"> <%= time_sheet.id %> </TD>
+		<TD ALIGN = "center"> <%= time_sheet.first_name %> </TD>
+		<TD ALIGN = "center"> <%= time_sheet.last_name %> </TD>
+		<TD ALIGN = "center"> <%= time_sheet.email %> </TD>
+		<TD ALIGN = "center" class = "sub_time_td"> <%= time_sheet.submission_time%> </TD>
+		<TD ALIGN = "center"> <%= time_sheet.hours %> </TD>
+		</TR> 
+	<% end %>
+</TABLE>
+<br/>
+<form class = "back" action="/">
+    <input type="submit" value="Back to Home" >
+</form>
+
+<script>
+ $(".sub_time_td").each(function() {
+ 	var sub_time = parseInt($(this).html());
+ 	var date = new Date(sub_time);
+ 	$(this).html(date);
+ });
+</script>
