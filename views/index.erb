@@ -1,74 +1,159 @@
-
-<html><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <title>CGTap</title>
-  <link rel=stylesheet href="./style/style.css" type="text/css" media=screen>
+  <link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link href='style/main.css' rel='stylesheet'>
+  <!-- <link rel="stylesheet" type="text/css" href="editable-table.css"> -->
+  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- <script src="editable-table.js"></script> -->
+  <!-- <script src="jquery.min.js"></script> -->
+  <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+  <!-- <script src="bootstrap-table.js"></script> -->
   
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script> var master_email = "<%= @email %>"; </script>
+  <script>
+    var master_email = "<%= @email %>";
+  </script>
   <script src="./script/Objects.js"></script>
   <script src="./script/Setup.js"></script>
   <script src="./script/UserInterface.js"></script>
   <script src="./script/Submit.js"></script>
   <script src="./script/Main.js"></script>
- </head>
-
- <body>
- 	<div class="wrapper">
-      <h1>Tap App </h1>
-      <h2 class="welcome">Loading user...</h2>
-      <form class = "disconnect" action="/disconnect" style = "display: inline;">
-        <input type="submit" value="Log Out" >
-      </form>
-      <form class = "display" action="/display"  style = "display: inline;" method = "post">
-        <input name = "email" value = "brian.forster@controlgroup.com" hidden> <!-- for now -->
-        <input type="submit" value="Your Timesheet Submissions">
-      </form>
-    <div class="row">
-      <h3>Are you ready track some hours? What's your project?</h3>
-    <div class = "projects">
-      <select>
-            <option value =""selected>Project</option>
-      </select>
-  		</div>
-      <p>What's your task?</p>
-      <div class = "tasks">
-      <select>
-            <option value =""selected>Task</option>
-      </select>
-  		</div>
-      <p>Billing?</p>
-      <div class="payment">
-        <select>
-          <option value =""selected>Billing</option>
-        </select>
-      </div>
-      <p>Description?</p>
-      <div class = "notes">
-        <textarea rows="4" cols="50" placeholder="Enter a description..."></textarea>
-      </div>
-      <p> Time your hours: </p>
-      <div class="timer">
-        <button id="timer_button">Time</button>
-        <label>00:00:00</label>
-      </div>
-    </div>
-      <p> Or record them manually: </p>
-        <form name="input">
-      Hours: <input class="hours" type="text" name="hours" placeholder="0">
-      <br>
-      Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
-    </form>
-    <br>
-
-    <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... Would you like to submit?</label>
-
-      <br>
-      <br>
-      <div class="submit">
-        <button onclick="submit()">Submit</button>
-      </div>
-    </div>
+</head>
+  <body>
+    <div class='container'>
+      <div class='navbar navbar-default navbar-fixed-top'>
+        <div class='container'>
+         <a href='index.html' class='navbar-brand'>Tap App</a>
   
- 
-</body></html>
 
+
+ <!--  <div class="container">
+    <div class="col-md-12">
+      <h1>Tap App </h1>
+    </div>
+  </div> -->
+    <h2 class="welcome">Loading user...</h2>
+
+          <ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
+            <li>
+              <form class = "disconnect" action="/disconnect" style = "display: inline;">
+                <input type="submit" value="Log Out" >
+              </form>
+            </li>
+            <li>
+             <!--  hidden nav bar for showing past timesheets-->
+              <div class="display">
+                <form class = "display" action="/display"  style = "display: inline;" method = "post">
+                  <input name = "email" value = "brian.forster@controlgroup.com" hidden> <!-- for now -->
+                  <input type="submit" value="Past Timesheets">
+                </form>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+      <br>
+      <br>
+      <br>
+    <div class="content">
+      <div class="btn-group" role="group">
+        <div class="submit" style = "display:inline;">
+          <button onclick="submit()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+        </div>
+          <div class="add-row" style = "display:inline;">
+            <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="  Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+           </button>
+          </div>
+          <div class="delete-row" style = "display:inline;">
+           <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+          </div>
+        </div>
+
+        <div class="container">
+          <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... <!-- Would you like to submit? --></label>
+        </div>
+        
+        <div class="container"> 
+          <div class="row">
+              <table data-editable="table table-responsive table-hover">
+                <thead>
+                  <tr>
+                    <th>Project</th>
+                    <th>Task</th>
+                    <th>Billing</th>
+                    <th>Description</th>
+                    <th>Timer</th>
+                    <th>Manual</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+
+                        <div class="col-md-2">
+                        <div class = "projects">
+                          <select>
+                            <option value =""selected>Project</option>
+                          </select>
+                        </div>
+                      </div>
+             
+                      </td>
+                      <td>
+                        <div class="col-md-2">
+
+                        <div class = "tasks">
+                          <select>
+                           <option value =""selected>Task</option>
+                          </select>
+                        </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="col-md-2">
+                        <div class="payment">
+                          <select>
+                            <option value =""selected>Billing</option>
+                          </select>
+                        </div>
+                      </div>
+                      </td>
+                      <td>
+                        <div class="col-md-2">
+                        <div class = "notes">
+                         <textarea rows="4" cols="30" placeholder="Enter a description..."></textarea>
+                        </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="col-md-2">
+                      <div class="timer">
+                          <button id="timer_button" onclick="switchTimer()">Start</button>
+                          <label>00:00:00</label>
+                        </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="col-md-2">
+                          <form name="input">
+                            Hours: <input class="hours" type="text" name="hours" placeholder="0">
+                           <br>
+                            Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
+                          </form>
+                            <br>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                   
+      
+            </div>
+          </div>
+        </div>
+  </body>
+</html>

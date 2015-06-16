@@ -48,10 +48,9 @@ var loadUserData = function() {
     	});
 	}
 	else {
-		var $disconnect = $(".disconnect");
-		$(".wrapper").empty();
-		$(".wrapper").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>")
-		$(".wrapper").append($disconnect);
+		$(".content").empty();
+		$(".welcome").empty();
+		$(".content").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>");
 	}
 }
 

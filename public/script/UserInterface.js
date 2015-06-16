@@ -60,8 +60,6 @@ var updateTimeType = function(proj_id) {
 				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
 				// "Off-Hours Support", "On-Site Support", "Remote Support"]
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-				console.log(currTimeType.time_type_nm);
-				console.log($.inArray(currTimeType.time_type_nm, includableTimeTypes));
 				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 					if (i == 0) {
 						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
@@ -100,9 +98,9 @@ var switchTimer = function() {
 		$(".timer label").html(newLabel);
 	}
 
-	if (timer == null) {
+	if (timer == null) { //just starting the timer
 		timer = setInterval(updateTimer, 1000);
-	} else {
+	} else { //stopping the timer
 		clearInterval(timer);
 		timer = null;
 		var hours = Math.floor(time / (3600*1000));
@@ -111,5 +109,32 @@ var switchTimer = function() {
 		$('input[name="hours"]').val(hours);
 		updateLabel();
 	}
+	if ($("#timer_button").html() == "Start") {
+		$("#timer_button").html("Stop");
+	} else {
+		$("#timer_button").html("Start");
+	}
 
 }
+
+//allow projects to be sortable
+$("#table-responsive" ).click(function() {
+    $("#table-responsive" ).sortable();
+    $("#table-responsive" ).disableSelection();
+});
+
+//add a row to projects
+$('.add-row').click(function () {
+    var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+    $TABLE.find('table').append($clone);
+});
+
+//delete a row from projects
+$('.delete-row').click(function () {
+    $(this).parents('tr').detach();
+});
+
+//intitializes tooltip
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
