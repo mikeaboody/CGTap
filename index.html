@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <title>CGTap</title>
-  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link href='main.css' rel='stylesheet'>
-  <link rel="stylesheet" type="text/css" href="editable-table.css">
+  <!-- <link rel="stylesheet" type="text/css" href="editable-table.css"> -->
   <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-  <script src="editable-table.js"></script>
-  <!--   <link href="style.css" rel="stylesheet"> -->
-  
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- <script src="editable-table.js"></script> -->
+  <!-- <script src="jquery.min.js"></script> -->
+  <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+  <!-- <script src="bootstrap-table.js"></script> -->
+  
   <script>
     var master_email = "<%= @email %>";
   </script>
@@ -106,7 +108,7 @@
                       </div>
                     </td>
                     <td>
-                      <div class="col-md-2">
+                      <div class="col-md-2"
                     <div class="timer">
                         <button id="timer_button">Start</button>
                         <label>00:00:00</label>
@@ -128,7 +130,7 @@
 <!-- allow projects to be sortable -->
 
   <script>
-   $.click(function() {
+   $("#table-responsive" ).click(function() {
     $("#table-responsive" ).sortable();
     $("#table-responsive" ).disableSelection();
     });
@@ -163,7 +165,7 @@
 <!--   <div class="row"> -->
     <div class="btn-group" role="group">
       <div class="submit" style = "display:inline;">
-        <button onclick="submit()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Submit"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
+        <button onclick="submit()" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Submit">Submit<span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
       </div>
       <div class="add-row" style = "display:inline;">
         <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -182,8 +184,5 @@
     <label class="output">You are submitting 0:00 hours for project CG Internal Time with task  CG Internal and payment type  Non-Billable... <!-- Would you like to submit? --></label>
   </div>
 </div>
-    <script src="jquery.min.js"></script>
-    <script src="bootstrap.min.js"></script>
-    <script src="bootstrap-table.js"></script>
   </body>
 </html>
