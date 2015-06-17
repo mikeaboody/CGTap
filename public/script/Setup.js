@@ -52,8 +52,8 @@ var loadUserData = function() {
 	}
 	else {
 		$(".content").empty();
-		$(".welcome").empty();
 		$(".content").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>");
+		$(".content").show();
 	}
 }
 

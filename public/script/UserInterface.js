@@ -84,6 +84,9 @@ var updateLabel = function() {
 				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text()
 				+ "... Would you like to submit?";
 	$(".output").text(output);
+	if ($(".content").is(":hidden")) {
+		$(".content").show();
+	}
 }
 
 var switchTimer = function() {
