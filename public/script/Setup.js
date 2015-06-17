@@ -31,10 +31,13 @@ var loadUserData = function() {
     	$.when(
     		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, function(data) {
 	        	var projectList = [];
+	        	var unincluded_stage_names = ["pending closure", "complete", "canceled"];
 	        	for(var i = 0; i < data.length; i += 1) {
 	        		var currProj = data[i];
-	        		var newProj = new Project(currProj.proj_nm, currProj.proj_id);
-	        		projectList.push(newProj);
+	        		if ($.inArray(currProj.proj_stage_nm.toLowerCase(), unincluded_stage_names) == -1) {
+	        			var newProj = new Project(currProj.proj_nm, currProj.proj_id);
+	        			projectList.push(newProj);
+	        		}
 	        	}
 	        	master_user.setProjects(projectList);
 			})
@@ -116,8 +119,6 @@ var updateTimeType = function(proj_id) {
 				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
 				// "Off-Hours Support", "On-Site Support", "Remote Support"]
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-				console.log(currTimeType.time_type_nm);
-				console.log($.inArray(currTimeType.time_type_nm, includableTimeTypes));
 				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 					if (i == 0) {
 						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
