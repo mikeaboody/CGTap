@@ -29,4 +29,5 @@ function Submittable() {
 	this.epoch_date = 0;
 	this.task_id = 0;
 	this.task_type = 0;
+	this.notes = "";
 }
