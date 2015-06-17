@@ -117,22 +117,45 @@ var switchTimer = function() {
 
 }
 
-//allow projects to be sortable
-$("#table-responsive" ).click(function() {
-    $("#table-responsive" ).sortable();
-    $("#table-responsive" ).disableSelection();
-});
+// //allow projects to be sortable
+// $("#table-responsive" ).click(function() {
+//     $("#table-responsive" ).sortable();
+//     $("#table-responsive" ).disableSelection();
+// });
 
 //add a row to projects
-$('.add-row').click(function () {
-    var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-    $TABLE.find('table').append($clone);
-});
+// function addRow() {
+// 	var table = document.getElementById("submission");
+// 	var row = table.insertRow(0);
+// 	row.innerHTML = "<tr></tr>";
+// }
+var addRow = function() {
+	var myRow = "<tr><td>C</td><td>3</td></tr>";
+            $("#time_sheet_table tr:last").after(myRow);
+}
 
-//delete a row from projects
-$('.delete-row').click(function () {
-    $(this).parents('tr').detach();
-});
+// //delete a row from projects
+
+$('#delete-row').click( function() {		
+		var tableID = "submission";
+		var table = document.getElementById(tableID);
+		var rowCount = table.rows.length;
+		console.log(rowCount);
+		if(rowCount != 1) {			
+			rowCount = rowCount - 1;
+			table.deleteRow(rowCount);
+		}			
+}); 
+
+// $('.add-row').click(function () {
+//     var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+//     $TABLE.find('table').append($clone);
+// });
+
+// //delete a row from projects
+// $('.delete-row').click(function () {
+//     $(this).parents('tr').detach();
+// });
 
 //intitializes tooltip
 $(function () {
