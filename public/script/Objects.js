@@ -7,8 +7,7 @@ master_email = "brian.forster@controlgroup.com" //for now
 
 COMMUNICATOR = {
 	getUser: function(success) {
-		var url = base + "/employees";
-		$.getJSON(url, success);
+		$.getJSON(base + "/employees", success);
 	},
 	getProjects: function(success) {
 		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
@@ -18,6 +17,12 @@ COMMUNICATOR = {
 	},
 	getTimeTypes: function(proj_id, success) {
 		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
+	},
+	postToDatabase: function(postObj, success) {
+		$.post("/submit", postObj, success);
+	},
+	postToOpenAir: function(postObj, success) {
+		$.post(base + "/timeentry/submit", postObj);
 	}
 }
 
