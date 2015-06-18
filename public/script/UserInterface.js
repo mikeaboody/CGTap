@@ -10,7 +10,6 @@ var updateProject = function(row_index) {
 		}
 	}
 	$nthTR(row_index).find(".projects select").on('change', function() {
-		console.log("CHANGED");
    		updateTasks($(this).closest("tr").index(), $(this).val());
    		updateLabel();
 	});
@@ -21,12 +20,11 @@ var updateProject = function(row_index) {
    		updateLabel();
 	});
 
-	$('.hours').on('change', function() {
+	$nthTR(row_index).find(".hours").on('change', function() {
    		updateLabel();
 	});
 
-	$('.minutes').on('change', function() {
-   		updateTasks($(".projects select").val());
+	$nthTR(row_index).find(".minutes").on('change', function() {
    		updateLabel();
 	});
 }
@@ -71,8 +69,20 @@ var updateTimeType = function(row_index, proj_id) {
 
 
 var updateLabel = function() {
-	var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
-	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
+	var minutes = 0;
+	var hours = 0;
+	$('input[name="minutes"]').each(function() {
+		minutes += (($(this).val() == "") ? 0 : parseInt($(this).val(), 10));
+	});
+	$('input[name="hours"').each(function() {
+		hours += ($(this).val() == "") ? 0 : parseInt($(this).val(), 10);
+	})
+	while (minutes >= 60) {
+		hours += 1;
+		minutes -= 60;
+	}
+	// var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
+	// var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
 	var output = "You are submitting " + hours + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
 				+ " hours for project " + $(".projects select option:selected").text() + " with task " +
 				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text()
@@ -135,7 +145,6 @@ var addRow = function() {
 	var myRow = $("tbody tr:nth-child(1)");
 	var myHTML = "<tr>" + myRow.html() + "</tr>"
     $("#time_sheet_table tr:last").after(myHTML);
-    console.log($("#time_sheet_table tr:last").index())
     updateProject($("#time_sheet_table tr:last").index());
 }
 
