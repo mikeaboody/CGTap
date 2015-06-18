@@ -120,6 +120,12 @@ var switchTimer = function() {
 
 }
 
+var redirectToTimesheet = function() {
+	var url = "/display?email=" + master_email;
+	window.location.replace(url);
+	window.location.href = url;
+}
+
 // //allow projects to be sortable
 // $("#table-responsive" ).click(function() {
 //     $("#table-responsive" ).sortable();

@@ -26,29 +26,25 @@
     <div class='container'>
       <div class='navbar navbar-default navbar-fixed-top'>
         <div class='container'>
-         <a href='index.html' class='navbar-brand'>Tap App</a>
+         <a href='/' class='navbar-brand'>Tap App</a>
 
           <h2 class="welcome">Loading...</h2>
-
-          <ul class='nav navbar-nav navbar-right collapse navbar-collapse'>
-            <li>
-              <form class = "disconnect" action="/disconnect" style = "display: inline;">
-                <input type="submit" value="Log Out" >
-              </form>
-            </li>
-            <li>
-             <!--  hidden nav bar for showing past timesheets-->
-              <div class="display">
-                <form class = "display" action="/display"  style = "display: inline;" method = "post">
-                  <input name = "email" value = "brian.forster@controlgroup.com" hidden> <!-- for now -->
-                  <input type="submit" value="Past Timesheets">
-                </form>
-              </div>
-            </li>
-          </ul>
+          <div class="dropdown navbar-nav navbar-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="/disconnect">Log Out</a>
+              </li>
+              <li>
+                <a href="javascript:redirectToTimesheet();">Past Timesheets</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
+      <br>
       <br>
       <br>
       <br>

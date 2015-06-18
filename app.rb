@@ -84,7 +84,11 @@ get '/disconnect' do
   session.delete("expires_in")
   session.delete("issued_at")
   response = Net::HTTP.get(URI.parse("https://accounts.google.com/o/oauth2/revoke?token=" + token))
-  redirect to("/")
+  redirect to("/logout")
+end
+
+get '/logout' do
+  erb :logout
 end
 
 post "/submit" do
@@ -101,7 +105,7 @@ post "/submit" do
   end
 end
 
-post "/display" do
+get "/display" do
   @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
   erb :display
 end
