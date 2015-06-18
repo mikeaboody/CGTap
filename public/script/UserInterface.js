@@ -1,24 +1,23 @@
-var updatePage = function() {
-	$(".welcome").html("Welcome " + master_user.first_name + "!");
-
-	$(".projects select").empty();
+var updateProject = function(row_index) {
+	$nthTR(row_index).find(".projects select").empty();
 	for (var i = 0; i < master_user.projects.length; i += 1) {
 		var currProj = master_user.projects[i];
 		
 		if (i == 0) {
-			$(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
+			$nthTR(row_index).find(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
 		} else {
-			$(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
+			$nthTR(row_index).find(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 		}
 	}
-	$('.projects select').on('change', function() {
+	$nthTR(row_index).find(".projects select").on('change', function() {
+		console.log("CHANGED");
    		updateTasks($(this).closest("tr").index(), $(this).val());
    		updateLabel();
 	});
-	$('.tasks select').on('change', function() {
+	$nthTR(row_index).find(".tasks select").on('change', function() {
    		updateLabel();
 	});
-	$('.payment select').on('change', function() {
+	$nthTR(row_index).find(".payment select").on('change', function() {
    		updateLabel();
 	});
 
@@ -135,8 +134,9 @@ var $nthTR = function(n) {
 var addRow = function() {
 	var myRow = $("tbody tr:nth-child(1)");
 	var myHTML = "<tr>" + myRow.html() + "</tr>"
-	console.log(myHTML);
-            $("#time_sheet_table tr:last").after(myHTML);
+    $("#time_sheet_table tr:last").after(myHTML);
+    console.log($("#time_sheet_table tr:last").index())
+    updateProject($("#time_sheet_table tr:last").index());
 }
 
 // //delete a row from projects

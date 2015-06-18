@@ -37,7 +37,8 @@ var loadUserData = function() {
         	}
         	master_user.setProjects(projectList);
     		if (master_user.projects != []) {
-    			updatePage();
+    			$(".welcome").html("Welcome " + master_user.first_name + "!");
+    			updateProject(0);
     			updateTasks(0, master_user.projects[0].id);
 			} else {
     			document.write("failed task data");
