@@ -131,39 +131,25 @@ var $nthTR = function(n) {
 //     $("#table-responsive" ).disableSelection();
 // });
 
-//add a row to projects
-// function addRow() {
-// 	var table = document.getElementById("submission");
-// 	var row = table.insertRow(0);
-// 	row.innerHTML = "<tr></tr>";
-// }
+
 var addRow = function() {
-	var myRow = "<tr><td>C</td><td>3</td></tr>";
-            $("#time_sheet_table tr:last").after(myRow);
+	var myRow = $("tbody tr:nth-child(1)");
+	var myHTML = "<tr>" + myRow.html() + "</tr>"
+	console.log(myHTML);
+            $("#time_sheet_table tr:last").after(myHTML);
 }
 
 // //delete a row from projects
+var deleteRow = function() {
+	var myRow = "<tr><td>C</td><td>3</td></tr>";
+		$(myRow).remove
 
-$('#delete-row').click( function() {		
-		var tableID = "submission";
-		var table = document.getElementById(tableID);
-		var rowCount = table.rows.length;
-		console.log(rowCount);
-		if(rowCount != 1) {			
-			rowCount = rowCount - 1;
-			table.deleteRow(rowCount);
-		}			
-}); 
+}
 
-// $('.add-row').click(function () {
-//     var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-//     $TABLE.find('table').append($clone);
-// });
 
-// //delete a row from projects
-// $('.delete-row').click(function () {
-//     $(this).parents('tr').detach();
-// });
+
+
+
 
 //intitializes tooltip
 $(function () {
