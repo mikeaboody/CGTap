@@ -5,6 +5,22 @@ var time = 0;
 var base = "https://cgp-api-dev.controlgroup.com";
 master_email = "brian.forster@controlgroup.com" //for now
 
+COMMUNICATOR = {
+	getUser: function(success) {
+		var url = base + "/employees";
+		$.getJSON(url, success);
+	},
+	getProjects: function(success) {
+		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
+	},
+	getTasks: function(proj_id, success) {
+		$.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
+	},
+	getTimeTypes: function(proj_id, success) {
+		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
+	}
+}
+
 function User(first_name, last_name, email) {
 	this.first_name = first_name;
 	this.last_name = last_name;

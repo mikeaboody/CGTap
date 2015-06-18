@@ -1,20 +1,17 @@
 var setup = function() {
-	var url = base + "/employees";
-	$.when(
-    	$.getJSON(url, function(data) {
-			var personData = findEmployeeInfo(master_email, data);
-			if (personData == null) {
-				return;
-			}
-			master_user = new User(personData[0], personData[1], personData[2]);
-			submitObj = new Submittable();
-			submitObj.first_name = master_user.first_name;
-			submitObj.last_name = master_user.last_name;
-			submitObj.user_email = master_user.email;
-    	})
-	).then(function() {
-    	loadUserData();
-	});
+	var success = function(data) {
+		var personData = findEmployeeInfo(master_email, data);
+		if (personData == null) {
+			return;
+		}
+		master_user = new User(personData[0], personData[1], personData[2]);
+		submitObj = new Submittable();
+		submitObj.first_name = master_user.first_name;
+		submitObj.last_name = master_user.last_name;
+		submitObj.user_email = master_user.email;
+		loadUserData();
+	}
+	COMMUNICATOR.getUser(success);
 }
 
 var findEmployeeInfo = function(email, data) {
@@ -28,27 +25,25 @@ var findEmployeeInfo = function(email, data) {
 
 var loadUserData = function() {
 	if (master_user) {
-    	$.when(
-    		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, function(data) {
-	        	var projectList = [];
-	        	var unincluded_stage_names = ["pending closure", "complete", "canceled"];
-	        	for(var i = 0; i < data.length; i += 1) {
-	        		var currProj = data[i];
-	        		if ($.inArray(currProj.proj_stage_nm.toLowerCase(), unincluded_stage_names) == -1) {
-	        			var newProj = new Project(currProj.proj_nm, currProj.proj_id);
-	        			projectList.push(newProj);
-	        		}
-	        	}
-	        	master_user.setProjects(projectList);
-			})
-    	).then(function() {
+    	var success = function(data) {
+        	var projectList = [];
+        	var unincluded_stage_names = ["pending closure", "complete", "canceled"];
+        	for(var i = 0; i < data.length; i += 1) {
+        		var currProj = data[i];
+        		if ($.inArray(currProj.proj_stage_nm.toLowerCase(), unincluded_stage_names) == -1) {
+        			var newProj = new Project(currProj.proj_nm, currProj.proj_id);
+        			projectList.push(newProj);
+        		}
+        	}
+        	master_user.setProjects(projectList);
     		if (master_user.projects != []) {
     			updatePage();
     			updateTasks(0, master_user.projects[0].id);
 			} else {
     			document.write("failed task data");
 			}
-    	});
+		};
+		COMMUNICATOR.getProjects(success);
 	}
 	else {
 		$(".content").empty();

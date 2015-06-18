@@ -33,46 +33,41 @@ var updatePage = function() {
 }
 
 var updateTasks = function(row_index, proj_id) {
-	$.when(
-		$.getJSON(base + "/timeentry/tasklist?id=" + proj_id, function(data) {
-			$nthTR(row_index).find(".tasks select").empty();
+	var success = function(data) {
+		$nthTR(row_index).find(".tasks select").empty();
 
-			for (var i = 0; i < data.length; i += 1) {
-				var currTask = data[i];
-				if (i == 0) {
-					$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-				} else {
-					$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-				}
+		for (var i = 0; i < data.length; i += 1) {
+			var currTask = data[i];
+			if (i == 0) {
+				$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+			} else {
+				$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 			}
-		})
-	).then(function() {
+		}
 		updateTimeType(row_index, proj_id);
-	});
+	}
+	COMMUNICATOR.getTasks(proj_id, success);
 }
 
 var updateTimeType = function(row_index, proj_id) {
-	$.when(
-		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, function(data) {
-			$nthTR(row_index).find(".payment select").empty();
-			for (var i = 0; i < data.length; i += 1) {
-				var currTimeType = data[i];
-				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
-				// "Off-Hours Support", "On-Site Support", "Remote Support"]
-				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
-					if (i == 0) {
-						$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
-					} else {
-						$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
-					}	
-				}
-				
+	var success = function(data) {
+		$nthTR(row_index).find(".payment select").empty();
+		for (var i = 0; i < data.length; i += 1) {
+			var currTimeType = data[i];
+			//tested for in system:["Billable", "Company Holiday", "Non-Billable",
+			// "Off-Hours Support", "On-Site Support", "Remote Support"]
+			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
+			if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
+				if (i == 0) {
+					$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
+				} else {
+					$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+				}	
 			}
-		})
-	).then(function() {
+		}
 		updateLabel();
-	});
+	}
+	COMMUNICATOR.getTimeTypes(proj_id, success);
 }
 
 
