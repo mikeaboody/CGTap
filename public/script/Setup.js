@@ -44,7 +44,7 @@ var loadUserData = function() {
     	).then(function() {
     		if (master_user.projects != []) {
     			updatePage();
-    			updateTasks(master_user.projects[0].id);
+    			updateTasks(0, master_user.projects[0].id);
 			} else {
     			document.write("failed task data");
 			}

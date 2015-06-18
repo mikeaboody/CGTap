@@ -12,7 +12,7 @@ var updatePage = function() {
 		}
 	}
 	$('.projects select').on('change', function() {
-   		updateTasks($(".projects select").val());
+   		updateTasks($(this).closest("tr").index(), $(this).val());
    		updateLabel();
 	});
 	$('.tasks select').on('change', function() {
@@ -32,29 +32,29 @@ var updatePage = function() {
 	});
 }
 
-var updateTasks = function(proj_id) {
+var updateTasks = function(row_index, proj_id) {
 	$.when(
 		$.getJSON(base + "/timeentry/tasklist?id=" + proj_id, function(data) {
-			$(".tasks select").empty();
+			$nthTR(row_index).find(".tasks select").empty();
 
 			for (var i = 0; i < data.length; i += 1) {
 				var currTask = data[i];
 				if (i == 0) {
-					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+					$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 				} else {
-					$(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+					$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 				}
 			}
 		})
 	).then(function() {
-		updateTimeType(proj_id);
+		updateTimeType(row_index, proj_id);
 	});
 }
 
-var updateTimeType = function(proj_id) {
+var updateTimeType = function(row_index, proj_id) {
 	$.when(
 		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, function(data) {
-			$(".payment select").empty();
+			$nthTR(row_index).find(".payment select").empty();
 			for (var i = 0; i < data.length; i += 1) {
 				var currTimeType = data[i];
 				//tested for in system:["Billable", "Company Holiday", "Non-Billable",
@@ -62,9 +62,9 @@ var updateTimeType = function(proj_id) {
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
 				if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 					if (i == 0) {
-						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
+						$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
 					} else {
-						$(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+						$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
 					}	
 				}
 				
@@ -124,6 +124,10 @@ var redirectToTimesheet = function() {
 	var url = "/display?email=" + master_email;
 	window.location.replace(url);
 	window.location.href = url;
+}
+
+var $nthTR = function(n) {
+	return $("tbody tr:nth-child(" + (n + 1) + ")");
 }
 
 // //allow projects to be sortable
