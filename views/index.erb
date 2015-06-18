@@ -62,8 +62,8 @@
             <button onclick="addRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="  Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
            </button>
           </div>
-          <div class="delete-row" style = "display:inline;">
-           <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete">
+          <div class="deleteRow" style = "display:inline;">
+           <button onclick="deleteRow()" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
           </div>
         </div>
@@ -75,7 +75,7 @@
         
       <div class="container"> 
         <div class="row">
-            <table id="time_sheet_table"class="table table-responsive table-border table-hover">
+            <table id="time_sheet_table"class="table table-responsive table-bordered table-hover table-striped">
               <thead>
                 <tr>
                   <th>Project</th>
