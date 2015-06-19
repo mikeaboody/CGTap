@@ -58,10 +58,6 @@
             <button onclick="addRow()" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="  Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
            </button>
           </div>
-          <div class="deleteRow" style = "display:inline;">
-           <button onclick="deleteRow()" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-          </div>
         </div>
       </div>
 
@@ -137,6 +133,11 @@
                           Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
                         </form>
                           <br>
+                      </div>
+                    <td>
+                      <div class="deleteRow">
+                        <button onclick="deleteRow()" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
                       </div>
                     </td>
                   </tr>
