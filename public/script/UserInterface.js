@@ -139,10 +139,10 @@ var $nthTR = function(n) {
 }
 
 // //allow projects to be sortable
-// $("#table-responsive" ).click(function() {
-//     $("#table-responsive" ).sortable();
-//     $("#table-responsive" ).disableSelection();
-// });
+$("#table-responsive" ).click(function() {
+    $("#table-responsive" ).sortable();
+    $("#table-responsive" ).disableSelection();
+});
 
 
 var addRow = function() {
@@ -158,10 +158,12 @@ var addRow = function() {
 
 // //delete a row from projects
 var deleteRow = function() {
-	var myRow = "<tr><td>C</td><td>3</td></tr>";
-		$(myRow).remove
+	$(".deleteRow").on('click', function() {
+	$(this).parents("tr").remove();
 
+});
 }
+
 
 
 
