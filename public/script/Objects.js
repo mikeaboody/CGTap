@@ -1,5 +1,4 @@
 var master_user;
-var submitObj;
 var timer = null;
 var time = [0];
 var base = "https://cgp-api-dev.controlgroup.com";
@@ -24,7 +23,7 @@ COMMUNICATOR = {
 		$.post("/submit", postObj, success);
 	},
 	postToOpenAir: function(postObj, success) {
-		$.post(base + "/timeentry/submit", postObj);
+		$.post(base + "/timeentry/submit", postObj, success);
 	}
 }
 
@@ -44,9 +43,6 @@ function Project(name, id) {
 };
 
 function Submittable() {
-	this.user_email = null;
-	this.first_name = null;
-	this.last_name = null;
 	this.proj_id = 0;
 	this.hours = 0;
 	this.epoch_date = 0;

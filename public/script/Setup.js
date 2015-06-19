@@ -5,10 +5,7 @@ var setup = function() {
 			return;
 		}
 		master_user = new User(personData[0], personData[1], personData[2]);
-		submitObj = new Submittable();
-		submitObj.first_name = master_user.first_name;
-		submitObj.last_name = master_user.last_name;
-		submitObj.user_email = master_user.email;
+		Submittable.user = master_user;
 		loadUserData();
 	}
 	$template_row = $("tbody tr:nth-child(1)").clone();
