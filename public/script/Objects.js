@@ -19,11 +19,11 @@ COMMUNICATOR = {
 	getTimeTypes: function(proj_id, success) {
 		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
 	},
-	postToDatabase: function(postObj, success) {
-		$.post("/submit", postObj, success);
+	postToDatabase: function(postObj, success, failure) {
+		$.post("/submit", postObj, success, failure);
 	},
-	postToOpenAir: function(postObj, success) {
-		$.post(base + "/timeentry/submit", postObj, success);
+	postToOpenAir: function(postObj, success, failure) {
+		$.post(base + "/timeentry/submit", postObj, success, failure);
 	}
 }
 
@@ -43,9 +43,9 @@ function Project(name, id) {
 };
 
 function Submittable() {
-	this.proj_id = 0;
+	this.project_id = 0;
 	this.hours = 0;
-	this.epoch_date = 0;
+	this.date = 0;
 	this.task_id = 0;
 	this.task_type = 0;
 	this.notes = "";

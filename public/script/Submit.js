@@ -1,55 +1,60 @@
 var submit = function() {
-	var submitObj = new Submittable();
-	var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
-	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
-	var post_hours = hours;
-	if (minutes % 15 < 6) {
-		post_hours += Math.floor(minutes / 15) / 4;
-	} else {
-		post_hours += Math.ceil(minutes / 15) / 4;
+	var submitObj_list = [];
+	for (var i = 0; i < ($("#time_sheet_table tr:last").index() + 1); i += 1) {
+		submitObj_list.push(createSubmitObj(i));
 	}
-	if (post_hours > 0) {
-		submitObj.proj_id = $(".projects select option:selected").val();
-		submitObj.task_id = $(".tasks select option:selected").val();
-		submitObj.task_type = $(".payment select option:selected").val();
-		submitObj.hours = post_hours;
-		submitObj.epoch_date = (new Date()).getTime();
-		submitObj.notes = $(".notes textarea").val();
-		var postObj = {email: Submittable.user.email, first_name: Submittable.user.first_name, last_name: Submittable.user.last_name, project_id: submitObj.proj_id, 
-						hours: submitObj.hours, date: submitObj.epoch_date, task_id: submitObj.task_id, task_type: submitObj.task_type, notes: submitObj.notes}
-		var success = function() {
-			postToOpenAir(postObj);
-		}
-		COMMUNICATOR.postToDatabase(postObj, success);
-	} else {
-		alert("You cannot submit time under 6 minutes!");
-	}
+	postSubmitObjs(submitObj_list, function() {
+		alert("You have submitted your hours!");
+	});
 }
 
 var createSubmitObj = function(index) {
 	var submitObj = new Submittable();
 	var $current_tr = $nthTR(index);
 	var minutes = ($current_tr.find('input[name="minutes"]').val() == "") ? 0 : parseInt($current_tr.find('input[name="minutes"]').val(), 10);
-	var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($current_tr.find('input[name="minutes"]').val(), 10);
+	var hours = ($current_tr.find('input[name="hours"]').val() == "") ? 0 : parseInt($current_tr.find('input[name="hours"]').val(), 10);
 	var post_hours = hours;
 	if (minutes % 15 < 6) {
 		post_hours += Math.floor(minutes / 15) / 4;
 	} else {
 		post_hours += Math.ceil(minutes / 15) / 4;
 	}
-	submitObj.proj_id = $current_tr.find(".projects select option:selected").val();
+	submitObj.email = Submittable.user.email;
+	submitObj.first_name = Submittable.user.first_name;
+	submitObj.last_name = Submittable.user.last_name;
+	submitObj.project_id = $current_tr.find(".projects select option:selected").val();
 	submitObj.task_id = $current_tr.find(".tasks select option:selected").val();
 	submitObj.task_type = $current_tr.find(".payment select option:selected").val();
 	submitObj.hours = post_hours;
-	submitObj.epoch_date = (new Date()).getTime();
+	submitObj.date = (new Date()).getTime();
 	submitObj.notes = $current_tr.find(".notes textarea").val();
-	return submitObj;
+	if (submitObj.hours > 0) {
+		return submitObj;
+	} else {
+		return null;
+	}
 }
-var postToOpenAir = function(postObj) {
-	delete postObj["first_name"];
-	delete postObj["last_name"];
-	COMMUNICATOR.postToOpenAir(postObj, function() {
-		alert("You've submitted your hours!");
-	});
-	
+
+var postSubmitObjs = function(postObjs, success) {
+	var i = 0;
+	var next = function() {
+		if (i < postObjs.length) {
+			var postObj = postObjs[i];
+			i += 1;
+			COMMUNICATOR.postToDatabase(postObj, function() {
+				delete postObj["first_name"];
+				delete postObj["last_name"];
+				if (postObj["notes"] == "") {
+					delete postObj["notes"];
+				}
+				COMMUNICATOR.postToOpenAir(postObj, next, function() {
+					console.log(postObj);
+					console.log("failure");
+				});
+			});
+		} else {
+			success();
+		}
+	}
+	next();
 }
