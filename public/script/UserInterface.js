@@ -102,33 +102,44 @@ var updateLabel = function() {
 
 var switchTimer = function(row_index) {
 	var updateTimer = function() {
-		time[row_index] += 1000;
-		var hours = Math.floor(time[row_index] / (3600*1000));
-		var minutes = Math.floor(time[row_index] / (60*1000)) % 60;
-		var seconds = Math.floor(time[row_index] / 1000) % 60;
+		time[current_time_index] += 1000;
+		var hours = Math.floor(time[current_time_index] / (3600*1000));
+		var minutes = Math.floor(time[current_time_index] / (60*1000)) % 60;
+		var seconds = Math.floor(time[current_time_index] / 1000) % 60;
 		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
 						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
 						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
-		$nthTR(row_index).find(".timer label").html(newLabel);
+		$nthTR(current_time_index).find(".timer label").html(newLabel);
 	}
 
-	if (timer[row_index] == null) { //just starting the timer
-		timer[row_index] = setInterval(updateTimer, 1000);
+	if (timer == null) { //just starting the timer
+		startTimer(row_index, updateTimer);
 	} else { //stopping the timer
-		clearInterval(timer[row_index]);
-		timer[row_index] = null;
-		var hours = Math.floor(time[row_index] / (3600*1000));
-		var minutes = Math.floor(time[row_index] / (60*1000)) % 60;
-		$nthTR(row_index).find('input[name="minutes"]').val(minutes);
-		$nthTR(row_index).find('input[name="hours"]').val(hours);
-		updateLabel();
+		if (current_time_index == row_index) {
+			stopTimer(row_index);
+		} else {
+			stopTimer(current_time_index);
+			startTimer(row_index, updateTimer);
+		}
 	}
-	if ($nthTR(row_index).find(".timer_button").html() == "Start") {
-		$nthTR(row_index).find(".timer_button").html("Stop");
-	} else {
-		$nthTR(row_index).find(".timer_button").html("Start");
-	}
+}
 
+var startTimer = function(index, action) {
+	timer = setInterval(action, 1000);
+	current_time_index = index;
+	$nthTR(index).find(".timer_button").html("Stop");
+}
+
+var stopTimer = function(index) {
+	clearInterval(timer);
+	timer = null;
+	current_time_index = null;
+	var hours = Math.floor(time[index] / (3600*1000));
+	var minutes = Math.floor(time[index] / (60*1000)) % 60;
+	$nthTR(index).find('input[name="minutes"]').val(minutes);
+	$nthTR(index).find('input[name="hours"]').val(hours);
+	updateLabel();
+	$nthTR(index).find(".timer_button").html("Start");
 }
 
 var redirectToTimesheet = function() {
@@ -156,18 +167,18 @@ var addRow = function() {
     updateProject(last_tr_index);
     updateTasks(last_tr_index, master_user.projects[0].id);
     time.push(0);
-    timer.push(null);
+    // timer.push(null);
 }
 
 // //delete a row from projects
 var deleteRow = function(row_index) {
 	if (($("#time_sheet_table tr:last").index() + 1) > 1) {
 		time.splice(row_index, 1);
-		if (timer[row_index] != null) {
-			clearInterval(timer[row_index]);
+		if (current_time_index > row_index) {
+			current_time_index -= 1;
+		} else if (current_time_index == row_index) {
+			stopTimer(row_index);
 		}
-		timer.splice(row_index, 1);
-		// $nthTR(row_index).find(".deleteRow button").off('click');
 		$nthTR(row_index).remove();
 		updateLabel();
 	} else {

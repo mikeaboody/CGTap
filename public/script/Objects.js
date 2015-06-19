@@ -1,9 +1,10 @@
 var master_user;
 var submitObj;
-var timer = [null];
+var timer = null;
 var time = [0];
 var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
+current_time_index = null;
 master_email = "brian.forster@controlgroup.com" //for now
 
 COMMUNICATOR = {
