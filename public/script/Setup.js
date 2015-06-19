@@ -11,6 +11,7 @@ var setup = function() {
 		submitObj.user_email = master_user.email;
 		loadUserData();
 	}
+	$template_row = $("tbody tr:nth-child(1)").clone();
 	COMMUNICATOR.getUser(success);
 }
 

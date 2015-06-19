@@ -10,7 +10,7 @@ var updateProject = function(row_index) {
 		}
 	}
 	$nthTR(row_index).find(".projects select").on('change', function() {
-   		updateTasks($(this).closest("tr").index(), $(this).val());
+   		updateTasks(row_index, $(this).val());
    		updateLabel();
 	});
 	$nthTR(row_index).find(".tasks select").on('change', function() {
@@ -26,6 +26,10 @@ var updateProject = function(row_index) {
 
 	$nthTR(row_index).find(".minutes").on('change', function() {
    		updateLabel();
+	});
+
+	$nthTR(row_index).find(".timer_button").on('click', function() {
+		switchTimer(row_index);
 	});
 }
 
@@ -93,33 +97,33 @@ var updateLabel = function() {
 	}
 }
 
-var switchTimer = function() {
+var switchTimer = function(row_index) {
 	var updateTimer = function() {
-		time += 1000;
-		var hours = Math.floor(time / (3600*1000));
-		var minutes = Math.floor(time / (60*1000)) % 60;
-		var seconds = Math.floor(time / 1000) % 60;
+		time[row_index] += 1000;
+		var hours = Math.floor(time[row_index] / (3600*1000));
+		var minutes = Math.floor(time[row_index] / (60*1000)) % 60;
+		var seconds = Math.floor(time[row_index] / 1000) % 60;
 		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
 						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
 						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
-		$(".timer label").html(newLabel);
+		$nthTR(row_index).find(".timer label").html(newLabel);
 	}
 
-	if (timer == null) { //just starting the timer
-		timer = setInterval(updateTimer, 1000);
+	if (timer[row_index] == null) { //just starting the timer
+		timer[row_index] = setInterval(updateTimer, 1000);
 	} else { //stopping the timer
-		clearInterval(timer);
-		timer = null;
-		var hours = Math.floor(time / (3600*1000));
-		var minutes = Math.floor(time / (60*1000)) % 60;
-		$('input[name="minutes"]').val(minutes);
-		$('input[name="hours"]').val(hours);
+		clearInterval(timer[row_index]);
+		timer[row_index] = null;
+		var hours = Math.floor(time[row_index] / (3600*1000));
+		var minutes = Math.floor(time[row_index] / (60*1000)) % 60;
+		$nthTR(row_index).find('input[name="minutes"]').val(minutes);
+		$nthTR(row_index).find('input[name="hours"]').val(hours);
 		updateLabel();
 	}
-	if ($("#timer_button").html() == "Start") {
-		$("#timer_button").html("Stop");
+	if ($nthTR(row_index).find(".timer_button").html() == "Start") {
+		$nthTR(row_index).find(".timer_button").html("Stop");
 	} else {
-		$("#timer_button").html("Start");
+		$nthTR(row_index).find(".timer_button").html("Start");
 	}
 
 }
@@ -142,10 +146,14 @@ var $nthTR = function(n) {
 
 
 var addRow = function() {
-	var myRow = $("tbody tr:nth-child(1)");
+	var myRow = $template_row;
 	var myHTML = "<tr>" + myRow.html() + "</tr>"
     $("#time_sheet_table tr:last").after(myHTML);
-    updateProject($("#time_sheet_table tr:last").index());
+    var last_tr_index = $("#time_sheet_table tr:last").index();
+    updateProject(last_tr_index);
+    updateTasks(last_tr_index, master_user.projects[0].id);
+    time.push(0);
+    timer.push(null);
 }
 
 // //delete a row from projects
