@@ -163,7 +163,9 @@ var addRow = function() {
 var deleteRow = function(row_index) {
 	if (($("#time_sheet_table tr:last").index() + 1) > 1) {
 		time.splice(row_index, 1);
-		clearInterval(timer[row_index]);
+		if (timer[row_index] != null) {
+			clearInterval(timer[row_index]);
+		}
 		timer.splice(row_index, 1);
 		// $nthTR(row_index).find(".deleteRow button").off('click');
 		$nthTR(row_index).remove();
