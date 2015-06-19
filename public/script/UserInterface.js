@@ -10,7 +10,7 @@ var updateProject = function(row_index) {
 		}
 	}
 	$nthTR(row_index).find(".projects select").on('change', function() {
-   		updateTasks(row_index, $(this).val());
+   		updateTasks($(this).closest("tr").index(), $(this).val());
    		updateLabel();
 	});
 	$nthTR(row_index).find(".tasks select").on('change', function() {
@@ -29,7 +29,10 @@ var updateProject = function(row_index) {
 	});
 
 	$nthTR(row_index).find(".timer_button").on('click', function() {
-		switchTimer(row_index);
+		switchTimer($(this).closest("tr").index());
+	});
+	$nthTR(row_index).find(".deleteRow button").on('click', function() {
+		deleteRow($(this).closest("tr").index());
 	});
 }
 
@@ -157,11 +160,18 @@ var addRow = function() {
 }
 
 // //delete a row from projects
-var deleteRow = function() {
-	$(".deleteRow").on('click', function() {
-	$(this).parents("tr").remove();
-
-});
+var deleteRow = function(row_index) {
+	if (($("#time_sheet_table tr:last").index() + 1) > 1) {
+		time.splice(row_index, 1);
+		clearInterval(timer[row_index]);
+		timer.splice(row_index, 1);
+		// $nthTR(row_index).find(".deleteRow button").off('click');
+		$nthTR(row_index).remove();
+		updateLabel();
+	} else {
+		alert("You must have one or more projects on the timesheet");
+	}
+	
 }
 
 
