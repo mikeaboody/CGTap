@@ -96,7 +96,6 @@ get '/today' do
     redirect to('/oauth2authorize')
   else
     startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
-    # puts Time.new.methods - Object.methods
     endTime = DateTime.parse(Time.new.tomorrow.beginning_of_day.to_s)
     result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime},
