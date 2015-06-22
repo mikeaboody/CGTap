@@ -5,6 +5,7 @@ var submit = function() {
 	}
 	postSubmitObjs(submitObj_list, function() {
 		alert("You have submitted your hours!");
+		reset();
 	});
 }
 
@@ -58,3 +59,12 @@ var postSubmitObjs = function(postObjs, success) {
 	}
 	next();
 }
+
+var reset = function() {
+	$(".content").hide();
+	$(".welcome").html("Loading...");
+	$("#time_sheet_table tbody").empty();
+	$("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
+	loadUserData();
+}
+
