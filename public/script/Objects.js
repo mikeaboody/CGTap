@@ -50,3 +50,11 @@ function Submittable() {
 	this.task_type = 0;
 	this.notes = "";
 }
+
+function CalendarEvent(name, description, start, end) {
+	this.name = name;
+	this.description = description;
+	this.start = start;
+	this.end = end;
+}
+

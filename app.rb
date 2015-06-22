@@ -91,6 +91,21 @@ get '/logout' do
   erb :logout
 end
 
+get '/today' do
+  unless user_credentials.access_token 
+    redirect to('/oauth2authorize')
+  else
+    startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
+    # puts Time.new.methods - Object.methods
+    endTime = DateTime.parse(Time.new.tomorrow.beginning_of_day.to_s)
+    result = api_client.execute(:api_method => calendar_api.events.list,
+                              :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime},
+                              :authorization => user_credentials)
+    @json = result.data.to_json
+    erb :today
+  end
+end
+
 post "/submit" do
   first_name = params.delete("first_name")
   last_name = params.delete("last_name")

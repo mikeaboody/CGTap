@@ -1,0 +1,66 @@
+
+<link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href='style/main.css' rel='stylesheet'>
+<!-- <link rel="stylesheet" type="text/css" href="editable-table.css"> -->
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<!-- <script src="editable-table.js"></script> -->
+<!-- <script src="jquery.min.js"></script> -->
+<script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+<script src="./script/Objects.js"></script>
+<script>
+var json = <%= @json %>;
+var items = json["items"];
+var events = []
+for (var i = 0; i < items.length; i += 1) {
+  var curr_event = items[i];
+  events.push(new CalendarEvent(curr_event["summary"], curr_event["description"], curr_event["start"]["dateTime"], curr_event["end"]["dateTime"]));
+}
+$(document).ready(function() {
+  for (var i = 0; i < events.length; i += 1) {
+    var curr_event = events[i];
+    var li = "<li>Description: " + curr_event.description  + "</li>";
+    li += "<li>Start: " + curr_event.start + "</li>";
+    li += "<li>End: " + curr_event.end + "</li>";
+    var ul = "<ul>" + li + "</ul>";
+    $(".today").append("<h5>" + curr_event.name + "</h5>");
+    $(".today").append(ul);
+
+  }
+});
+
+</script>
+<div class='container'>
+  <div class='navbar navbar-default navbar-fixed-top'>
+    <div class='container'>
+     <a href='/' class='navbar-brand'>Tap App</a>
+
+      <h2 class="welcome">Your Timesheets</h2>
+      <div class="dropdown navbar-nav navbar-right">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="/disconnect">Log Out</a>
+          </li>
+          <li>
+            <a href="javascript:redirectToTimesheet();">Past Timesheets</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class = "today">
+  <h3>Here are today's events:</h3>
+  <br>
+</div>
+<br/>
+<form class = "back" action="/">
+    <input type="submit" value="Back to Home" >
+</form>
