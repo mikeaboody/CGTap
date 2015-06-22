@@ -63,6 +63,8 @@ var postSubmitObjs = function(postObjs, success) {
 var reset = function() {
 	$(".content").hide();
 	$(".welcome").html("Loading...");
+	time = [0];
+	stopTimer(0);
 	$("#time_sheet_table tbody").empty();
 	$("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
 	loadUserData();
