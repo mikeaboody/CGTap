@@ -1,10 +1,12 @@
-var master_user;
+var master_user = null;
 var timer = null;
 var time = [0];
 var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
 current_time_index = null;
-master_email = "brian.forster@controlgroup.com" //for now
+if (master_email == "mikeaboody@gmail.com" && window.location.href.indexOf("localhost:4567") > -1) {
+	master_email = "brian.forster@controlgroup.com";
+}
 
 COMMUNICATOR = {
 	getUser: function(success) {

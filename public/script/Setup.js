@@ -1,10 +1,9 @@
 var setup = function() {
 	var success = function(data) {
 		var personData = findEmployeeInfo(master_email, data);
-		if (personData == null) {
-			return;
+		if (personData != null) {
+			master_user = new User(personData[0], personData[1], personData[2]);
 		}
-		master_user = new User(personData[0], personData[1], personData[2]);
 		Submittable.user = master_user;
 		loadUserData();
 	}
@@ -45,6 +44,7 @@ var loadUserData = function() {
 		COMMUNICATOR.getProjects(success);
 	}
 	else {
+		$(".welcome").html("Invalid Control Group Email");
 		$(".content").empty();
 		$(".content").append("<p>Your email " + master_email + " was is not a valid ControlGroup email. </p>");
 		$(".content").show();
