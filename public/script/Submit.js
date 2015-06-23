@@ -4,7 +4,7 @@ var submit = function() {
 		submitObj_list.push(createSubmitObj(i));
 	}
 	postSubmitObjs(submitObj_list, function() {
-		alert("You have submitted your hours!");
+		swal("You have submitted your hours!", "", "success");
 		reset();
 	});
 }

@@ -58,8 +58,6 @@ var updateTimeType = function(row_index, proj_id) {
 		$nthTR(row_index).find(".payment select").empty();
 		for (var i = 0; i < data.length; i += 1) {
 			var currTimeType = data[i];
-			//tested for in system:["Billable", "Company Holiday", "Non-Billable",
-			// "Off-Hours Support", "On-Site Support", "Remote Support"]
 			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
 			if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 				if (i == 0) {
@@ -180,7 +178,6 @@ var addRow = function() {
     updateProject(last_tr_index);
     updateTasks(last_tr_index, master_user.projects[0].id);
     time.push(0);
-    // timer.push(null);
 }
 
 // //delete a row from projects
@@ -195,7 +192,7 @@ var deleteRow = function(row_index) {
 		$nthTR(row_index).remove();
 		updateLabel();
 	} else {
-		alert("You must have one or more projects on the timesheet");
+		swal("You must have one or more projects on the timesheet", "", "error");
 	}
 	
 }
