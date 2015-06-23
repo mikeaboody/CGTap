@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>CGTap</title>
+  <link rel="stylesheet" href= "bootstrap-select/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -12,6 +13,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
   <script src="sweetalert-master/dist/sweetalert.min.js"></script>
+  <script src="bootstrap-select/js/bootstrap-select.min.js"></script>
   
   <script>
     var master_email = "<%= @email %>";
@@ -85,21 +87,21 @@
                   <tr>
                     <td>
                       <div class = "projects col-md-2">
-                        <select>
+                        <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
                           <option value =""selected>Project</option>
                         </select>
                       </div>
                     </td>
                     <td>
                       <div class = "tasks col-md-2">
-                        <select>
+                        <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
                          <option value =""selected>Task</option>
                         </select>
                       </div>
                     </td>
                     <td>
                       <div class="payment col-md-2">
-                        <select>
+                        <select class = "selectpicker" data-size="false" data-width="125px" data-style="btn-info">
                           <option value =""selected>Billing</option>
                         </select>
                       </div>

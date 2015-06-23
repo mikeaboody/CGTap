@@ -2,6 +2,7 @@ body {
   background-color: #f9f9f9;
   padding: 10px;
 }
+
 .welcome {
   font-size: 14px;
 }
@@ -9,6 +10,7 @@ body {
   background-color: #05abd5;
 
 }
+
 .navbar-brand {
   font-size: 40px;
   font-family: 'Lobster', cursive;
