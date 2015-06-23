@@ -139,10 +139,23 @@ var $nthTR = function(n) {
 }
 
 // //allow projects to be sortable
-$("#table-responsive" ).click(function() {
-    $("#table-responsive" ).sortable();
-    $("#table-responsive" ).disableSelection();
-});
+
+ $(function() {
+    $("tbody").sortable({
+		helper:fixHelper
+	}).disableSelection();
+ });
+
+// }
+var fixHelper = function(e, ui) {
+	console.log(ui);
+
+	ui.children().each(function() {
+		$(this).width($(this).width());
+	});
+	return ui;
+};
+
 
 
 var addRow = function() {
@@ -166,11 +179,8 @@ var deleteRow = function() {
 
 
 
-
-
-
-
 //intitializes tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
