@@ -1,6 +1,5 @@
 var updateProject = function(row_index) {
 	$nthTR(row_index).find(".projects select").empty();
-	console.log($nthTR(row_index).find(".projects select"));
 	for (var i = 0; i < master_user.projects.length; i += 1) {
 		var currProj = master_user.projects[i];
 		

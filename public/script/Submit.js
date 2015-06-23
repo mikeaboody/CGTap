@@ -62,7 +62,7 @@ var postSubmitObjs = function(postObjs, success) {
 
 var reset = function() {
 	$(".content").hide(1);
-	$(".welcome").html("Loading...");
+	$(".welcome").html("Loading...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
 	time = [0];
 	stopTimer(0);
 	$("#time_sheet_table tbody").empty();
