@@ -128,6 +128,7 @@ var startTimer = function(index, action) {
 	timer = setInterval(action, 1000);
 	current_time_index = index;
 	$nthTR(index).find(".timer_button").html("Stop");
+	$nthTR(index).find(".timer_button").toggleClass("btn-danger");
 }
 
 var stopTimer = function(index) {
@@ -140,6 +141,7 @@ var stopTimer = function(index) {
 	$nthTR(index).find('input[name="hours"]').val(hours);
 	updateLabel();
 	$nthTR(index).find(".timer_button").html("Start");
+	$nthTR(index).find(".timer_button").toggleClass("btn-danger");
 }
 
 var redirectToTimesheet = function() {
@@ -162,8 +164,6 @@ var $nthTR = function(n) {
 
 // }
 var fixHelper = function(e, ui) {
-	console.log(ui);
-
 	ui.children().each(function() {
 		$(this).width($(this).width());
 	});
