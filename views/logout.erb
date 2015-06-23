@@ -4,30 +4,52 @@
   <meta charset="UTF-8">
   <title>Log Out of Tap Time</title>
 
+  <link rel="stylesheet" href= "bootstrap-select/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="bootstrap-3.3.4-dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <link href='style/main.css' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+  <script src="sweetalert-master/dist/sweetalert.min.js"></script>
+  <script src="bootstrap-select/js/bootstrap-select.min.js"></script>
+  <script src='d3/d3.js'></script>
+  <script src='d3/d3.min.js'></script>
+  <script src="./script/Objects.js"></script>
+  <script src="./script/Setup.js"></script>
+  <script src="./script/UserInterface.js"></script>
+  <script src="./script/Submit.js"></script>
 
  </head>
  <body>
-	 <div class='container'>
-	  <div class='navbar navbar-default navbar-fixed-top'>
-	    <div class='container'>
-	     <a href='/' class='navbar-brand'>Tap App</a>
+  <div class='container'>
+    <div class='navbar navbar-default navbar-fixed-top'>
+      <div class='container'>
+       <a href='/' class='navbar-brand'>Tap App</a>
 
-	      <h2 class="welcome">Bye!</h2>
-	      <br>
-	    </div>
-	  </div>
-	</div>
-	<br>
-    <br>
-    <br>
+        <h2 class="welcome">Bye!</h2>
+        <div class="dropdown navbar-nav navbar-right">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
+          <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="/disconnect">Log Out</a>
+            </li>
+            <li>
+              <a href="/today">What I Did Today</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
   To fully log out, you want to go to gmail and log and and then control group and log out.
  </body>
 </html>
