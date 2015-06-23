@@ -61,7 +61,7 @@ var postSubmitObjs = function(postObjs, success) {
 }
 
 var reset = function() {
-	$(".content").hide();
+	$(".content").hide(1);
 	$(".welcome").html("Loading...");
 	time = [0];
 	stopTimer(0);
