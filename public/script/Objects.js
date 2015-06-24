@@ -3,7 +3,7 @@ var timer = null;
 var time = [0];
 var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
-current_time_index = null;
+var current_time_index = null;
 
 COMMUNICATOR = {
 	getUser: function(success) {

@@ -138,7 +138,9 @@ var $nthTR = function(n) {
 
  $(function() {
     $("#time_sheet_table tbody").sortable({
-		helper:fixHelper
+		helper:fixHelper,
+		start: function( event, ui ) {console.log("start: " + ui.item.index())},
+		stop: function( event, ui ) {console.log("end: " + ui.item.index())}
 	}).disableSelection();
  });
 
