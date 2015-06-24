@@ -1,6 +1,11 @@
 var submit = function() {
 	var submitObj_list = [];
 	for (var i = 0; i < ($("#time_sheet_table tr:last").index() + 1); i += 1) {
+		var currSubmitObj = createSubmitObj(i);
+		if (currSubmitObj == null) {
+			swal("One or more of your projects has 5 minutes or less recorded!", "Make sure you only enter projects with 5 minutes or more of time.", "error");
+			return;
+		}
 		submitObj_list.push(createSubmitObj(i));
 	}
 	postSubmitObjs(submitObj_list, function() {

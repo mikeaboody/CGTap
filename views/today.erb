@@ -35,6 +35,9 @@ $(document).ready(function() {
     $(".today").append(ul);
 
   }
+  if (events.length == 0) {
+    $(".today").append("<h5>No events today on Google Calendar.</h5>");
+  }
 });
 
 </script>
@@ -64,7 +67,7 @@ $(document).ready(function() {
 <br>
 <br>
 <div class = "today">
-  <h3>Here are today's events:</h3>
+  <h3>Here are today's events on Google Calendar:</h3>
   <br>
 </div>
 <br/>
