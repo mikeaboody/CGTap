@@ -7,7 +7,7 @@ var setup = function() {
 		Submittable.user = master_user;
 		loadUserData();
 	}
-	$template_row = $("tbody tr:nth-child(1)").clone();
+	$template_row = $("#time_sheet_table tbody tr:nth-child(1)").clone();
 	COMMUNICATOR.getUser(success);
 }
 

@@ -1,7 +1,7 @@
 var master_user = null;
 var timer = null;
 var time = [0];
-var base = "https://cgp-api.controlgroup.com";
+var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
 current_time_index = null;
 

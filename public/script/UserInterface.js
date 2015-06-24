@@ -74,25 +74,6 @@ var updateTimeType = function(row_index, proj_id) {
 
 
 var updateLabel = function() {
-	var minutes = 0;
-	var hours = 0;
-	$('input[name="minutes"]').each(function() {
-		minutes += (($(this).val() == "") ? 0 : parseInt($(this).val(), 10));
-	});
-	$('input[name="hours"').each(function() {
-		hours += ($(this).val() == "") ? 0 : parseInt($(this).val(), 10);
-	})
-	while (minutes >= 60) {
-		hours += 1;
-		minutes -= 60;
-	}
-	// var minutes = ($('input[name="minutes"]').val() == "") ? 0 : parseInt($('input[name="minutes"]').val(), 10);
-	// var hours = ($('input[name="hours"]').val() == "") ? 0 : parseInt($('input[name="hours"]').val(), 10);
-	var output = "You are submitting " + hours + ":" + ((minutes < 10) ? ("0" + minutes) : ("" + minutes))
-				+ " hours for project " + $(".projects select option:selected").text() + " with task " +
-				$(".tasks select option:selected").text() + " and payment type " + $(".payment select option:selected").text()
-				+ "... Would you like to submit?";
-	$(".output").text(output);
 	if ($(".content").is(":hidden")) {
 		$(".content").show();
 	}
@@ -150,13 +131,13 @@ var redirectToTimesheet = function() {
 }
 
 var $nthTR = function(n) {
-	return $("tbody tr:nth-child(" + (n + 1) + ")");
+	return $("#time_sheet_table tbody tr:nth-child(" + (n + 1) + ")");
 }
 
 // //allow projects to be sortable
 
  $(function() {
-    $("tbody").sortable({
+    $("#time_sheet_table tbody").sortable({
 		helper:fixHelper
 	}).disableSelection();
  });

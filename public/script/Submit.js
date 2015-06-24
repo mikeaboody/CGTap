@@ -8,10 +8,42 @@ var submit = function() {
 		}
 		submitObj_list.push(createSubmitObj(i));
 	}
-	postSubmitObjs(submitObj_list, function() {
-		swal("You have submitted your hours!", "", "success");
-		reset();
-	});
+	var confirmSubmit = function() {
+		postSubmitObjs(submitObj_list, function() {
+			swal("You have submitted your hours!", "", "success");
+			reset();
+		});
+	}
+
+	
+	var table_html = "<table id='submit_table'class='table table-responsive table-bordered table-hover table-striped'>";
+	
+	table_html += "<thead><tr><th>Projects</th><th>Hours</th></tr></thead>";
+	table_html += "<tbody>";
+
+	for (var i = 0; i < ($("#time_sheet_table tr:last").index() + 1); i += 1) {
+
+		var proj_name = $nthTR(i).find($(".projects select option:selected")).text();
+		var hours = "" + (($nthTR(i).find($('input[name="hours"]')).val() == "") ? 0 : parseInt($nthTR(i).find($('input[name="hours"]')).val(), 10));
+		var minutes = (($nthTR(i).find($('input[name="minutes"]')).val() == "") ? 0 : parseInt($nthTR(i).find($('input[name="minutes"]')).val(), 10));
+		minutes = ((minutes < 10) ? ("0" + minutes) : ("" + minutes));
+		var current_tr = "<tr><td>" + proj_name + "</td><td>" + hours + ":" + minutes + "</td></tr>";
+		table_html += current_tr;
+	}
+	table_html += "</tbody></table>";
+	swal({   
+		title: "Do you want to submit?",   
+		text: table_html,
+		html: true,    
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "Submit",   
+		cancelButtonText: "Cancel",   
+		closeOnConfirm: true,   
+		closeOnCancel: true }, 
+		confirmSubmit
+	);
+
 }
 
 var createSubmitObj = function(index) {
