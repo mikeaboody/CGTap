@@ -93,7 +93,7 @@ var switchTimer = function(tr) {
 		current_time_tr.$getJQuery().find(".timer label").html(newLabel);
 	}
 
-	if (timer == null) { //just starting the timer
+	if (tr_timer == null) { //just starting the timer
 		startTimer(tr, updateTimer);
 	} else { //stopping the timer
 		if (current_time_tr == tr) {
@@ -106,15 +106,15 @@ var switchTimer = function(tr) {
 }
 
 var startTimer = function(tr, action) {
-	timer = setInterval(action, 1000);
+	tr_timer = setInterval(action, 1000);
 	current_time_tr = tr;
 	current_time_tr.$getJQuery().find(".timer_button").html("Stop");
 	current_time_tr.$getJQuery().find(".timer_button").toggleClass("btn-danger");
 }
 
 var stopTimer = function(tr) {
-	clearInterval(timer);
-	timer = null;
+	clearInterval(tr_timer);
+	tr_timer = null;
 	current_time_tr = null;
 	var hours = Math.floor(tr.time / (3600*1000));
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;

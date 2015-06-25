@@ -1,5 +1,5 @@
 var master_user = null;
-var timer = null;
+var tr_timer = null;
 var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
 var tr_count = 0;
