@@ -19,10 +19,15 @@
 <script>
 var json = <%= @json %>;
 var items = json["items"];
+console.log(json);
 var events = []
 for (var i = 0; i < items.length; i += 1) {
   var curr_event = items[i];
-  events.push(new CalendarEvent(curr_event["summary"], curr_event["description"], curr_event["start"]["dateTime"], curr_event["end"]["dateTime"]));
+  if (curr_event["status"] != "cancelled") {
+    events.push(new CalendarEvent(curr_event["summary"], curr_event["description"], curr_event["start"]["dateTime"], curr_event["end"]["dateTime"]));
+    //check if events are the same, if so then take the updated one
+  }
+  
 }
 $(document).ready(function() {
   for (var i = 0; i < events.length; i += 1) {
