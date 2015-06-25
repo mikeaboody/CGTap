@@ -16,7 +16,7 @@ var submit = function() {
 	}
 
 	
-	var table_html = "<table id='submit_table'class='table table-responsive table-bordered table-hover table-striped'>";
+	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
 	
 	table_html += "<thead><tr><th>Projects</th><th>Hours</th></tr></thead>";
 	table_html += "<tbody>";
