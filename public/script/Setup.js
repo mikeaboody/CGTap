@@ -35,8 +35,12 @@ var loadUserData = function() {
         	master_user.setProjects(projectList);
     		if (master_user.projects != []) {
     			$(".welcome").html("Welcome " + master_user.first_name + "!");
-    			updateProject(0);
-    			updateTasks(0, master_user.projects[0].id);
+    			createTR();
+    			//assumes only one key in the tr_map
+    			var first_tr = tr_map[Object.keys(tr_map)[0]];
+    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
+    			first_tr.updateProject();
+    			first_tr.updateTasks(master_user.projects[0].id);
 			} else {
     			document.write("failed task data");
 			}

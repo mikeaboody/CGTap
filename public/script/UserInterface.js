@@ -1,69 +1,69 @@
-var updateProject = function(row_index) {
-	$nthTR(row_index).find(".projects select").empty();
+var updateProject = function(tr) {
+	tr.$getJQuery().find(".projects select").empty();
 	for (var i = 0; i < master_user.projects.length; i += 1) {
 		var currProj = master_user.projects[i];
 		
 		if (i == 0) {
-			$nthTR(row_index).find(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
+			tr.$getJQuery().find(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
 		} else {
-			$nthTR(row_index).find(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
+			tr.$getJQuery().find(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 		}
 	}
-	$nthTR(row_index).find(".projects select").on('change', function() {
-   		updateTasks($(this).closest("tr").index(), $(this).val());
+	tr.$getJQuery().find(".projects select").on('change', function() {
+   		tr.updateTasks($(this).val());
    		updateLabel();
 	});
-	$nthTR(row_index).find(".tasks select").on('change', function() {
+	tr.$getJQuery().find(".tasks select").on('change', function() {
    		updateLabel();
 	});
-	$nthTR(row_index).find(".payment select").on('change', function() {
-   		updateLabel();
-	});
-
-	$nthTR(row_index).find(".hours").on('change', function() {
+	tr.$getJQuery().find(".payment select").on('change', function() {
    		updateLabel();
 	});
 
-	$nthTR(row_index).find(".minutes").on('change', function() {
+	tr.$getJQuery().find(".hours").on('change', function() {
    		updateLabel();
 	});
 
-	$nthTR(row_index).find(".timer_button").on('click', function() {
-		switchTimer($(this).closest("tr").index());
+	tr.$getJQuery().find(".minutes").on('change', function() {
+   		updateLabel();
 	});
-	$nthTR(row_index).find(".deleteRow button").on('click', function() {
-		deleteRow($(this).closest("tr").index());
+
+	tr.$getJQuery().find(".timer_button").on('click', function() {
+		tr.switchTimer();
+	});
+	tr.$getJQuery().find(".deleteRow button").on('click', function() {
+		deleteRow(tr);
 	});
 }
 
-var updateTasks = function(row_index, proj_id) {
+var updateTasks = function(tr, proj_id) {
 	var success = function(data) {
-		$nthTR(row_index).find(".tasks select").empty();
+		tr.$getJQuery().find(".tasks select").empty();
 
 		for (var i = 0; i < data.length; i += 1) {
 			var currTask = data[i];
 			if (i == 0) {
-				$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+				tr.$getJQuery().find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 			} else {
-				$nthTR(row_index).find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+				tr.$getJQuery().find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 			}
 		}
-		updateTimeType(row_index, proj_id);
+		tr.updateTimeType(proj_id);
 	}
 	COMMUNICATOR.getTasks(proj_id, success);
 }
 
-var updateTimeType = function(row_index, proj_id) {
+var updateTimeType = function(tr, proj_id) {
 	var success = function(data) {
-		$nthTR(row_index).find(".payment select").empty();
+		tr.$getJQuery().find(".payment select").empty();
 		for (var i = 0; i < data.length; i += 1) {
 			var currTimeType = data[i];
 			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
 			if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
 				if (i == 0) {
-					$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
+					tr.$getJQuery().find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
 				} else {
-					$nthTR(row_index).find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+					tr.$getJQuery().find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
 				}	
 			}
 		}
@@ -80,48 +80,48 @@ var updateLabel = function() {
 	$('.selectpicker').selectpicker('refresh');
 }
 
-var switchTimer = function(row_index) {
+var switchTimer = function(tr) {
 	var updateTimer = function() {
-		time[current_time_index] += 1000;
-		var hours = Math.floor(time[current_time_index] / (3600*1000));
-		var minutes = Math.floor(time[current_time_index] / (60*1000)) % 60;
-		var seconds = Math.floor(time[current_time_index] / 1000) % 60;
+		current_time_tr.time += 1000;
+		var hours = Math.floor(current_time_tr.time / (3600*1000));
+		var minutes = Math.floor(current_time_tr.time / (60*1000)) % 60;
+		var seconds = Math.floor(current_time_tr.time / 1000) % 60;
 		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
 						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
 						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
-		$nthTR(current_time_index).find(".timer label").html(newLabel);
+		current_time_tr.$getJQuery().find(".timer label").html(newLabel);
 	}
 
 	if (timer == null) { //just starting the timer
-		startTimer(row_index, updateTimer);
+		startTimer(tr, updateTimer);
 	} else { //stopping the timer
-		if (current_time_index == row_index) {
-			stopTimer(row_index);
+		if (current_time_tr == tr) {
+			stopTimer(tr);
 		} else {
-			stopTimer(current_time_index);
-			startTimer(row_index, updateTimer);
+			stopTimer(current_time_tr);
+			startTimer(tr, updateTimer);
 		}
 	}
 }
 
-var startTimer = function(index, action) {
+var startTimer = function(tr, action) {
 	timer = setInterval(action, 1000);
-	current_time_index = index;
-	$nthTR(index).find(".timer_button").html("Stop");
-	$nthTR(index).find(".timer_button").toggleClass("btn-danger");
+	current_time_tr = tr;
+	current_time_tr.$getJQuery().find(".timer_button").html("Stop");
+	current_time_tr.$getJQuery().find(".timer_button").toggleClass("btn-danger");
 }
 
-var stopTimer = function(index) {
+var stopTimer = function(tr) {
 	clearInterval(timer);
 	timer = null;
-	current_time_index = null;
-	var hours = Math.floor(time[index] / (3600*1000));
-	var minutes = Math.floor(time[index] / (60*1000)) % 60;
-	$nthTR(index).find('input[name="minutes"]').val(minutes);
-	$nthTR(index).find('input[name="hours"]').val(hours);
+	current_time_tr = null;
+	var hours = Math.floor(tr.time / (3600*1000));
+	var minutes = Math.floor(tr.time / (60*1000)) % 60;
+	tr.$getJQuery().find('input[name="minutes"]').val(minutes);
+	tr.$getJQuery().find('input[name="hours"]').val(hours);
 	updateLabel();
-	$nthTR(index).find(".timer_button").html("Start");
-	$nthTR(index).find(".timer_button").toggleClass("btn-danger");
+	tr.$getJQuery().find(".timer_button").html("Start");
+	tr.$getJQuery().find(".timer_button").toggleClass("btn-danger");
 }
 
 var redirectToTimesheet = function() {
@@ -155,25 +155,21 @@ var fixHelper = function(e, ui) {
 
 
 var addRow = function() {
+	var id = createTR();
 	var myRow = $template_row;
-	var myHTML = "<tr>" + myRow.html() + "</tr>"
+	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
     $("#time_sheet_table tr:last").after(myHTML);
-    var last_tr_index = $("#time_sheet_table tr:last").index();
-    updateProject(last_tr_index);
-    updateTasks(last_tr_index, master_user.projects[0].id);
-    time.push(0);
+    tr_map[id].updateProject();
+    tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
 // //delete a row from projects
-var deleteRow = function(row_index) {
+var deleteRow = function(tr) {
 	if (($("#time_sheet_table tr:last").index() + 1) > 1) {
-		time.splice(row_index, 1);
-		if (current_time_index > row_index) {
-			current_time_index -= 1;
-		} else if (current_time_index == row_index) {
-			stopTimer(row_index);
+		if (current_time_tr == tr) {
+			stopTimer(tr);
 		}
-		$nthTR(row_index).remove();
+		deleteTR(tr);
 		updateLabel();
 	} else {
 		swal("You must have one or more projects on the timesheet", "", "error");

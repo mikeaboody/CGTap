@@ -43,6 +43,7 @@ var submit = function() {
 		closeOnCancel: true }, 
 		confirmSubmit
 	);
+	//GOING TO FIX THIS LATER
 
 }
 
@@ -71,6 +72,7 @@ var createSubmitObj = function(index) {
 	} else {
 		return null;
 	}
+	//GOING TO FIX THIS LATER
 }
 
 var postSubmitObjs = function(postObjs, success) {
@@ -95,6 +97,7 @@ var postSubmitObjs = function(postObjs, success) {
 		}
 	}
 	next();
+	//GOING TO FIX THIS LATER
 }
 
 var reset = function() {
@@ -105,5 +108,6 @@ var reset = function() {
 	$("#time_sheet_table tbody").empty();
 	$("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
 	loadUserData();
+	//GOING TO FIX THIS LATER
 }
 

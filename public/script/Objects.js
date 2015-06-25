@@ -1,9 +1,10 @@
 var master_user = null;
 var timer = null;
-var time = [0];
 var base = "https://cgp-api-dev.controlgroup.com";
 var $template_row = null;
-var current_time_index = null;
+var tr_count = 0;
+var tr_map = {};
+var current_time_tr = null;
 
 COMMUNICATOR = {
 	getUser: function(success) {
@@ -56,4 +57,37 @@ function CalendarEvent(name, description, start, end) {
 	this.start = start;
 	this.end = end;
 }
+
+function TableRow(id) {
+	this.id = id;
+	this.time = 0;
+	this.$getJQuery = function() {
+		return $("#time_sheet_table tbody #" + this.id);
+	};
+	this.updateProject = function() {
+		updateProject(this);
+	};
+	this.updateTasks = function(proj_id) {
+		updateTasks(this, proj_id);
+	};
+	this.updateTimeType = function(proj_id) {
+		updateTimeType(this, proj_id);
+	};
+	this.switchTimer = function() {
+		switchTimer(this);
+	};
+}
+
+var createTR = function() {
+	var newTR = new TableRow(tr_count);
+	tr_map[tr_count] = newTR;
+	tr_count += 1;
+	return newTR.id;
+}
+
+var deleteTR = function(tr) {
+	tr.$getJQuery().remove();
+	delete tr_map[tr.id];
+}
+
 
