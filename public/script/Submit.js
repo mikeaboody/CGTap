@@ -1,12 +1,12 @@
 var submit = function() {
 	var submitObj_list = [];
-	for (var i = 0; i < ($("#time_sheet_table tr:last").index() + 1); i += 1) {
-		var currSubmitObj = createSubmitObj(i);
+	for (id in tr_map) {
+		var currSubmitObj = createSubmitObj(tr_map[id]);
 		if (currSubmitObj == null) {
 			swal("One or more of your projects has 5 minutes or less recorded!", "Make sure you only enter projects with 5 minutes or more of time.", "error");
 			return;
 		}
-		submitObj_list.push(createSubmitObj(i));
+		submitObj_list.push(currSubmitObj);
 	}
 	var confirmSubmit = function() {
 		postSubmitObjs(submitObj_list, function() {
@@ -21,11 +21,11 @@ var submit = function() {
 	table_html += "<thead><tr><th>Projects</th><th>Hours</th></tr></thead>";
 	table_html += "<tbody>";
 
-	for (var i = 0; i < ($("#time_sheet_table tr:last").index() + 1); i += 1) {
-
-		var proj_name = $nthTR(i).find($(".projects select option:selected")).text();
-		var hours = "" + (($nthTR(i).find($('input[name="hours"]')).val() == "") ? 0 : parseInt($nthTR(i).find($('input[name="hours"]')).val(), 10));
-		var minutes = (($nthTR(i).find($('input[name="minutes"]')).val() == "") ? 0 : parseInt($nthTR(i).find($('input[name="minutes"]')).val(), 10));
+	for (id in tr_map) {
+		var tr = tr_map[id];
+		var proj_name = tr.$getJQuery().find($(".projects select option:selected")).text();
+		var hours = "" + ((tr.$getJQuery().find($('input[name="hours"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="hours"]')).val(), 10));
+		var minutes = ((tr.$getJQuery().find($('input[name="minutes"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="minutes"]')).val(), 10));
 		minutes = ((minutes < 10) ? ("0" + minutes) : ("" + minutes));
 		var current_tr = "<tr><td>" + proj_name + "</td><td>" + hours + ":" + minutes + "</td></tr>";
 		table_html += current_tr;
@@ -43,13 +43,11 @@ var submit = function() {
 		closeOnCancel: true }, 
 		confirmSubmit
 	);
-	//GOING TO FIX THIS LATER
-
 }
 
-var createSubmitObj = function(index) {
+var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
-	var $current_tr = $nthTR(index);
+	var $current_tr = tr.$getJQuery();
 	var minutes = ($current_tr.find('input[name="minutes"]').val() == "") ? 0 : parseInt($current_tr.find('input[name="minutes"]').val(), 10);
 	var hours = ($current_tr.find('input[name="hours"]').val() == "") ? 0 : parseInt($current_tr.find('input[name="hours"]').val(), 10);
 	var post_hours = hours;
@@ -72,7 +70,6 @@ var createSubmitObj = function(index) {
 	} else {
 		return null;
 	}
-	//GOING TO FIX THIS LATER
 }
 
 var postSubmitObjs = function(postObjs, success) {
@@ -97,17 +94,17 @@ var postSubmitObjs = function(postObjs, success) {
 		}
 	}
 	next();
-	//GOING TO FIX THIS LATER
 }
 
 var reset = function() {
 	$(".content").hide(1);
 	$(".welcome").html("Loading...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
-	time = [0];
-	stopTimer(0);
+	if (current_time_tr != null) {
+		stopTimer(current_time_tr);
+	}
+	tr_map = {};
 	$("#time_sheet_table tbody").empty();
 	$("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
 	loadUserData();
-	//GOING TO FIX THIS LATER
 }
 
