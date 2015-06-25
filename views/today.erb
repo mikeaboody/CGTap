@@ -45,35 +45,26 @@ $(document).ready(function() {
   <div class='navbar navbar-default navbar-fixed-top'>
     <div class='container'>
      <a href='/' class='navbar-brand'>Tap App</a>
-
-      <h2 class="welcome">Today</h2>
-      <div class="dropdown navbar-nav navbar-right">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Options
-        <span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li>
-            <a href="/disconnect">Log Out</a>
-          </li>
-          <li>
-            <a href="/today">What I Did Today</a>
-          </li>
-        </ul>
+      <h2 class="welcome">Your Google Calendar</span></h2>
+      <div class=" navbar-nav navbar-right">
+          <button type="button" onclick="location.href = '/';" class="btn btn-info" role="button">Home</a></button>
+          <button type="button" onclick="redirectToTimesheet();" class="btn btn-info" role="button">Past Timesheets</a></button>
+          <button type="button" onclick="location.href = '/disconnect'" class="btn btn-info" role="button">Log Out</a></button>
       </div>
     </div>
+    <br>
   </div>
 </div>
-<br>
-<br>
-<br>
-<br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 <div class = "today">
   <h3>Here are today's events on Google Calendar:</h3>
-  <br>
 </div>
 <br/>
-<form class = "back" action="/">
-    <input type="submit" value="Back to Home" >
-</form>
 <script>
 //might help you later for searching through
 // var lis = $("#list li");
