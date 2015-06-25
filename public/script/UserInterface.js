@@ -74,6 +74,7 @@ var updateTimeType = function(tr, proj_id) {
 
 
 var updateLabel = function() {
+	$(".welcome").html("Welcome " + master_user.first_name + "!");
 	if ($(".content").is(":hidden")) {
 		$(".content").show();
 	}

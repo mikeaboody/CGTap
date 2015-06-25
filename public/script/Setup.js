@@ -34,7 +34,6 @@ var loadUserData = function() {
         	}
         	master_user.setProjects(projectList);
     		if (master_user.projects != []) {
-    			$(".welcome").html("Welcome " + master_user.first_name + "!");
     			createTR();
     			//assumes only one key in the tr_map
     			var first_tr = tr_map[Object.keys(tr_map)[0]];
