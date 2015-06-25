@@ -130,10 +130,6 @@ var redirectToTimesheet = function() {
 	window.location.href = url;
 }
 
-var $nthTR = function(n) {
-	return $("#time_sheet_table tbody tr:nth-child(" + (n + 1) + ")");
-}
-
 // //allow projects to be sortable
 
  $(function() {
