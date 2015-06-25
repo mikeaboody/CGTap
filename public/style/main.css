@@ -3,6 +3,11 @@ body {
   padding: 10px;
 }
 
+#time_sheet_table tbody tr {
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
 .welcome {
   font-size: 14px;
 }

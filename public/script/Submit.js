@@ -10,8 +10,13 @@ var submit = function() {
 	}
 	var confirmSubmit = function() {
 		postSubmitObjs(submitObj_list, function() {
-			swal("You have submitted your hours!", "", "success");
-			reset();
+			swal({
+				title: "You have submitted your hours!",
+				type: "success",
+			}, function() {
+				reset();
+			});
+			
 		});
 	}
 
