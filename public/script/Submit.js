@@ -3,7 +3,7 @@ var submit = function() {
 	for (id in tr_map) {
 		var currSubmitObj = createSubmitObj(tr_map[id]);
 		if (currSubmitObj == null) {
-			swal("One or more of your projects has 5 minutes or less recorded!", "Make sure you only enter projects with 5 minutes or more of time.", "error");
+			swal("Insufficient Time!", "One or more of your projects is recorded at 5 minutes or less. Make sure you enter projects with 5 minutes or more of time.", "error");
 			return;
 		}
 		submitObj_list.push(currSubmitObj);

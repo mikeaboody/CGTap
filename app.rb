@@ -68,6 +68,8 @@ end
 
 get '/' do
   # Fetch list of events on the user's default calandar
+  puts "HELLO THERE"
+  puts Net::HTTP.get(URI.parse("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + session[:access_token])).has_key(:error)
   unless user_credentials.access_token 
     redirect to('/oauth2authorize')
   else
@@ -92,7 +94,7 @@ get '/logout' do
 end
 
 get '/today' do
-  unless user_credentials.access_token 
+  unless user_credentials.access_token
     redirect to('/oauth2authorize')
   else
     startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
