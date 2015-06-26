@@ -8,22 +8,86 @@ var current_time_tr = null;
 
 COMMUNICATOR = {
 	getUser: function(success) {
-		$.getJSON(base + "/employees", success);
+		// $.getJSON(base + "/employees", success);
+		$.ajax({
+	        type: "GET",
+	        dataType: 'json',
+	        url: base + "/employees",
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        }
+		});
 	},
 	getProjects: function(success) {
-		$.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
+		// $.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
+		$.ajax({
+	        type: "GET",
+	        dataType: 'json',
+	        url: base + "/timeentry/projectlist?id=" + master_user.email,
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        }
+		});
 	},
 	getTasks: function(proj_id, success) {
-		$.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
+		// $.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
+		$.ajax({
+	        type: "GET",
+	        dataType: 'json',
+	        url: base + "/timeentry/tasklist?id=" + proj_id,
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        }
+		});
 	},
 	getTimeTypes: function(proj_id, success) {
-		$.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
+		// $.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
+		$.ajax({
+	        type: "GET",
+	        dataType: 'json',
+	        url: base + "/timeentry/timetypelist?id=" + proj_id,
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        }
+		});
 	},
 	postToDatabase: function(postObj, success, failure) {
-		$.post("/submit", postObj, success, failure);
+		// $.post("/submit", postObj, success, failure);
+		$.ajax({
+	        type: "POST",
+	        data: postObj,
+	        url: "/submit",
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        	jqXHR.abort();
+	        	// failure();
+	        }
+		});
 	},
 	postToOpenAir: function(postObj, success, failure) {
-		$.post(base + "/timeentry/submit", postObj, success, failure);
+		// $.post(base + "/timeentry/submit", postObj, success, failure);
+		$.ajax({
+	        type: "POST",
+	        data: postObj,
+	        url: base + "/timeentry/submit",
+	        success: success,
+	        timeout: 5000,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	console.log(textStatus);
+	        	jqXHR.abort();
+	        	// failure();
+	        }
+		});
 	}
 }
 
