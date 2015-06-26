@@ -16,7 +16,11 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	},
@@ -29,7 +33,11 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	},
@@ -42,7 +50,11 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	},
@@ -55,11 +67,15 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	},
-	postToDatabase: function(postObj, success, failure) {
+	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
 		$.ajax({
 	        type: "POST",
@@ -68,13 +84,16 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
 	        	jqXHR.abort();
-	        	// failure();
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	},
-	postToOpenAir: function(postObj, success, failure) {
+	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
 		$.ajax({
 	        type: "POST",
@@ -83,9 +102,12 @@ COMMUNICATOR = {
 	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	console.log(textStatus);
 	        	jqXHR.abort();
-	        	// failure();
+	        	if (textStatus == "timeout") {
+	        		timeoutFailure();
+	        	} else {
+	        		generalFailure();
+	        	}
 	        }
 		});
 	}

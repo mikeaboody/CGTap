@@ -172,6 +172,22 @@ var deleteRow = function(tr) {
 	
 }
 
+var timeoutFailure = function() {
+	swal({
+		title: "Page Timed Out. Please try again later.",
+		type: "error"
+	});
+	$(".welcome").html("Timed out.");
+}
+
+var generalFailure = function() {
+	swal({
+		title: "Something went wrong. Please try again later.",
+		type: "error"
+	});
+	$(".welcome").html("Something went wrong.");
+}
+
 $('.selectpicker').selectpicker();
 
 //intitializes tooltip
