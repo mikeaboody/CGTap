@@ -118,12 +118,16 @@ get '/today' do
 end
 
 post "/submit" do
+  puts params
   first_name = params.delete("first_name")
   last_name = params.delete("last_name")
   email = params["email"]
+  project_name = params["project_nm"]
+  task_name = params["task_nm"]
+  time_type = params["task_type_nm"]
   submission_time = params["date"]
   hours = params["hours"]
-  @time_sheets = TimeSheets.new({first_name: first_name, last_name: last_name, email: email, submission_time: submission_time, hours: hours})
+  @time_sheets = TimeSheets.new({first_name: first_name, last_name: last_name, project_name: project_name, task_name: task_name, time_type: time_type, email: email, submission_time: submission_time, hours: hours})
   if @time_sheets.save
     puts "SUCCESS"
   else

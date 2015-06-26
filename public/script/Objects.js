@@ -129,10 +129,13 @@ function Project(name, id) {
 };
 
 function Submittable() {
+	this.project_nm = "";
 	this.project_id = 0;
 	this.hours = 0;
 	this.date = 0;
+	this.task_nm = "";
 	this.task_id = 0;
+	this.task_type_nm = "";
 	this.task_type = 0;
 	this.notes = "";
 }

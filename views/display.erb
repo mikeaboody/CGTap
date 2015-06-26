@@ -42,6 +42,9 @@
 	<TD ALIGN = "center"> First Name </TD>
 	<TD ALIGN = "center"> Last Name </TD>
 	<TD ALIGN = "center"> Email </TD>
+  <TD ALIGN = "center"> Project </TD>
+  <TD ALIGN = "center"> Task </TD>
+  <TD ALIGN = "center"> Time Type </TD>
 	<TD ALIGN = "center"> Submission Time </TD>
 	<TD ALIGN = "center"> Hours (rounded) </TD>
 	</TR> 
@@ -51,6 +54,9 @@
 		<TD ALIGN = "center"> <%= time_sheet.first_name %> </TD>
 		<TD ALIGN = "center"> <%= time_sheet.last_name %> </TD>
 		<TD ALIGN = "center"> <%= time_sheet.email %> </TD>
+    <TD ALIGN = "center"> <%= time_sheet.project_name %> </TD>
+    <TD ALIGN = "center"> <%= time_sheet.task_name %> </TD>
+    <TD ALIGN = "center"> <%= time_sheet.time_type %> </TD>
 		<TD ALIGN = "center" class = "sub_time_td"> <%= time_sheet.submission_time%> </TD>
 		<TD ALIGN = "center"> <%= time_sheet.hours %> </TD>
 		</TR> 

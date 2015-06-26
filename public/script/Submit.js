@@ -62,8 +62,11 @@ var createSubmitObj = function(tr) {
 	submitObj.email = Submittable.user.email;
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
+	submitObj.project_nm = $current_tr.find(".projects select option:selected").text();
 	submitObj.project_id = $current_tr.find(".projects select option:selected").val();
+	submitObj.task_nm = $current_tr.find(".tasks select option:selected").text();
 	submitObj.task_id = $current_tr.find(".tasks select option:selected").val();
+	submitObj.task_type_nm = $current_tr.find(".payment select option:selected").text();
 	submitObj.task_type = $current_tr.find(".payment select option:selected").val();
 	submitObj.hours = post_hours;
 	submitObj.date = (new Date()).getTime();
@@ -84,6 +87,9 @@ var postSubmitObjs = function(postObjs, success) {
 			COMMUNICATOR.postToDatabase(postObj, function() {
 				delete postObj["first_name"];
 				delete postObj["last_name"];
+				delete postObj["project_nm"];
+				delete postObj["task_nm"];
+				delete postObj["task_type_nm"];
 				if (postObj["notes"] == "") {
 					delete postObj["notes"];
 				}
