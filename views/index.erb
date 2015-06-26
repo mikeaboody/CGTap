@@ -34,19 +34,13 @@
           <h2 class="welcome">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
           <div class=" navbar-nav navbar-right">
               <button type="button" onclick="redirectToTimesheet();" class="btn btn-info" role="button">Past Timesheets</a></button>
-              <button type="button" onclick="location.href = '/today'" class="btn btn-info" role="button">Calendar</a></button>
+              <button type="button" id="today" onclick="location.href = '/today'" class="btn btn-info ui-state-default ui-corner-all" role="button">Calendar</a></button>
               <button type="button" onclick="location.href = '/disconnect'" class="btn btn-info" role="button">Log Out</a></button>
           </div>
         </div>
   
    
-        <div class = "container">
-          <div class="btn-group" role="group">
-            <div class="submit" style = "display:inline;">
-              <button onclick="submit()" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Submit">Submit</button>
-            </div>
-          </div>
-        </div>
+      
       </div>
     </div>
       <br>
@@ -124,6 +118,13 @@
                </button>
               </div>
             </div>
+             <div class = "container">
+              <div class="btn-group" role="group">          
+                <div class="submit" >
+                 <button onclick="submit()" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Submit">Submit</button>
+                </div>
+             </div>
+            </div> 
          </div>
       </div>
   </body>

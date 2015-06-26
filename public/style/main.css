@@ -25,6 +25,21 @@ body {
 
 }
 
+.today {  
+  width: 240px; 
+  height: 135px; 
+  padding: 0.4em; 
+  position: relative; 
+  border-style: solid;
+  border-width: 1px;
+
+}
+.ui-effects-transfer { 
+  border: 2px 
+  dotted gray; 
+}
+    
+
 .btn-default.raised {
     box-shadow: 0 3px 0 0 #007299;
 }
@@ -37,6 +52,13 @@ body {
 }
 .btn-group {
     display: inline;
+}
+.submit {
+  position: fixed; 
+  top: 55%; 
+  right: 20px;  
+  display:inline; 
+  float:right;
 }
 
 /*css to create a hidden nav bar for data visualization of breakdown of hours*/
