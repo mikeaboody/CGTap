@@ -68,8 +68,12 @@ end
 
 get '/' do
   # Fetch list of events on the user's default calandar
-  puts "HELLO THERE"
-  puts Net::HTTP.get(URI.parse("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + session[:access_token])).has_key(:error)
+  if session[:access_token] != nil and JSON.parse(Net::HTTP.get(URI.parse("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + session[:access_token]))).has_key?("error")
+    session.delete("access_token")
+    session.delete("refresh_token")
+    session.delete("expires_in")
+    session.delete("issued_at")
+  end
   unless user_credentials.access_token 
     redirect to('/oauth2authorize')
   else
@@ -94,6 +98,12 @@ get '/logout' do
 end
 
 get '/today' do
+  if session[:access_token] != nil and JSON.parse(Net::HTTP.get(URI.parse("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + session[:access_token]))).has_key?("error")
+    session.delete("access_token")
+    session.delete("refresh_token")
+    session.delete("expires_in")
+    session.delete("issued_at")
+  end
   unless user_credentials.access_token
     redirect to('/oauth2authorize')
   else
