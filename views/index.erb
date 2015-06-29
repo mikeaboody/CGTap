@@ -25,6 +25,15 @@
   <script src="./script/UserInterface.js"></script>
   <script src="./script/Submit.js"></script>
   <script src="./script/Main.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $(".trigger").click(function(){
+    $(".panel").toggle("fast");
+    $(this).toggleClass("active");
+    return false;
+  });
+});
+  </script>
 </head>
   <body>
     <div class='container'>
@@ -34,7 +43,7 @@
           <h2 class="welcome">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
           <div class=" navbar-nav navbar-right">
               <button type="button" onclick="redirectToTimesheet();" class="btn btn-info" role="button">Past Timesheets</a></button>
-              <button type="button" id="today" onclick="location.href = '/today'" class="btn btn-info ui-state-default ui-corner-all" role="button">Calendar</a></button>
+              <button type="button" id="today" onclick="location.href = '/today'" class="btn btn-info" role="button">Calendar</a></button>
               <button type="button" onclick="location.href = '/disconnect'" class="btn btn-info" role="button">Log Out</a></button>
           </div>
         </div>
@@ -123,9 +132,22 @@
                 <div class="submit" >
                  <button onclick="submit()" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Submit">Submit</button>
                 </div>
-             </div>
-            </div> 
-         </div>
-      </div>
+            </div>
+            <div class="panel">
+              <h3>Today</h3>
+                <p>We could calendar info here. </p>
+                 <p>Wouldn't it be cool?</p>
+
+  
+            </div>
+            <div style="clear:both;"></div>
+
+        </div>
+        <a class="trigger" href="">calendar</a>
+      </div> 
+    </div>
+  </div>
+
+</html>
   </body>
 </html>
