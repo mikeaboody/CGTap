@@ -1,20 +1,14 @@
 timesheets = [];
 
-var collectData = function() {
-    // <% @time_sheets.each do |time_sheet| %>
-    //     <TR>
-    //     <TD ALIGN = "center"> <%= time_sheet.id %> </TD>
-    //     <TD ALIGN = "center"> <%= time_sheet.first_name %> </TD>
-    //     <TD ALIGN = "center"> <%= time_sheet.last_name %> </TD>
-    //     <TD ALIGN = "center"> <%= time_sheet.email %> </TD>
-    // <TD ALIGN = "center"> <%= time_sheet.project_name %> </TD>
-    // <TD ALIGN = "center"> <%= time_sheet.task_name %> </TD>
-    // <TD ALIGN = "center"> <%= time_sheet.time_type %> </TD>
-    //     <TD ALIGN = "center" class = "sub_time_td"> <%= time_sheet.submission_time%> </TD>
-    //     <TD ALIGN = "center"> <%= time_sheet.hours %> </TD>
-    //     </TR> 
-    // <% end %>
+var createData = function() {
+    var data = [];
+    for (var i = 0; i < timesheets.length; i += 1) {
+        var dataPoint = {"label":timesheets[i].project_name, "value":timesheets[i].hours};
+        data.push(dataPoint);
+    }
+    return data;
 }
+
 
 var displayData = function() {
 	var w = 750,                        //width
@@ -22,10 +16,7 @@ var displayData = function() {
     r = w/2,                            //radius
     color = d3.scale.category20c();     //builtin range of colors
 
-    data = [{"label":"CGTap", "value":3}, 
-            {"label":"Holiday", "value":6}, 
-            {"label":"Sleeping", "value":10},
-            {"label":"Sleeping", "value":10}];
+    data = createData();
     
     var vis = d3.select("body")
         .append("svg:svg")              //create the SVG element inside the <body>

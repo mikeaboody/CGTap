@@ -16,6 +16,7 @@
 <script src="./script/Setup.js"></script>
 <script src="./script/UserInterface.js"></script>
 <script src="./script/Submit.js"></script>
+<script src="./script/DisplayTimesheetData.js"></script>
 <div class='container'>
   <div class='navbar navbar-default navbar-fixed-top'>
     <div class='container'>
@@ -75,6 +76,13 @@
     });
 </script>
 <script>
+  //collect data
+  var currTimeSheet;
+  <% @time_sheets.each do |time_sheet| %>
+      currTimeSheet = new PastTimesheet(<%= time_sheet.id %>, "<%= time_sheet.project_name %>", "<%= time_sheet.task_name %>", 
+        "<%= time_sheet.time_type %>", <%= time_sheet.hours %>);
+      timesheets.push(currTimeSheet);
+  <% end %>
   displayData();
 </script>
 

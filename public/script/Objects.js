@@ -167,6 +167,14 @@ function TableRow(id) {
 	};
 }
 
+function PastTimesheet(id, project_name, task_name, time_type, hours) {
+	this.id = id;
+	this.project_name = project_name;
+	this.task_name = task_name;
+	this.time_type = time_type;
+	this.hours = hours;
+}
+
 var createTR = function() {
 	var newTR = new TableRow(tr_count);
 	tr_map[tr_count] = newTR;
