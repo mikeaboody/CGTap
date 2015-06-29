@@ -6,17 +6,8 @@ body {
 #time_sheet_table tbody tr {
   cursor: -webkit-grab;
   cursor: -moz-grab;
-  border-collapse:separate;
-  border-radius: 25px;
-  overflow: hidden;
 }
 
-
-#time_sheet_table {
-  border-collapse:separate;
-  border-radius: 25px;
-  overflow: hidden;
-}
 .welcome {
   font-size: 14px;
 }
