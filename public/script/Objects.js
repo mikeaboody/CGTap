@@ -118,6 +118,7 @@ function User(first_name, last_name, email) {
 	this.last_name = last_name;
 	this.email = email;
 	this.projects = [];
+	this.events = [];
 	this.setProjects = function(lst) {
 		this.projects = lst;
 	}

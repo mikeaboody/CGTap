@@ -81,6 +81,12 @@ get '/' do
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
     @email = JSON.parse(result.data.to_json)["summary"]
+    startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
+    endTime = DateTime.parse(Time.new.tomorrow.beginning_of_day.to_s)
+    result = api_client.execute(:api_method => calendar_api.events.list,
+                              :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime},
+                              :authorization => user_credentials)
+    @json = result.data.to_json
     erb :index
   end
 end
@@ -95,26 +101,6 @@ end
 
 get '/logout' do
   erb :logout
-end
-
-get '/today' do
-  if session[:access_token] != nil and JSON.parse(Net::HTTP.get(URI.parse("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=" + session[:access_token]))).has_key?("error")
-    session.delete("access_token")
-    session.delete("refresh_token")
-    session.delete("expires_in")
-    session.delete("issued_at")
-  end
-  unless user_credentials.access_token
-    redirect to('/oauth2authorize')
-  else
-    startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
-    endTime = DateTime.parse(Time.new.tomorrow.beginning_of_day.to_s)
-    result = api_client.execute(:api_method => calendar_api.events.list,
-                              :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime},
-                              :authorization => user_credentials)
-    @json = result.data.to_json
-    erb :today
-  end
 end
 
 post "/submit" do

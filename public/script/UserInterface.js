@@ -188,6 +188,21 @@ var generalFailure = function() {
 	$(".welcome").html("Something went wrong.");
 }
 
+var showCalendar = function() {
+	for (var i = 0; i < master_user.events.length; i += 1) {
+	    var curr_event = master_user.events[i];
+	    var li = "<li>Description: " + curr_event.description  + "</li>";
+	    li += "<li>Start: " + curr_event.start + "</li>";
+	    li += "<li>End: " + curr_event.end + "</li>";
+	    var ul = "<ul>" + li + "</ul>";
+	    $(".today").append("<h5>" + curr_event.name + "</h5>");
+	    $(".today").append(ul);
+	}
+	if (master_user.events.length == 0) {
+		$(".today").append("<h5>No events today on Google Calendar.</h5>");
+	}
+}
+
 $('.selectpicker').selectpicker();
 
 //intitializes tooltip

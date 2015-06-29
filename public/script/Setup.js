@@ -5,6 +5,15 @@ var setup = function() {
 			master_user = new User(personData[0], personData[1], personData[2]);
 		}
 		Submittable.user = master_user;
+		var items = event_json["items"];
+		for (var i = 0; i < items.length; i += 1) {
+			var curr_event = items[i];
+			if (curr_event["status"] != "cancelled") {
+				master_user.events.push(new CalendarEvent(curr_event["summary"], curr_event["description"], curr_event["start"]["dateTime"], curr_event["end"]["dateTime"]));
+		 		//check if events are the same, if so then take the updated one
+			}
+		}
+		showCalendar();
 		loadUserData();
 	}
 	$template_row = $("#time_sheet_table tbody tr:nth-child(1)").clone();
