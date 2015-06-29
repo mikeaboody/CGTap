@@ -70,4 +70,3 @@ var asyncDataRetrieve = function(urls) {
 	next();
 	return result;
 }
-
