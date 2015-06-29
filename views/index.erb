@@ -26,6 +26,15 @@
   <script src="./script/UserInterface.js"></script>
   <script src="./script/Submit.js"></script>
   <script src="./script/Main.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+    $(".trigger").click(function(){
+    $(".panel").toggle("fast");
+    $(this).toggleClass("active");
+    return false;
+  });
+});
+  </script>
 </head>
   <body>
     <div class='container'>
@@ -40,13 +49,7 @@
         </div>
   
    
-        <div class = "container">
-          <div class="btn-group" role="group">
-            <div class="submit" style = "display:inline;">
-              <button onclick="submit()" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Submit">Submit</button>
-            </div>
-          </div>
-        </div>
+      
       </div>
     </div>
       <br>
@@ -124,10 +127,28 @@
                </button>
               </div>
             </div>
+            <div class="btn-group" role="group">          
+              <div class="submit" >
+                  <button onclick="submit()" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Submit">Submit</button>
+              </div>
+            </div>
             <div class = "today">
               <h3>Here are today's events on Google Calendar:</h3>
             </div>
-         </div>
+          </div>
+        </div>
+      <div class = "container">
+          <div class="panel">
+            <h3>Today</h3>
+              <p>We could calendar info here. </p>
+              <p>Wouldn't it be cool?</p>
+          </div>
+          <div style="clear:both;"></div>
+          <a class="trigger" href="">calendar</a>
       </div>
+  </div>
+      
+
+</html>
   </body>
 </html>

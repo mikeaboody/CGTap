@@ -25,6 +25,21 @@ body {
 
 }
 
+/*.today {  
+  width: 240px; 
+  height: 135px; 
+  padding: 0.4em; 
+  position: relative; 
+  border-style: solid;
+  border-width: 1px;
+
+}*/
+.ui-effects-transfer { 
+  border: 2px 
+  dotted gray; 
+}
+    
+
 .btn-default.raised {
     box-shadow: 0 3px 0 0 #007299;
 }
@@ -38,41 +53,98 @@ body {
 .btn-group {
     display: inline;
 }
-
-/*css to create a hidden nav bar for data visualization of breakdown of hours*/
-.display {
-    background: #kkk;
-    display: block;
-    position: fixed;
-    height: 100%;
-    width: 200px;
-    z-index: 0;
+.submit {
+  position: relative; 
+  top: 55%; 
+  right: 20px;  
+  display:inline; 
+  float:right;
 }
 
-.animated-wrapper {
-    background: #333;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    -webkit-transition: -webkit-transform .2s ease-in-out;
-    -moz-transition: -moz-transform .2s ease-in-out;
-    -ms-transition: -ms-transform .2s ease-in-out;
-    -o-transition: -o-transform .2s ease-in-out;
-    transition: transform .2s ease-in-out;
+.panel {
+position: fixed;
+top: 40%;
+right: 0;
+display: none;
+background: #000000;
+border:1px solid #111111;
+-moz-border-radius-topright: 20px;
+-webkit-border-top-right-radius: 20px;
+-moz-border-radius-bottomright: 20px;
+-webkit-border-bottom-right-radius: 20px;
+width: 330px;
+height: auto;
+padding: 30px 30px 30px 130px;
+filter: alpha(opacity=85);
+opacity: .65;
 }
-.animated-wrapper[data-state="neutral"] {
-    -webkit-transform: translateX(0);
-    -moz-transform: translateX(0);
-    -o-transform: translateX(0);
-    transform: translateX(0);
+
+.panel p{
+margin: 0 0 15px 0;
+padding: 0;
+color: #cccccc;
 }
-.animated-wrapper[data-state = "slide-right"] {
-    -webkit-transform: translateX(200px);
-    -moz-transform: translateX(200px);
-    -o-transform: translateX(200px);
-    transform: translateX(200px);
+
+.panel a, .panel a:visited{
+margin: 0;
+padding: 0;
+color: #9FC54E;
+text-decoration: none;
+border-bottom: 1px solid #9FC54E;
 }
+
+.panel a:hover, .panel a:visited:hover{
+margin: 0;
+padding: 0;
+color: #ffffff;
+text-decoration: none;
+border-bottom: 1px solid #ffffff;
+}
+
+a.trigger{
+position: fixed;
+text-decoration: none;
+top: 80%; right: 0;
+font-size: 16px;
+letter-spacing:-1px;
+font-family: verdana, helvetica, arial, sans-serif;
+color:#fff;
+padding: 20px 40px 20px 15px;
+font-weight: 700;
+background:#333333 url(images/plus.png) 85% 55% no-repeat;
+border:1px solid #444444;
+-moz-border-radius-topleft: 20px;
+-webkit-border-top-left-radius: 20px;
+-moz-border-radius-bottomleft: 20px;
+-webkit-border-bottom-left-radius: 20px;
+display: block;
+}
+
+a.trigger:hover{
+position: absolute;
+text-decoration: none;
+top: 80%; right: 0;
+font-size: 16px;
+letter-spacing:-1px;
+font-family: verdana, helvetica, arial, sans-serif;
+color:#fff;
+padding: 20px 40px 20px 20px;
+font-weight: 700;
+background:#222222 url(images/plus.png) 85% 55% no-repeat;
+border:1px solid #444444;
+-moz-border-radius-topright: 20px;
+-webkit-border-top-right-radius: 20px;
+-moz-border-radius-bottomright: 20px;
+-webkit-border-bottom-right-radius: 20px;
+-moz-border-radius-bottomleft: 0px;
+-webkit-border-bottom-left-radius: 0px;
+display: block;
+}
+
+a.active.trigger {
+background:#222222 url(images/minus.png) 85% 55% no-repeat;
+}
+
 
 .ui-sortable-placeholder {
     height: 125px;
@@ -82,6 +154,7 @@ body {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
 }
+
 
 @-webkit-keyframes spin2 {
     from { -webkit-transform: rotate(0deg);}
