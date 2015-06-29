@@ -203,6 +203,18 @@ var showCalendar = function() {
 	}
 }
 
+var setupHashtagSearch = function() {
+	eventTags = [];
+	for (var i = 0; i < master_user.events.length; i += 1) {
+		eventTags.push(master_user.events[i].name);
+	}
+	$(function() {
+	    $("#events").autocomplete({
+	     	source: eventTags
+	    });
+  	});
+}
+
 $('.selectpicker').selectpicker();
 
 //intitializes tooltip

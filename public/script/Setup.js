@@ -14,6 +14,7 @@ var setup = function() {
 			}
 		}
 		showCalendar();
+		setupHashtagSearch();
 		loadUserData();
 	}
 	$template_row = $("#time_sheet_table tbody tr:nth-child(1)").clone();
