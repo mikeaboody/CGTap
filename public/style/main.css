@@ -155,36 +155,7 @@ background:#395CDE 85% 55% no-repeat;
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
 }
-.columns{
-clear: both;
-width: 250px;
-padding: 0 0 20px 0;
-line-height: 22px;
-}
 
-.colleft{
-float: left;
-width: 230px;
-line-height: 22px;
-}
-
-.colright{
-float: right;
-width: 130px;
-line-height: 22px;
-}
-
-ul{
-padding: 0;
-margin: 0;
-list-style-type: none;
-}
-
-ul li{
-padding: 0;
-margin: 0;
-list-style-type: none;
-}
 
 
 @-webkit-keyframes spin2 {
