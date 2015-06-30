@@ -57,7 +57,7 @@
       <div class="container"> 
         <div class = "row">
           <div class = "container submit_date">
-            <p>Timesheet Date: <input type="text" class="datepicker"></p>
+            <p>Timesheet Date: <input type="text" class="datepicker" readonly="readonly"></p>
           </div>
         </div>
         <div class="row">
@@ -137,11 +137,12 @@
 <div class = "container">
   <div class="panel">
     <div class = "today">
-   
-     <h3>Here are today's events on Google Calendar:</h3>
-      <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
-        <option value =""selected>Today</option>
-      </select>
+    
+      <div class = "container calendar_date">
+        <p><input type="text" class="datepicker" readonly="readonly"></p>
+      </div>
+      <h3>Here are today's events on Google Calendar:</h3>
+      
      
       <h4>Event<h4>
       <div class="columns">

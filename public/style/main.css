@@ -124,9 +124,7 @@ display: block;
 }
 
 a.trigger:hover{
-position: absolute;
 text-decoration: none;
-top: 90%; right: 0;
 font-size: 16px;
 letter-spacing:-1px;
 font-family: verdana, helvetica, arial, sans-serif;
