@@ -189,18 +189,31 @@ var generalFailure = function() {
 }
 
 var showCalendar = function() {
+	var date_selected = $(".calendar_date .datepicker").datepicker("getDate"); 
 	for (var i = 0; i < master_user.events.length; i += 1) {
-	    var curr_event = master_user.events[i];
-	    var li = "<li>Description: " + curr_event.description  + "</li>";
-	    li += "<li>Start: " + curr_event.start + "</li>";
-	    li += "<li>End: " + curr_event.end + "</li>";
-	    var ul = "<ul>" + li + "</ul>";
-	    $(".today").append("<h5>" + curr_event.name + "</h5>");
-	    $(".today").append(ul);
+		var curr_event = master_user.events[i];
+		if (date_selected.getDate() == curr_event.start.getDate()) {
+			var tr = "<tr>";
+			tr += "<td>" + curr_event.name + "</td>";
+			if (curr_event.description != undefined) {
+				tr += "<td>" + curr_event.description + "</td>";
+			} else {
+				tr += "<td>No description.</td>";
+			}
+			
+			var start_hours = curr_event.start.getHours() + "";
+			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
+			var end_hours = curr_event.end.getHours() + "";
+			var end_minutes = (curr_event.end.getMinutes() < 10) ? ("0" + curr_event.end.getMinutes()) : ("" + curr_event.end.getMinutes());
+			var time_string = start_hours + ":" + start_minutes + "-" + end_hours + ":" + end_minutes;
+			tr += "<td>" + time_string + "</td>";
+			tr += "</tr>";
+			$("#event_table tbody").append(tr);
+		}
 	}
-	if (master_user.events.length == 0) {
-		$(".today").append("<h5>No events today on Google Calendar.</h5>");
-	}
+	// if (master_user.events.length == 0) {
+	// 	$(".today").append("<h5>No events today on Google Calendar.</h5>");
+	// }
 }
 
 var setupHashtagSearch = function() {

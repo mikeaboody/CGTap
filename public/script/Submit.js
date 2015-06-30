@@ -18,7 +18,7 @@ var submit = function() {
 		});
 	}
 
-	var date_selected = $(".submit_date .datepicker").datepicker( "getDate" );
+	var date_selected = $(".submit_date .datepicker").datepicker("getDate");
 	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
 	table_html += "<table id='submit_table'class='table table-bordered table-striped'>";
 	
