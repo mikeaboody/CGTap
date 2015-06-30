@@ -63,30 +63,33 @@ body {
 
 .panel {
 position: fixed;
-top: 27%;
-right: 0;
+top: 29%;
+right: 0px;
 display: none;
 z-index: auto;
 z-index: 1;
 background: #FFB100;
 border:1px solid #111111;
-overflow: auto;
+/*overflow: scroll;*/
 -moz-border-radius-topleft: 20px;
 -webkit-border-top-left-radius: 20px;
 -moz-border-radius-bottomleft: 20px;
 -webkit-border-bottom-left-radius: 20px;
 width: 250px;
-height: auto;
 padding: 30px 30px 30px 30px;
 filter: alpha(opacity=85);
 opacity: .85;
+height: 500px;
+overflow-y: auto;
 }
 
 .panel p{
-margin: 0 0 0 15px;
-margin-right: 20px;
+margin: 0 0 0 0px;
+margin-right: 40px;
 padding: 10px;
 color: black;
+overflow: scroll;
+ 
 }
 
 .panel a, .panel a:visited{
@@ -108,7 +111,7 @@ border-bottom: 1px solid #ffffff;
 a.trigger{
 position: fixed;
 text-decoration: none;
-top: 90%; right: 0;
+top: 21%; right: 0;
 font-size: 16px;
 letter-spacing:-1px;
 font-family: verdana, helvetica, arial, sans-serif;
@@ -154,6 +157,9 @@ background:#395CDE 85% 55% no-repeat;
 .glyphicon-refresh-animate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
+}
+.event_table {
+  text-align: center;
 }
 
 
