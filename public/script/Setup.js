@@ -9,7 +9,10 @@ var setup = function() {
 		}
 		Submittable.user = master_user;
 		loadCalendarEvents();
-		showCalendar();
+		$(".calendar_date input").on("change", function() {
+			updateCalendar();
+		})
+		updateCalendar();
 		setupHashtagSearch();
 		loadUserData();
 	}

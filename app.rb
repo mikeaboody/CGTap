@@ -81,8 +81,8 @@ get '/' do
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
     @email = JSON.parse(result.data.to_json)["summary"]
-    startTime = DateTime.parse(Time.new.beginning_of_day.to_s) 
-    endTime = DateTime.parse(Time.new.tomorrow.beginning_of_day.to_s)
+    startTime = DateTime.parse(Time.new.beginning_of_day.days_ago(7).to_s) 
+    endTime = DateTime.parse(Time.new.end_of_day.to_s)
     result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime, 'singleEvents' => true},
                               :authorization => user_credentials)

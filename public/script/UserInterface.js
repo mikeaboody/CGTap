@@ -188,7 +188,8 @@ var generalFailure = function() {
 	$(".welcome").html("Something went wrong.");
 }
 
-var showCalendar = function() {
+var updateCalendar = function() {
+	$("#event_table tbody").empty();
 	var date_selected = $(".calendar_date .datepicker").datepicker("getDate"); 
 	for (var i = 0; i < master_user.events.length; i += 1) {
 		var curr_event = master_user.events[i];
@@ -232,7 +233,6 @@ var dateFormat = function(date) {
 	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 	return days[date.getDay()] + ", " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 }
-
 
 $('.selectpicker').selectpicker();
 
