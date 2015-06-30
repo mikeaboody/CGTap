@@ -141,6 +141,7 @@ display: block;
 }
 
 a.active.trigger {
+position: fixed;
 background:#395CDE 85% 55% no-repeat;
 }
 

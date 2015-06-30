@@ -3,6 +3,9 @@ var setup = function() {
 		var personData = findEmployeeInfo(master_email, data);
 		if (personData != null) {
 			master_user = new User(personData[0], personData[1], personData[2]);
+		} else {
+			loadUserData();
+			return;
 		}
 		Submittable.user = master_user;
 		var items = event_json["items"];
