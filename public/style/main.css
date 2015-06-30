@@ -94,7 +94,7 @@ opacity: .85;
 .panel p{
 margin: 0 0 15px 0;
 padding: 0;
-color: #cccccc;
+color: black;
 }
 
 .panel a, .panel a:visited{
@@ -166,14 +166,14 @@ background:#395CDE 85% 55% no-repeat;
 }
 .columns{
 clear: both;
-width: 100px;
+width: 250px;
 padding: 0 0 20px 0;
 line-height: 22px;
 }
 
 .colleft{
 float: left;
-width: 130px;
+width: 230px;
 line-height: 22px;
 }
 
@@ -181,6 +181,18 @@ line-height: 22px;
 float: right;
 width: 130px;
 line-height: 22px;
+}
+
+ul{
+padding: 0;
+margin: 0;
+list-style-type: none;
+}
+
+ul li{
+padding: 0;
+margin: 0;
+list-style-type: none;
 }
 
 
