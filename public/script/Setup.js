@@ -28,6 +28,9 @@ var loadCalendarEvents = function() {
 			master_user.events.push(new CalendarEvent(curr_event["summary"], curr_event["description"], new Date(curr_event["start"]["dateTime"]), new Date(curr_event["end"]["dateTime"])));
 		}
 	}
+	master_user.events.sort(function(a, b) {
+		return a.start.getTime() - b.start.getTime();
+	})
 }
 
 var findEmployeeInfo = function(email, data) {
