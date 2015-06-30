@@ -70,11 +70,15 @@ z-index: auto;
 z-index: 1;
 background: #FFB100;
 border:1px solid #111111;
-overflow: scroll;
+overflow: auto;
 -moz-border-radius-topleft: 20px;
 -webkit-border-top-left-radius: 20px;
 -moz-border-radius-bottomleft: 20px;
 -webkit-border-bottom-left-radius: 20px;
+-moz-border-radius-topright: 20px;
+-webkit-border-top-right-radius: 20px;
+-moz-border-radius-bottomright: 20px;
+-webkit-border-bottom-right-radius: 20px;
 width: 100%;
 height: auto;
 padding: 30px 30px 30px 30px;
@@ -154,36 +158,7 @@ background:#395CDE 85% 55% no-repeat;
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
 }
-.columns{
-clear: both;
-width: 250px;
-padding: 0 0 20px 0;
-line-height: 22px;
-}
 
-.colleft{
-float: left;
-width: 230px;
-line-height: 22px;
-}
-
-.colright{
-float: right;
-width: 130px;
-line-height: 22px;
-}
-
-ul{
-padding: 0;
-margin: 0;
-list-style-type: none;
-}
-
-ul li{
-padding: 0;
-margin: 0;
-list-style-type: none;
-}
 
 
 @-webkit-keyframes spin2 {
