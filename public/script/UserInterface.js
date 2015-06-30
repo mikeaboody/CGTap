@@ -229,7 +229,14 @@ $(function () {
 });
 
 $(function() {
-	$( ".datepicker" ).datepicker({ minDate: -7, maxDate: "+0M +0D", showOn: "both", defaultDate: +0 });
+	$( ".datepicker" ).datepicker({ 
+		minDate: -7, 
+		maxDate: "+0M +0D", 
+		showOn: "both", 
+		defaultDate: +0,
+		buttonImageOnly: true, 
+		buttonImage: 'jquery-ui-1.11.4.custom/images/ui-icon-calendar.gif'
+	});
 	$(".datepicker").datepicker('setDate', new Date());
 });
 
