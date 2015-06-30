@@ -18,8 +18,9 @@ var submit = function() {
 		});
 	}
 
-	
-	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
+	var date_selected = $(".submit_date .datepicker").datepicker( "getDate" );
+	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
+	table_html += "<table id='submit_table'class='table table-bordered table-striped'>";
 	
 	table_html += "<thead><tr><th>Projects</th><th>Hours</th></tr></thead>";
 	table_html += "<tbody>";
@@ -69,7 +70,7 @@ var createSubmitObj = function(tr) {
 	submitObj.task_type_nm = $current_tr.find(".payment select option:selected").text();
 	submitObj.task_type = $current_tr.find(".payment select option:selected").val();
 	submitObj.hours = post_hours;
-	submitObj.date = (new Date()).getTime();
+	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = $current_tr.find(".notes textarea").val();
 	if (submitObj.hours > 0) {
 		return submitObj;

@@ -215,10 +215,21 @@ var setupHashtagSearch = function() {
   	});
 }
 
+var dateFormat = function(date) {
+	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+	return days[date.getDay()] + ", " + (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+}
+
+
 $('.selectpicker').selectpicker();
 
 //intitializes tooltip
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
+});
+
+$(function() {
+	$( ".datepicker" ).datepicker({ minDate: -7, maxDate: "+0M +0D", showOn: "both", defaultDate: +0 });
+	$(".datepicker").datepicker('setDate', new Date());
 });
 
