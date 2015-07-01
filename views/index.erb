@@ -40,11 +40,11 @@
     <div class='container'>
       <div class='navbar navbar-default navbar-fixed-top'>
         <div class='container'>
-         <a href='/' class='navbar-brand'>Tap App</a>
+         <a href='/' class='navbar-brand pull-left'>Tap App</a>
           <h2 class="welcome">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
           <div class=" navbar-nav navbar-right">
-              <button type="button" onclick="redirectToTimesheet();" class="btn btn-info" role="button">Past Timesheets</a></button>
-              <button type="button" onclick="location.href = '/disconnect'" class="btn btn-info" role="button">Log Out</a></button>
+              <button type="button" onclick="redirectToTimesheet();" class="btn" style="background-color: #febc26" role="button">Past Timesheets</a></button>
+              <button type="button" onclick="location.href = '/disconnect'" class="btn" style="background-color: #febc26"  role="button">Log Out</a></button>
           </div>
         </div>
       </div>
@@ -108,9 +108,9 @@
                     </td>
                     <td>
                         <form name="input col-md-2">
-                          Hours: <input class="hours" type="text" name="hours" placeholder="0">
+                          Hours: <input class="hours" type="text" name="hours" placeholder="0" data-width= "20px">
                          <br>
-                          Minutes: <input class="minutes" type="text" name="minutes" placeholder="0">
+                          Minutes: <input class="minutes" type="text" name="minutes" placeholder="0" data-width= "20px">
                         </form>
                           <br>
                     <td>
@@ -129,7 +129,7 @@
             </div>
             <div class="btn-group" role="group">          
               <div class="submit" >
-                  <button onclick="submit()" class="btn btn-success">Submit</button>
+                  <button onclick="submit()" class="btn" style="background-color: #FF6700" >Submit</button>
               </div>
             </div>
       </div>
