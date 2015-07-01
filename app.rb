@@ -32,8 +32,18 @@ configure do
     :application_name => 'Ruby Calendar sample',
     :application_version => '1.0.0')
   
+  secrets = {"web"=>
+    {"auth_uri"=>"https://accounts.google.com/o/oauth2/auth", 
+    "client_secret"=>ENV["tap_client_secret"], 
+    "token_uri"=>"https://accounts.google.com/o/oauth2/token", 
+    "redirect_uris"=>ENV["tap_redirect_uris"].split("::"), 
+    "client_id"=>ENV["tap_client_id"], 
+    "javascript_origins"=>ENV["tap_javascript_origins"].split("::")
+    }
+  }
 
-  client_secrets = Google::APIClient::ClientSecrets.load
+
+  client_secrets = Google::APIClient::ClientSecrets.new(secrets)
   client.authorization = client_secrets.to_authorization
   client.authorization.scope = 'https://www.googleapis.com/auth/calendar'
  
