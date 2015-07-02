@@ -192,6 +192,15 @@ img {
     max-width: 35px;
 }
 
+hr {
+  border: none;
+  height: 2px;
+  position: relative;
+  /* Set the hr color */
+  color: #dddddd; /* old IE */
+  background-color: #dddddd; /* Modern Browsers */
+  bottom: 15px;
+}
 
 
 @-webkit-keyframes spin2 {
