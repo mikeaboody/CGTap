@@ -121,7 +121,7 @@ var stopTimer = function(tr) {
 	current_time_tr = null;
 	var hours = Math.floor(tr.time / (3600*1000));
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;
-	tr.$getJQuery().find('input[name="minutes"]').val(minutes);
+	tr.$getJQuery().find('input[name="minutes"]').val(minutes < 10 ? "0" + minutes : "" + minutes);
 	tr.$getJQuery().find('input[name="hours"]').val(hours);
 	updateLabel();
 	tr.$getJQuery().find(".timer_button").html("Start");
