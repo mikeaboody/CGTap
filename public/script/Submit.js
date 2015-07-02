@@ -40,7 +40,7 @@ var submit = function() {
 		text: table_html,
 		html: true,    
 		showCancelButton: true,   
-		confirmButtonColor: "#DD6B55",   
+		confirmButtonColor: "#FF6700",   
 		confirmButtonText: "Submit",   
 		cancelButtonText: "Cancel",   
 		closeOnConfirm: true,   
