@@ -251,7 +251,8 @@ $(function() {
 		showOn: "both", 
 		defaultDate: +0,
 		buttonImageOnly: true, 
-		buttonImage: 'jquery-ui-1.11.4.custom/images/ui-icon-calendar.gif'
+		buttonImage: 'jquery-ui-1.11.4.custom/images/ui-icon-calendar.gif',
+		dateFormat: 'DD, MM d'
 	});
 	$(".datepicker").datepicker('setDate', new Date());
 });
