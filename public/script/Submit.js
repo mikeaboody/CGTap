@@ -20,9 +20,12 @@ var submit = function() {
 
 	var date_selected = $(".submit_date .datepicker").datepicker("getDate");
 	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
+	var total_hours = totalHours(submitObj_list);
+	table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>"
+
 	table_html += "<table id='submit_table'class='table table-bordered table-striped'>";
 	
-	table_html += "<thead><tr><th>Projects</th><th>Hours</th></tr></thead>";
+	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
 
 	for (id in tr_map) {
@@ -30,8 +33,7 @@ var submit = function() {
 		var proj_name = tr.$getJQuery().find($(".projects select option:selected")).text();
 		var hours = "" + ((tr.$getJQuery().find($('input[name="hours"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="hours"]')).val(), 10));
 		var minutes = ((tr.$getJQuery().find($('input[name="minutes"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="minutes"]')).val(), 10));
-		minutes = ((minutes < 10) ? ("0" + minutes) : ("" + minutes));
-		var current_tr = "<tr><td>" + proj_name + "</td><td>" + hours + ":" + minutes + "</td></tr>";
+		var current_tr = "<tr><td>" + proj_name + "</td><td>" + hours + " hours " + minutes + " minutes</td></tr>";
 		table_html += current_tr;
 	}
 	table_html += "</tbody></table>";
@@ -60,6 +62,8 @@ var createSubmitObj = function(tr) {
 	} else {
 		post_hours += Math.ceil(minutes / 15) / 4;
 	}
+	submitObj.raw_hours = hours;
+	submitObj.raw_minutes = minutes;
 	submitObj.email = Submittable.user.email;
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
@@ -85,6 +89,8 @@ var postSubmitObjs = function(postObjs, success) {
 		if (i < postObjs.length) {
 			var postObj = postObjs[i];
 			i += 1;
+			delete postObj["raw_minutes"];
+			delete postObj["raw_hours"];
 			COMMUNICATOR.postToDatabase(postObj, function() {
 				delete postObj["first_name"];
 				delete postObj["last_name"];
@@ -104,6 +110,16 @@ var postSubmitObjs = function(postObjs, success) {
 		}
 	}
 	next();
+}
+
+var totalHours = function(submitObjs) {
+	var total = 0;
+	for (var i = 0; i < submitObjs.length; i += 1) {
+		obj = submitObjs[i];
+		console.log(obj);
+		total += obj.raw_minutes + obj.raw_hours * 60;
+	}
+	return [Math.floor(total / 60) + "", total % 60]
 }
 
 var reset = function() {
