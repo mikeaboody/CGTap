@@ -88,51 +88,52 @@
               </thead>
                 <tbody>
                   <tr>
-                    <td>
+                    <td style = "width: 5%">
                       <div class="frame">
                         <span class="helper"></span><img src="images/icon.png" height="42" width="42"/>
                       </div>
                     </td>
-                    <td>
-                      <div class = "projects col-md-2">
+                    <td class = "col-md-2">
+                      <div class = "projects">
                         <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
                           <option value =""selected>Project</option>
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class = "tasks col-md-2">
+                    <td class = "col-md-2">
+                      <div class = "tasks">
                         <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
                          <option value =""selected>Task</option>
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class="payment col-md-2">
+                    <td class = "col-md-1">
+                      <div class="payment">
                         <select class = "selectpicker" data-size="false" data-width="125px" data-style="btn-info">
                           <option value =""selected>Billing</option>
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class = "notes col-md-2">
+                    <td class = "col-md-2">
+                      <div class = "notes">
                         <textarea rows="4" cols="30" placeholder="Enter a description..."></textarea>
                       </div>
                     </td>
-                    <td>
-                      <div class="timer col-md-2">
-                        <button class="timer_button">Start</button>
+                    <td class = "col-md-1">
+                      <div class="timer">
+                        <button class="timer_button">Start</button><br>
                         <label>00:00:00</label>
                       </div>
                     </td>
-                    <td>
-                        <form name="input col-md-2">
-                          Hours: <input class="hours" type="text" name="hours" placeholder="0" data-width= "20px">
-                          Minutes: <input class="minutes" type="text" name="minutes" placeholder="0" data-width= "20px">
-                        </form>
+                    <td class = "col-md-1">
+                        <form name="input">
+                          <input class="hours form-control" type="text" name="hours" placeholder="0" style = "width: 50px; display: inline; text-align: center;"> hours
                           <br>
-                    <td>
-                      <div class="deleteRow col-md-2">
+                          <br>
+                          <input class="minutes form-control" type="text" name="minutes" placeholder="0" style = "width: 50px; display: inline; text-align: center;"> minutes
+                        </form>
+                    <td class = "col-md-1">
+                      <div class="deleteRow">
                         <button class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="right" title="Delete a project" aria-label="Delete"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
                       </div>
