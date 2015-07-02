@@ -25,6 +25,9 @@ var updateProject = function(tr) {
 	});
 
 	tr.$getJQuery().find(".minutes").on('change', function() {
+		var minutes = parseInt($(this).val(), 10);
+		var format = minutes < 10 ? "0" + minutes : "" + minutes;
+		$(this).val(format);
    		updateLabel();
 	});
 
