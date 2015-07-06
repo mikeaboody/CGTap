@@ -192,11 +192,15 @@ var generalFailure = function() {
 }
 
 var updateCalendar = function() {
-	$("#event_table tbody").empty();
-	var date_selected = $(".calendar_date .datepicker").datepicker("getDate"); 
+	$("#event_table").empty();
+	$("#event_table").append("<thead><th>Event</th><th>Description</th><th>Time</th></thead>");
+	$("#event_table").append("<tbody></tbody>");
+	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
+	var empty = true;; 
 	for (var i = 0; i < master_user.events.length; i += 1) {
 		var curr_event = master_user.events[i];
 		if (date_selected.getDate() == curr_event.start.getDate()) {
+			empty = false;
 			var tr = "<tr>";
 			tr += "<td>" + curr_event.name + "</td>";
 			if (curr_event.description != undefined) {
@@ -221,6 +225,10 @@ var updateCalendar = function() {
 			tr += "</tr>";
 			$("#event_table tbody").append(tr);
 		}
+	}
+	if (empty) {
+		$("#event_table").empty();
+		$("#event_table").append("<h5>No calendar events.</h5>");
 	}
 	// if (master_user.events.length == 0) {
 	// 	$(".today").append("<h5>No events today on Google Calendar.</h5>");
