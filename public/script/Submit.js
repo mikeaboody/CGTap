@@ -33,7 +33,7 @@ var submit = function() {
 		var proj_name = tr.$getJQuery().find($(".projects select option:selected")).text();
 		var hours = "" + ((tr.$getJQuery().find($('input[name="hours"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="hours"]')).val(), 10));
 		var minutes = ((tr.$getJQuery().find($('input[name="minutes"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="minutes"]')).val(), 10));
-		var current_tr = "<tr><td>" + proj_name + "</td><td>" + hours + " hours " + minutes + " minutes</td></tr>";
+		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
 		table_html += current_tr;
 	}
 	table_html += "</tbody></table>";
