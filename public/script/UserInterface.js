@@ -193,7 +193,7 @@ var generalFailure = function() {
 
 var updateCalendar = function() {
 	$("#event_table").empty();
-	$("#event_table").append("<thead><th>Event</th><th>Description</th><th>Time</th></thead>");
+	$("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");
 	$("#event_table").append("<tbody></tbody>");
 	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
 	var empty = true;; 
@@ -203,11 +203,11 @@ var updateCalendar = function() {
 			empty = false;
 			var tr = "<tr>";
 			tr += "<td>" + curr_event.name + "</td>";
-			if (curr_event.description != undefined) {
-				tr += "<td>" + curr_event.description + "</td>";
-			} else {
-				tr += "<td>No description.</td>";
-			}
+			// if (curr_event.description != undefined) {
+			// 	tr += "<td>" + curr_event.description + "</td>";
+			// } else {
+			// 	tr += "<td>No description.</td>";
+			// }
 			
 			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
