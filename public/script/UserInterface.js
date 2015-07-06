@@ -205,11 +205,18 @@ var updateCalendar = function() {
 				tr += "<td>No description.</td>";
 			}
 			
-			var start_hours = curr_event.start.getHours() + "";
+			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
+			var start_ampm = (start_hours < 12) ? "A.M." : "P.M.";
+			start_hours = (start_hours % 12 == 0) ? 12 : start_hours % 12;
+
 			var end_hours = curr_event.end.getHours() + "";
 			var end_minutes = (curr_event.end.getMinutes() < 10) ? ("0" + curr_event.end.getMinutes()) : ("" + curr_event.end.getMinutes());
-			var time_string = start_hours + ":" + start_minutes + "-" + end_hours + ":" + end_minutes;
+			var end_ampm = (end_hours < 12) ? "A.M." : "P.M.";
+			end_hours = (end_hours % 12 == 0) ? 12 : end_hours % 12;
+
+			var time_string = start_hours + ":" + start_minutes + " " + start_ampm + " - " + end_hours + ":" + end_minutes + " " + end_ampm;
+
 			tr += "<td>" + time_string + "</td>";
 			tr += "</tr>";
 			$("#event_table tbody").append(tr);
