@@ -105,21 +105,17 @@ get '/' do
     erb :index
   end
 end
-get '/disconnect' do
+
+get '/logout' do
   token = session.delete("access_token")
   session.delete("refresh_token")
   session.delete("expires_in")
   session.delete("issued_at")
   response = Net::HTTP.get(URI.parse("https://accounts.google.com/o/oauth2/revoke?token=" + token))
-  redirect to("/logout")
-end
-
-get '/logout' do
   erb :logout
 end
 
 post "/submit" do
-  puts params
   first_name = params.delete("first_name")
   last_name = params.delete("last_name")
   email = params["email"]
