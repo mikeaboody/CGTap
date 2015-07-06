@@ -9,11 +9,15 @@
   <link href='style/main.css' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="sweetalert-master/dist/sweetalert.css">
+  <link rel="stylesheet" href="/navgoco/src/jquery.navgoco.css" type="text/css" media="screen" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
   <script src="sweetalert-master/dist/sweetalert.min.js"></script>
   <script src="bootstrap-select/js/bootstrap-select.min.js"></script>
+  <script type="text/javascript" src="navgoco/src/jquery.cookie.js"></script>
+    <!-- Load jquery.navgoco plugin js and css files -->
+  <script type="text/javascript" src="navgoco/src/jquery.navgoco.js"></script>
   <script src='d3/d3.js'></script>
   <script src='d3/d3.min.js'></script>
   
@@ -27,35 +31,100 @@
   <script src="./script/Submit.js"></script>
   <script src="./script/Main.js"></script>
   <script type="text/javascript">
-    $(document).ready(function(){
-    $(".trigger").click(function(){
-    $(".panel").toggle("slow");
-    $(this).toggleClass("active");
-    return false;
-  });
-});
-  </script>
+$(document).ready(function(){                       
+
+       //Navigation Menu Slider
+        $('#nav-expander').on('click',function(e){
+          e.preventDefault();
+          $('body').toggleClass('nav-expanded');
+        });
+        $('#nav-close').on('click',function(e){
+          e.preventDefault();
+          $('body').removeClass('nav-expanded');
+        });
+
+        // Initialize navgoco with default options
+        $(".main-menu").navgoco({
+            caret: '<span class="caret"></span>',
+            accordion: false,
+            openClass: 'open',
+            save: true,
+            cookie: {
+                name: 'navgoco',
+                expires: false,
+                path: '/'
+            },
+            slide: {
+                duration: 300,
+                easing: 'swing'
+            }
+        });
+
+      });
+
+
+</script>
 </head>
   <body>
+</div>
     <div class='container'>
-     
       <div class='navbar navbar-default navbar-fixed-top'>
         <div class='container'>
-         <a href='/' class='navbar-brand navbar-left'>Tap App</a>
+         <a href='/' class='navbar-brand pull-left'>Tap App</a>
           <h2 class="welcome">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li class="list-inline"><button type="button" onclick="redirectToTimesheet();" class="btn" style="background-color: #676767" role="button">Past Timesheets</a></button></li>    
+        <ul class="nav navbar-nav nav-pills navbar-right">
+          <li><button type="button" onclick="redirectToTimesheet();" class="btn" style="background-color: #676767" role="button">Past Timesheets</button></li>  
+          <li class="reveal-right"><button type="button" class="navbar-header btn" style="background-color: #676767" role="button"><a id="nav-expander" class="nav-expander fixed">Calendar</a></button></li>    
           <li><div class="submit">
-            <button onclick="submit()" class="btn" style="background-color: #ff6600" >Submit</button>
+            <button onclick="submit()" class="btn" style="background-color: #ff6600">Submit</button>
           </div></li>
-          <li><div class="logout">
-           <button type="button" onclick="location.href = '/disconnect'" class="btn" style="background-color: #676767"  role="button">Log Out</a></button></li>
-        </ul>
-          </div>
+          <li class="logout">
+             <button type="button" onclick="location.href = '/disconnect'" class="btn" style="background-color: #676767"  role="button">Log Out</a></button></li>
+         </ul>
         </div>
       </div>
     </div>
+  </div>
+<nav>
+   <div class="panel-body">
+      <ul class="list-unstyled main-menu">
+    <li class="text-right"><a href="#" id="nav-close">X</a></li>
+    <div class = "container calendar_date">
+      <p><input type="text" class="datepicker" readonly="readonly"></p>
+    </div>
+        <p>Google Calendar</p> 
+        <table id = "event_table" class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>Event</th>
+                                <th>Description</th>
+                                <th>Time</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                 CG Platform Meeting
+                                </td>
+                                <td>
+                                   Department meeting to discuss updates on team members' progress.
+                                </td>
+                                <td>
+                                  3:00- 4:30
+                                </td>
+                              </tr>
+                              <tr>    
+                              </tr>
+                              <tr>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </div> 
+</nav>
+ 
+    </div>
+</div>
     
     </div>
      
@@ -93,27 +162,27 @@
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class = "tasks col-md-2">
+                    <td class = "tasks col-md-2">
+                      <div>
                         <select class = "selectpicker" data-size="false" data-width="200px" data-style="btn-info">
                          <option value =""selected>Task</option>
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class="payment col-md-2">
+                    <td class="payment col-md-2">
+                      <div>
                         <select class = "selectpicker" data-size="false" data-width="125px" data-style="btn-info">
                           <option value =""selected>Billing</option>
                         </select>
                       </div>
                     </td>
-                    <td>
-                      <div class = "notes col-md-2">
+                    <td class = "notes col-md-2">
+                      <div>
                         <textarea rows="4" cols="30" placeholder="Enter a description..."></textarea>
                       </div>
                     </td>
-                    <td>
-                      <div class="timer col-md-2">
+                    <td class="timer col-md-2">
+                      <div>
                         <button class="timer_button">Start</button>
                         <label>00:00:00</label>
                       </div>
@@ -136,52 +205,14 @@
               <div class="addRow" style = "margin-top:-20px;">
                 <button onclick="addRow()" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                </button>
-              </div>
-           
-      </div>
-  </div>
-  <div class = "container">
-    <div class="panel panel-default">
-      <div class = "today">
-        <div class = "container calendar_date">
-          <p><input type="text" class="datepicker" readonly="readonly"></p>
-        </div>
-        <div class="panel-body">
-          <table id = "event_table" class="table table-hover">
-            <thead>
-              <tr>
-                <th>Event</th>
-                <th>Description</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                CG Platform Meeting
-                </td>
-                <td>
-                Department meeting to discuss updates on team members' progress.
-                </td>
-                 <td>
-                3:00- 4:30
-              </td>
-              </tr>
-              <tr>
-                 
-              </tr>
-              <tr>
-               
-              </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-<div style="clear:both;"></div>
+              </div>    
+            </div>
+          </div>
+       
+<!-- <div style="clear:both;"></div>
 <a class="trigger" href="">calendar</a>
-      
-</html>
+   <   
+
+</div>
   </body>
 </html>
