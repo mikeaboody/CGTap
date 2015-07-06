@@ -68,12 +68,17 @@ end
 get '/oauth2callback' do
   # Exchange token
   user_credentials.code = params[:code] if params[:code]
-  user_credentials.fetch_access_token!
-  session[:access_token] = user_credentials.access_token
-  session[:refresh_token] = user_credentials.refresh_token
-  session[:expires_in] = user_credentials.expires_in
-  session[:issued_at] = user_credentials.issued_at
-  redirect to('/')
+  begin
+    user_credentials.fetch_access_token! 
+    session[:access_token] = user_credentials.access_token
+    session[:refresh_token] = user_credentials.refresh_token
+    session[:expires_in] = user_credentials.expires_in
+    session[:issued_at] = user_credentials.issued_at
+    redirect to('/')
+  rescue
+    redirect to('/error')
+  end
+  
 end
 
 get '/' do
@@ -135,3 +140,8 @@ get "/display" do
   @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
   erb :display
 end
+
+get "/error" do
+  erb :error
+end
+
