@@ -1,9 +1,11 @@
 var submit = function() {
 	var submitObj_list = submitObjList();
-	if (submitObj_list == null) {
-		swal("Insufficient!", "One of your projects has a bad field.", "error");
-		return;
-	}
+	var failed = submitObj_list[1];
+	submitObj_list = submitObj_list[0];
+	// if (submitObj_list == null) {
+	// 	swal("Insufficient!", "One of your projects has a bad field.", "error");
+	// 	return;
+	// }
 	var confirmSubmit = function() {
 		postSubmitObjs(submitObj_list, function() {
 			swal({
@@ -19,20 +21,12 @@ var submit = function() {
 	var total_hours = totalHours(submitObj_list);
 	table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>"
 
-	table_html += "<table id='submit_table'class='table table-bordered table-striped'>";
-	
-	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
-	table_html += "<tbody>";
+	table_html += submitTable(submitObj_list);
 
-	for (id in tr_map) {
-		var tr = tr_map[id];
-		var proj_name = tr.$getJQuery().find($(".projects select option:selected")).text();
-		var hours = "" + ((tr.$getJQuery().find($('input[name="hours"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="hours"]')).val(), 10));
-		var minutes = ((tr.$getJQuery().find($('input[name="minutes"]')).val() == "") ? 0 : parseInt(tr.$getJQuery().find($('input[name="minutes"]')).val(), 10));
-		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
-		table_html += current_tr;
+	if (failed.length > 0) {
+		table_html += insufficientTable(failed);
+		console.log("FAILED");
 	}
-	table_html += "</tbody></table>";
 	swal({   
 		title: "Do you want to send to OpenAir?",   
 		text: table_html,
@@ -80,32 +74,62 @@ var createSubmitObj = function(tr) {
 		return null;
 	}
 	if (!incomplete) {
-		return submitObj;
+		return [true, submitObj];
 	} else {
-		return -1;
+		return [false, submitObj];
 	}
+}
+
+var submitTable = function(submitObj_list) {
+	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
+	
+	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
+	table_html += "<tbody>";
+
+	for (i in submitObj_list) {
+		var obj = submitObj_list[i];
+		var proj_name = obj.project_nm;
+		var hours = obj.raw_hours;
+		var minutes = obj.raw_minutes;
+		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
+		table_html += current_tr;
+	}
+	table_html += "</tbody></table>";
+	return table_html;
+}
+
+var insufficientTable = function(failed) {
+	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
+	
+	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
+	table_html += "<tbody>";
+
+	for (i in failed) {
+		var obj = failed[i];
+		var proj_name = obj.project_nm;
+		var hours = obj.raw_hours;
+		var minutes = obj.raw_minutes;
+		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
+		table_html += current_tr;
+	}
+	table_html += "</tbody></table>";
+	return table_html;
 }
 
 var submitObjList = function() {
 	var submitObj_list = [];
-	var failed_trs = [];
+	var failed = [];
 	for (id in tr_map) {
 		var currSubmitObj = createSubmitObj(tr_map[id]);
-		if (currSubmitObj == -1) {
-			failed_trs.push(tr_map[id]);
-		} else if (currSubmitObj == null) {
+		if (currSubmitObj == null) {
 			deleteRow(tr_map[id]);
+		} else if (currSubmitObj[0]) {
+			submitObj_list.push(currSubmitObj[1]);
 		} else {
-			submitObj_list.push(currSubmitObj);
+			failed.push(currSubmitObj[1]);
 		}
 	}
-	if (failed_trs.length > 0) {
-		//do failed stuff
-		console.log(failed_trs);
-		return null;
-	} else {
-		return submitObj_list;
-	}
+	return [submitObj_list, failed];
 }
 
 var postSubmitObjs = function(postObjs, success) {

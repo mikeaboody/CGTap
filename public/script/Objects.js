@@ -19,6 +19,7 @@ COMMUNICATOR = {
 	        	if (textStatus == "timeout") {
 	        		timeoutFailure();
 	        	} else {
+	        		console.log(errorThrown);
 	        		generalFailure();
 	        	}
 	        }
