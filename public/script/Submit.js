@@ -38,12 +38,12 @@ var submit = function() {
 	}
 	table_html += "</tbody></table>";
 	swal({   
-		title: "Do you want to submit?",   
+		title: "Do you want to send to OpenAir?",   
 		text: table_html,
 		html: true,    
 		showCancelButton: true,   
 		confirmButtonColor: "#FF6700",   
-		confirmButtonText: "Submit",   
+		confirmButtonText: "Send to OpenAir",   
 		cancelButtonText: "Cancel",   
 		closeOnConfirm: true,   
 		closeOnCancel: true }, 
