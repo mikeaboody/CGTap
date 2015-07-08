@@ -1,12 +1,8 @@
 var submit = function() {
-	var submitObj_list = [];
-	for (id in tr_map) {
-		var currSubmitObj = createSubmitObj(tr_map[id]);
-		if (currSubmitObj == null) {
-			swal("Insufficient Time!", "One of your projects has a recorded time of only 5 minutes or less. A valid submission contains only projects with more than 5 minutes of time recorded.", "error");
-			return;
-		}
-		submitObj_list.push(currSubmitObj);
+	var submitObj_list = submitObjList();
+	if (submitObj_list == null) {
+		swal("Insufficient!", "One of your projects has a bad field.", "error");
+		return;
 	}
 	var confirmSubmit = function() {
 		postSubmitObjs(submitObj_list, function() {
@@ -38,12 +34,12 @@ var submit = function() {
 	}
 	table_html += "</tbody></table>";
 	swal({   
-		title: "Do you want to submit?",   
+		title: "Do you want to send to OpenAir?",   
 		text: table_html,
 		html: true,    
 		showCancelButton: true,   
 		confirmButtonColor: "#FF6700",   
-		confirmButtonText: "Submit",   
+		confirmButtonText: "Send to OpenAir",   
 		cancelButtonText: "Cancel",   
 		closeOnConfirm: true,   
 		closeOnCancel: true }, 
@@ -76,10 +72,34 @@ var createSubmitObj = function(tr) {
 	submitObj.hours = post_hours;
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = $current_tr.find(".notes textarea").val();
-	if (submitObj.hours > 0) {
+	var empty = submitObj.hours <= 0 && submitObj.project_id == "" && submitObj.task_id == "" &&
+				submitObj.task_type == "" && submitObj.notes == "";
+	var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
+				submitObj.task_type == "";
+	if (!incomplete) {
 		return submitObj;
 	} else {
 		return null;
+	}
+}
+
+var submitObjList = function() {
+	var submitObj_list = [];
+	var failed_trs = [];
+	for (id in tr_map) {
+		var currSubmitObj = createSubmitObj(tr_map[id]);
+		if (currSubmitObj == null) {
+			failed_trs.push(tr_map[id]);
+		} else {
+			submitObj_list.push(currSubmitObj);
+		}
+	}
+	if (failed_trs.length > 0) {
+		//do failed stuff
+		console.log(failed_trs);
+		return null;
+	} else {
+		return submitObj_list;
 	}
 }
 
@@ -100,6 +120,7 @@ var postSubmitObjs = function(postObjs, success) {
 				if (postObj["notes"] == "") {
 					delete postObj["notes"];
 				}
+				console.log(postObj);
 				COMMUNICATOR.postToOpenAir(postObj, next, function() {
 					console.log(postObj);
 					console.log("failure");
@@ -116,7 +137,6 @@ var totalHours = function(submitObjs) {
 	var total = 0;
 	for (var i = 0; i < submitObjs.length; i += 1) {
 		obj = submitObjs[i];
-		console.log(obj);
 		total += obj.raw_minutes + obj.raw_hours * 60;
 	}
 	return [Math.floor(total / 60) + "", total % 60]
