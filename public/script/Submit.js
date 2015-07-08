@@ -24,6 +24,7 @@ var submit = function() {
 	table_html += submitTable(submitObj_list);
 
 	if (failed.length > 0) {
+		table_html += "<div>Incomplete entries not to be submitted</div><br>";
 		table_html += insufficientTable(failed);
 		console.log("FAILED");
 	}
@@ -81,17 +82,20 @@ var createSubmitObj = function(tr) {
 }
 
 var submitTable = function(submitObj_list) {
-	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
+	var table_html = "<table id='submit_table'class='table table-bordered'>";
 	
-	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
+	table_html += "<thead><tr><th>Project</th><th>Task</th><th>Billing Type</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
 
 	for (i in submitObj_list) {
 		var obj = submitObj_list[i];
 		var proj_name = obj.project_nm;
+		var task_name = obj.task_nm;
+		var task_type_name = obj.task_type_nm;
 		var hours = obj.raw_hours;
 		var minutes = obj.raw_minutes;
-		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
+		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + task_name + "</td><td align='left'>" +
+							task_type_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
 		table_html += current_tr;
 	}
 	table_html += "</tbody></table>";
@@ -99,17 +103,20 @@ var submitTable = function(submitObj_list) {
 }
 
 var insufficientTable = function(failed) {
-	var table_html = "<table id='submit_table'class='table table-bordered table-striped'>";
+	var table_html = "<table id='submit_table'class='table table-bordered'>";
 	
-	table_html += "<thead><tr><th>Projects</th><th>Time</th></tr></thead>";
+	table_html += "<thead><tr><th>Project</th><th>Task</th><th>Billing Type</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
 
 	for (i in failed) {
 		var obj = failed[i];
 		var proj_name = obj.project_nm;
+		var task_name = obj.task_nm;
+		var task_type_name = obj.task_type_nm;
 		var hours = obj.raw_hours;
 		var minutes = obj.raw_minutes;
-		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
+		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + task_name + "</td><td align='left'>" +
+							task_type_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
 		table_html += current_tr;
 	}
 	table_html += "</tbody></table>";
