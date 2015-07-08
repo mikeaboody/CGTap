@@ -96,6 +96,9 @@ a.nav-expander.fixed {
   font-size: 14px;
 }
 
+.insufficient_entry {
+  background-color: #febc26;
+}
 
  
 /*calendar button*/

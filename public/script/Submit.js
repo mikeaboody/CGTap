@@ -115,8 +115,30 @@ var insufficientTable = function(failed) {
 		var task_type_name = obj.task_type_nm;
 		var hours = obj.raw_hours;
 		var minutes = obj.raw_minutes;
-		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + task_name + "</td><td align='left'>" +
-							task_type_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
+		// var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
+		// 		submitObj.task_type == "";
+		var current_tr = "<tr>"
+		if (obj.project_id == "") {
+			current_tr += "<td align='left' class='insufficient_entry'>" + proj_name + "</td>";
+		} else {
+			current_tr += "<td align='left' >" + proj_name + "</td>";
+		}
+		if (obj.task_id == "") {
+			current_tr += "<td align='left' class='insufficient_entry'>" + task_name + "</td>";
+		} else {
+			current_tr += "<td align='left'>" + task_name + "</td>";
+		}
+		if (obj.task_type == "") {
+			current_tr +=  "<td align='left' class='insufficient_entry'>" + task_type_name + "</td>";
+		} else {
+			current_tr +=  "<td align='left'>" + task_type_name + "</td>";
+		}
+		if (obj.hours <= 0) {
+			current_tr += "<td align='left' class='insufficient_entry'>" + hours + " hours " + minutes + " minutes</td>";
+		} else {
+			current_tr += "<td align='left'>" + hours + " hours " + minutes + " minutes</td>";
+		}
+		current_tr += "</tr>";
 		table_html += current_tr;
 	}
 	table_html += "</tbody></table>";
