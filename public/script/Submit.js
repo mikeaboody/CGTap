@@ -76,10 +76,13 @@ var createSubmitObj = function(tr) {
 				submitObj.task_type == "" && submitObj.notes == "";
 	var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
 				submitObj.task_type == "";
+	if (empty) {
+		return null;
+	}
 	if (!incomplete) {
 		return submitObj;
 	} else {
-		return null;
+		return -1;
 	}
 }
 
@@ -88,8 +91,10 @@ var submitObjList = function() {
 	var failed_trs = [];
 	for (id in tr_map) {
 		var currSubmitObj = createSubmitObj(tr_map[id]);
-		if (currSubmitObj == null) {
+		if (currSubmitObj == -1) {
 			failed_trs.push(tr_map[id]);
+		} else if (currSubmitObj == null) {
+			deleteRow(tr_map[id]);
 		} else {
 			submitObj_list.push(currSubmitObj);
 		}

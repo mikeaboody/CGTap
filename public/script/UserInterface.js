@@ -146,14 +146,18 @@ var addRow = function() {
 	var id = createTR();
 	var myRow = $template_row;
 	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
-    $("#time_sheet_table tr:last").after(myHTML);
+	if ($("#time_sheet_table tbody tr:last").index() == -1) {
+		$("#time_sheet_table tbody").append(myHTML);
+	} else {
+		$("#time_sheet_table tbody tr:last").after(myHTML);
+	}
     tr_map[id].updateProject();
     tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
 // //delete a row from projects
 var deleteRow = function(tr) {
-	if (($("#time_sheet_table tr:last").index() + 1) > 1) {
+	if (($("#time_sheet_table tbody tr:last").index() + 1) > 1) {
 		if (current_time_tr == tr) {
 			stopTimer(tr);
 		}
@@ -161,8 +165,7 @@ var deleteRow = function(tr) {
 		updateLabel();
 	} else {
 		swal("You must have one or more projects on the timesheet", "", "error");
-	}
-	
+	}	
 }
 
 var timeoutFailure = function() {
