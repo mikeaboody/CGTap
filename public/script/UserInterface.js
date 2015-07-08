@@ -33,6 +33,7 @@ var updateProject = function(tr) {
 	tr.$getJQuery().find(".deleteRow button").on('click', function() {
 		deleteRow(tr);
 	});
+	updateLabel();
 }
 
 var updateTasks = function(tr, proj_id) {
@@ -152,7 +153,7 @@ var addRow = function() {
 		$("#time_sheet_table tbody tr:last").after(myHTML);
 	}
     tr_map[id].updateProject();
-    tr_map[id].updateTasks(master_user.projects[0].id);
+    // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
 // //delete a row from projects
