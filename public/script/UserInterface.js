@@ -1,13 +1,9 @@
 var updateProject = function(tr) {
 	tr.$getJQuery().find(".projects select").empty();
+	tr.$getJQuery().find(".projects select").append("<option value='' disabled selected>Project</option>");
 	for (var i = 0; i < master_user.projects.length; i += 1) {
 		var currProj = master_user.projects[i];
-		
-		if (i == 0) {
-			tr.$getJQuery().find(".projects select").append("<option value='" + currProj.id + "' selected>" + currProj.name  + "</option>");
-		} else {
-			tr.$getJQuery().find(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
-		}
+		tr.$getJQuery().find(".projects select").append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 	}
 	tr.$getJQuery().find(".projects select").on('change', function() {
    		tr.updateTasks($(this).val());
@@ -42,14 +38,11 @@ var updateProject = function(tr) {
 var updateTasks = function(tr, proj_id) {
 	var success = function(data) {
 		tr.$getJQuery().find(".tasks select").empty();
+		tr.$getJQuery().find(".tasks select").append("<option value='' disabled selected>Task</option>");
 
 		for (var i = 0; i < data.length; i += 1) {
 			var currTask = data[i];
-			if (i == 0) {
-				tr.$getJQuery().find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-			} else {
-				tr.$getJQuery().find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
-			}
+			tr.$getJQuery().find(".tasks select").append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 		}
 		tr.updateTimeType(proj_id);
 	}
@@ -59,15 +52,12 @@ var updateTasks = function(tr, proj_id) {
 var updateTimeType = function(tr, proj_id) {
 	var success = function(data) {
 		tr.$getJQuery().find(".payment select").empty();
+		tr.$getJQuery().find(".payment select").append("<option value='' disabled selected>Billing Type</option>");
 		for (var i = 0; i < data.length; i += 1) {
 			var currTimeType = data[i];
 			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
 			if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
-				if (i == 0) {
-					tr.$getJQuery().find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm + "</option>");
-				} else {
-					tr.$getJQuery().find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
-				}	
+				tr.$getJQuery().find(".payment select").append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
 			}
 		}
 		updateLabel();
