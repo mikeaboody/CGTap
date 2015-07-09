@@ -1,5 +1,9 @@
 var setup = function() {
 	var success = function(data) {
+		if (data == 0) {
+			timeoutFailure();
+			return;
+		}
 		var personData = findEmployeeInfo(master_email, data);
 		if (personData != null) {
 			master_user = new User(personData[0], personData[1], personData[2]);
@@ -34,6 +38,7 @@ var loadCalendarEvents = function() {
 }
 
 var findEmployeeInfo = function(email, data) {
+	console.log(data);
 	for (var i = 0; i < data.length; i += 1) {
 		if (data[i].email.toLowerCase() == email.toLowerCase()) {
 			return [data[i].first_nm, data[i].last_nm, email];
