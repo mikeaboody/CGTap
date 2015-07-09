@@ -115,7 +115,7 @@ get '/logout' do
   erb :logout
 end
 
-post "/submit" do
+get "/submit" do
   first_name = params.delete("first_name")
   last_name = params.delete("last_name")
   email = params["email"]

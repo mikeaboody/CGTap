@@ -78,7 +78,6 @@ COMMUNICATOR = {
 	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
 		$.ajax({
-	        type: "POST",
 	        data: postObj,
 	        url: "/submit",
 	        success: success,
@@ -96,7 +95,6 @@ COMMUNICATOR = {
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
 		$.ajax({
-	        type: "POST",
 	        data: postObj,
 	        url: base + "/timeentry/submit",
 	        success: success,
