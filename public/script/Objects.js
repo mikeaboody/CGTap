@@ -14,7 +14,7 @@ COMMUNICATOR = {
 	        dataType: 'json',
 	        url: base + "/employees",
 	        success: success,
-	        timeout: 5000,
+	        // timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	if (textStatus == "timeout") {
 	        		timeoutFailure();
@@ -31,7 +31,7 @@ COMMUNICATOR = {
 	        dataType: 'json',
 	        url: base + "/timeentry/projectlist?id=" + master_user.email,
 	        success: success,
-	        timeout: 5000,
+	        // timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	if (textStatus == "timeout") {
 	        		timeoutFailure();
@@ -48,7 +48,7 @@ COMMUNICATOR = {
 	        dataType: 'json',
 	        url: base + "/timeentry/tasklist?id=" + proj_id,
 	        success: success,
-	        timeout: 5000,
+	        // timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	if (textStatus == "timeout") {
 	        		timeoutFailure();
@@ -65,7 +65,7 @@ COMMUNICATOR = {
 	        dataType: 'json',
 	        url: base + "/timeentry/timetypelist?id=" + proj_id,
 	        success: success,
-	        timeout: 5000,
+	        // timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	if (textStatus == "timeout") {
 	        		timeoutFailure();
