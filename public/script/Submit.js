@@ -46,7 +46,6 @@ var submit = function() {
 
 var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
-	var $current_tr = tr.$getJQuery();
 	var minutes = (tr.$minutesJQ().val() == "") ? 0 : parseInt(tr.$minutesJQ().val(), 10);
 	var hours = (tr.$hoursJQ().val() == "") ? 0 : parseInt(tr.$hoursJQ().val(), 10);
 	var post_hours = hours;

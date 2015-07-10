@@ -80,7 +80,7 @@ var switchTimer = function(tr) {
 		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
 						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
 						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
-		current_time_tr.$getJQuery().find(".timer label").html(newLabel);
+		current_time_tr.$timerLabelJQ().html(newLabel);
 	}
 
 	if (tr_timer == null) { //just starting the timer
