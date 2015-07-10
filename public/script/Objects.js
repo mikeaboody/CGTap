@@ -179,6 +179,18 @@ function TableRow(id) {
 	this.$taskTypeJQ = function() {
 		return this.$getJQuery().find(".payment select");
 	}
+	this.$notesJQ = function() {
+		return this.$getJQuery().find(".notes textarea");
+	}
+	this.$hoursJQ = function() {
+		return this.$getJQuery().find(".hours");
+	}
+	this.$minutesJQ = function() {
+		return this.$getJQuery().find(".minutes");
+	}
+	this.$timerButtonJQ = function() {
+		return this.$getJQuery().find(".timer_button");
+	}
 
 }
 

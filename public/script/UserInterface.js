@@ -16,18 +16,14 @@ var updateProject = function(tr) {
    		updateLabel();
 	});
 
-	tr.$getJQuery().find(".hours").on('change', function() {
-   		updateLabel();
-	});
-
-	tr.$getJQuery().find(".minutes").on('change', function() {
+	tr.$minutesJQ().on('change', function() {
 		var minutes = parseInt($(this).val(), 10);
 		var format = minutes < 10 ? "0" + minutes : "" + minutes;
 		$(this).val(format);
    		updateLabel();
 	});
 
-	tr.$getJQuery().find(".timer_button").on('click', function() {
+	tr.$timerButtonJQ().on('click', function() {
 		tr.switchTimer();
 	});
 	tr.$getJQuery().find(".deleteRow button").on('click', function() {
@@ -102,8 +98,8 @@ var switchTimer = function(tr) {
 var startTimer = function(tr, action) {
 	tr_timer = setInterval(action, 1000);
 	current_time_tr = tr;
-	current_time_tr.$getJQuery().find(".timer_button").html("Stop");
-	current_time_tr.$getJQuery().find(".timer_button").toggleClass("btn-danger");
+	current_time_tr.$timerButtonJQ().html("Stop");
+	current_time_tr.$timerButtonJQ().toggleClass("btn-danger");
 }
 
 var stopTimer = function(tr) {
@@ -115,8 +111,8 @@ var stopTimer = function(tr) {
 	tr.$getJQuery().find('input[name="minutes"]').val(minutes < 10 ? "0" + minutes : "" + minutes);
 	tr.$getJQuery().find('input[name="hours"]').val(hours);
 	updateLabel();
-	tr.$getJQuery().find(".timer_button").html("Start");
-	tr.$getJQuery().find(".timer_button").toggleClass("btn-danger");
+	tr.$timerButtonJQ().html("Start");
+	tr.$timerButtonJQ().toggleClass("btn-danger");
 }
 
 var redirectToTimesheet = function() {

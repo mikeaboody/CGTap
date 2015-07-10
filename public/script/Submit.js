@@ -68,7 +68,7 @@ var createSubmitObj = function(tr) {
 	submitObj.task_type = tr.$taskTypeJQ().find("option:selected").val();
 	submitObj.hours = post_hours;
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
-	submitObj.notes = $current_tr.find(".notes textarea").val();
+	submitObj.notes = tr.$notesJQ().val();
 	var empty = submitObj.hours <= 0 && submitObj.project_id == "" && submitObj.task_id == "" &&
 				submitObj.task_type == "" && submitObj.notes == "";
 	var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
