@@ -170,6 +170,16 @@ function TableRow(id) {
 	this.createSubmitObj = function() {
 		return createSubmitObj(this);
 	};
+	this.$projectJQ = function() {
+		return this.$getJQuery().find(".projects select");
+	}
+	this.$taskJQ = function() {
+		return this.$getJQuery().find(".tasks select");
+	}
+	this.$taskTypeJQ = function() {
+		return this.$getJQuery().find(".payment select");
+	}
+
 }
 
 function PastTimesheet(id, project_name, task_name, time_type, hours) {
