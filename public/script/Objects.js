@@ -191,6 +191,9 @@ function TableRow(id) {
 	this.$timerButtonJQ = function() {
 		return this.$getJQuery().find(".timer_button");
 	}
+	this.$deleteButtonJQ = function() {
+		return this.$getJQuery().find(".deleteRow button");
+	}
 
 }
 

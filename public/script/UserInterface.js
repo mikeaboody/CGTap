@@ -26,7 +26,7 @@ var updateProject = function(tr) {
 	tr.$timerButtonJQ().on('click', function() {
 		tr.switchTimer();
 	});
-	tr.$getJQuery().find(".deleteRow button").on('click', function() {
+	tr.$deleteButtonJQ().on('click', function() {
 		deleteRow(tr);
 	});
 	updateLabel();
@@ -108,8 +108,8 @@ var stopTimer = function(tr) {
 	current_time_tr = null;
 	var hours = Math.floor(tr.time / (3600*1000));
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;
-	tr.$getJQuery().find('input[name="minutes"]').val(minutes < 10 ? "0" + minutes : "" + minutes);
-	tr.$getJQuery().find('input[name="hours"]').val(hours);
+	tr.$minutesJQ().val(minutes < 10 ? "0" + minutes : "" + minutes);
+	tr.$hoursJQ().val(hours);
 	updateLabel();
 	tr.$timerButtonJQ().html("Start");
 	tr.$timerButtonJQ().toggleClass("btn-danger");
