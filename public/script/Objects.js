@@ -203,16 +203,24 @@ function TableRow(id) {
 	this.getHours = function() {
 		return (this.$hoursJQ().val() == "") ? 0 : parseInt(this.$hoursJQ().val(), 10);
 	}
-	//minutes
-	//hours
-	//projectName
-	//projectID
-	//taskName
-	//taskID
-	//taskTypeName
-	//taskTypeID
-
-
+	this.getProjectName = function() {
+		return this.$projectJQ().find("option:selected").text();
+	}
+	this.getProjectID = function() {
+		return this.$projectJQ().find("option:selected").val();
+	}
+	this.getTaskName = function() {
+		return this.$taskJQ().find("option:selected").text();
+	}
+	this.getTaskID = function() {
+		return this.$taskJQ().find("option:selected").val();
+	}
+	this.getTaskTypeName = function() {
+		return this.$taskTypeJQ().find("option:selected").text();
+	}
+	this.getTaskTypeID = function() {
+		return this.$taskTypeJQ().find("option:selected").val();
+	}
 }
 
 function PastTimesheet(id, project_name, task_name, time_type, hours) {
