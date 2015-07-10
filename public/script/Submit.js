@@ -66,7 +66,7 @@ var createSubmitObj = function(tr) {
 	submitObj.task_type = tr.getTaskTypeID();
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
-	submitObj.notes = tr.$notesJQ().val();
+	submitObj.notes = tr.getNotes();
 	var empty = submitObj.hours <= 0 && submitObj.project_id == "" && submitObj.task_id == "" &&
 				submitObj.task_type == "" && submitObj.notes == "";
 	var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
@@ -160,14 +160,17 @@ var TRLists = function() {
 	var insufficientTRList = [];
 	var emptyTRList = [];
 	for (id in tr_map) {
-		var currTR = tr_map[id];
-		var currSubmitObj = currTR.createSubmitObj();
-		if (currSubmitObj == null) {
-			emptyTRList.push(currTR);
-		} else if (currSubmitObj[0]) {
-			submitTRList.push(currTR);
+		var tr = tr_map[id];
+		var empty = tr.getConvertedHours() <= 0 && tr.getProjectID() == "" && tr.getTaskID() == "" &&
+				tr.getTaskTypeID() == "" && tr.getNotes() == "";
+		var insufficient = tr.getConvertedHours() <= 0 || tr.getProjectID() == "" || tr.getTaskID() == "" ||
+				tr.getTaskTypeID() == "";
+		if (empty) {
+			emptyTRList.push(tr);
+		} else if (insufficient) {
+			insufficientTRList.push(tr);
 		} else {
-			insufficientTRList.push(currTR);
+			submitTRList.push(tr);
 		}
 	}
 	return [submitTRList, insufficientTRList, emptyTRList];

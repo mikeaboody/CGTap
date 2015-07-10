@@ -232,6 +232,9 @@ function TableRow(id) {
 		}
 		return convertedHours;
 	}
+	this.getNotes = function() {
+		return this.$notesJQ().val();
+	}
 }
 
 function PastTimesheet(id, project_name, task_name, time_type, hours) {
