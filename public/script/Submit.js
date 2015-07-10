@@ -53,11 +53,8 @@ var submit = function() {
 
 var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
-	var minutes = tr.getMinutes();
-	var hours = tr.getHours();
-	var post_hours = tr.getConvertedHours();
-	submitObj.raw_hours = hours;
-	submitObj.raw_minutes = minutes;
+	submitObj.raw_hours = tr.getHours();
+	submitObj.raw_minutes = tr.getMinutes();
 	submitObj.email = Submittable.user.email;
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
@@ -67,7 +64,7 @@ var createSubmitObj = function(tr) {
 	submitObj.task_id = tr.getTaskID();
 	submitObj.task_type_nm = tr.getTaskTypeName();
 	submitObj.task_type = tr.getTaskTypeID();
-	submitObj.hours = post_hours;
+	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = tr.$notesJQ().val();
 	var empty = submitObj.hours <= 0 && submitObj.project_id == "" && submitObj.task_id == "" &&
