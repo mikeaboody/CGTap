@@ -1,8 +1,8 @@
 var submit = function() {
-	var TRList = TRLists();
-	var submitTRList = TRList[0];
-	var insufficientTRList = TRList[1];
-	var emptyTRList = TRList[2];
+	var TRLists = TRClassification();
+	var submitTRList = TRLists[0];
+	var insufficientTRList = TRLists[1];
+	var emptyTRList = TRLists[2];
 	console.log(submitTRList);
 	console.log(insufficientTRList);
 	console.log(emptyTRList);
@@ -53,8 +53,6 @@ var submit = function() {
 
 var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
-	submitObj.raw_hours = tr.getHours();
-	submitObj.raw_minutes = tr.getMinutes();
 	submitObj.email = Submittable.user.email;
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
@@ -67,18 +65,7 @@ var createSubmitObj = function(tr) {
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = tr.getNotes();
-	var empty = submitObj.hours <= 0 && submitObj.project_id == "" && submitObj.task_id == "" &&
-				submitObj.task_type == "" && submitObj.notes == "";
-	var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
-				submitObj.task_type == "";
-	if (empty) {
-		return null;
-	}
-	if (!incomplete) {
-		return [true, submitObj];
-	} else {
-		return [false, submitObj];
-	}
+	return submitObj;
 }
 
 var submitTable = function(submitTRList) {
@@ -154,7 +141,7 @@ var deleteEmptyTRs = function(emptyTRList) {
 	}
 }
 //instead of returning good and bad submit objs, returns good and bad TR's
-var TRLists = function() {
+var TRClassification = function() {
 	//move the checking into here from createSubmitObj
 	var submitTRList = [];
 	var insufficientTRList = [];
