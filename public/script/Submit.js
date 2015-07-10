@@ -91,12 +91,12 @@ var submitTable = function(submitTRList) {
 	table_html += "<tbody>";
 
 	for (i in submitTRList) {
-		var obj = submitTRList[i].createSubmitObj()[1];
-		var proj_name = obj.project_nm;
-		var task_name = obj.task_nm;
-		var task_type_name = obj.task_type_nm;
-		var hours = obj.raw_hours;
-		var minutes = obj.raw_minutes;
+		var tr = submitTRList[i];
+		var proj_name = tr.getProjectName();
+		var task_name = tr.getTaskName();
+		var task_type_name = tr.getTaskTypeName();
+		var hours = tr.getHours();
+		var minutes = tr.getMinutes();
 		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + task_name + "</td><td align='left'>" +
 							task_type_name + "</td><td align='left'>" + hours + " hours " + minutes + " minutes</td></tr>";
 		table_html += current_tr;
@@ -112,31 +112,34 @@ var insufficientTable = function(insufficientTRList) {
 	table_html += "<tbody>";
 
 	for (i in insufficientTRList) {
-		var obj = insufficientTRList[i].createSubmitObj()[1];
-		var proj_name = obj.project_nm;
-		var task_name = obj.task_nm;
-		var task_type_name = obj.task_type_nm;
-		var hours = obj.raw_hours;
-		var minutes = obj.raw_minutes;
+		var tr = insufficientTRList[i]
+		var proj_name = tr.getProjectName();
+		var proj_id = tr.getProjectID();
+		var task_name = tr.getTaskName();
+		var task_id = tr.getTaskID();
+		var task_type_name = tr.getTaskTypeName();
+		var task_type_id = tr.getTaskTypeID();
+		var hours = tr.getHours();
+		var minutes = tr.getMinutes();
 		// var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
 		// 		submitObj.task_type == "";
 		var current_tr = "<tr>"
-		if (obj.project_id == "") {
+		if (proj_id == "") {
 			current_tr += "<td align='left' class='insufficient_entry'>" + proj_name + "</td>";
 		} else {
 			current_tr += "<td align='left' >" + proj_name + "</td>";
 		}
-		if (obj.task_id == "") {
+		if (task_id == "") {
 			current_tr += "<td align='left' class='insufficient_entry'>" + task_name + "</td>";
 		} else {
 			current_tr += "<td align='left'>" + task_name + "</td>";
 		}
-		if (obj.task_type == "") {
+		if (task_type_id == "") {
 			current_tr +=  "<td align='left' class='insufficient_entry'>" + task_type_name + "</td>";
 		} else {
 			current_tr +=  "<td align='left'>" + task_type_name + "</td>";
 		}
-		if (obj.hours <= 0) {
+		if (hours <= 0) {
 			current_tr += "<td align='left' class='insufficient_entry'>" + hours + " hours " + minutes + " minutes</td>";
 		} else {
 			current_tr += "<td align='left'>" + hours + " hours " + minutes + " minutes</td>";
@@ -205,8 +208,8 @@ var postSubmitObjs = function(postObjs, success) {
 var totalHours = function(submitTRList) {
 	var total = 0;
 	for (var i = 0; i < submitTRList.length; i += 1) {
-		var obj = submitTRList[i].createSubmitObj();
-		total += obj.raw_minutes + obj.raw_hours * 60;
+		var tr = submitTRList[i];
+		total += tr.getMinutes() + tr.getHours() * 60;
 	}
 	return [Math.floor(total / 60) + "", total % 60]
 }
