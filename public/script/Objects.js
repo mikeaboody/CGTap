@@ -197,6 +197,18 @@ function TableRow(id) {
 	this.$timerLabelJQ = function() {
 		return this.$getJQuery().find(".timer label");
 	}
+	this.getMinutes = function() {
+		return (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
+	}
+	//minutes
+	//hours
+	//projectName
+	//projectID
+	//taskName
+	//taskID
+	//taskTypeName
+	//taskTypeID
+
 
 }
 

@@ -17,7 +17,7 @@ var updateProject = function(tr) {
 	});
 
 	tr.$minutesJQ().on('change', function() {
-		var minutes = parseInt($(this).val(), 10);
+		var minutes = tr.getMinutes();
 		var format = minutes < 10 ? "0" + minutes : "" + minutes;
 		$(this).val(format);
    		updateLabel();
