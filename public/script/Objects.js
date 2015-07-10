@@ -82,7 +82,6 @@ COMMUNICATOR = {
 	        type: "POST",
 	        data: postObj,
 	        url: "/submit",
-	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	jqXHR.abort();
@@ -92,7 +91,7 @@ COMMUNICATOR = {
 	        		generalFailure();
 	        	}
 	        }
-		});
+		}).done(success);
 	},
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
@@ -100,7 +99,6 @@ COMMUNICATOR = {
 	        type: "POST",
 	        data: postObj,
 	        url: base + "/timeentry/submit",
-	        success: success,
 	        timeout: 5000,
 	        error: function(jqXHR, textStatus, errorThrown) {
 	        	jqXHR.abort();
@@ -110,6 +108,9 @@ COMMUNICATOR = {
 	        		generalFailure();
 	        	}
 	        }
+		}).done(function() {
+			success();
+			console.log("SENT");
 		});
 	}
 }

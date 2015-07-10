@@ -3,14 +3,15 @@ var submit = function() {
 	var submitTRList = TRLists[0];
 	var insufficientTRList = TRLists[1];
 	var emptyTRList = TRLists[2];
-	console.log(submitTRList);
-	console.log(insufficientTRList);
-	console.log(emptyTRList);
 	if (insufficientTRList.length == 0 && submitTRList.length == 0) {
-		//all empty timesheets;
+		swal({   
+			title: "Timesheet empty",
+			text: "Please fill out your timesheet before submitting.",
+			type: "error"
+		});
 		return;
 	}
-	deleteEmptyTRs(emptyTRList);
+	deleteTRs(emptyTRList);
 	
 	// if (submitObj_list == null) {
 	// 	swal("Insufficient!", "One of your projects has a bad field.", "error");
@@ -18,37 +19,51 @@ var submit = function() {
 	// }
 	var confirmSubmit = function() {
 		postSubmitObjs(submitTRList, function() {
-			swal({
-				title: "You have submitted your hours!",
-				type: "success"
-			},reset);
-			
+			setTimeout(function() {
+				swal({
+					title: "You have submitted your hours!",
+					type: "success"
+				}, function() {
+					reset(TRLists);
+				});
+			}, 500);
 		});
 	}
 
 	var date_selected = $(".submit_date .datepicker").datepicker("getDate");
 	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
-	var total_hours = totalHours(submitTRList);
-	table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>"
-
-	table_html += submitTable(submitTRList);
-
-	if (insufficientTRList.length > 0) {
-		table_html += "<div>Incomplete entries not to be submitted</div><br>";
+	if (submitTRList.length > 0) {
+		var total_hours = totalHours(submitTRList);
+		table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>";
+		table_html += submitTable(submitTRList);
+		if (insufficientTRList.length > 0) {
+			table_html += "<div>Incomplete entries not to be submitted</div><br>";
+			table_html += insufficientTable(insufficientTRList);
+		}
+		swal({   
+			title: "Do you want to send to OpenAir?",   
+			text: table_html,
+			html: true,    
+			showCancelButton: true,   
+			confirmButtonColor: "#FF6700",   
+			confirmButtonText: "Send to OpenAir",   
+			cancelButtonText: "Cancel",   
+			closeOnConfirm: true,   
+			closeOnCancel: true }, 
+			confirmSubmit
+		);
+	} else {
+		table_html = "<div>Incomplete entries not to be submitted</div><br>";
 		table_html += insufficientTable(insufficientTRList);
+		swal({   
+			title: "No complete entries",
+			type: "error",   
+			text: table_html,
+			html: true
+		});
 	}
-	swal({   
-		title: "Do you want to send to OpenAir?",   
-		text: table_html,
-		html: true,    
-		showCancelButton: true,   
-		confirmButtonColor: "#FF6700",   
-		confirmButtonText: "Send to OpenAir",   
-		cancelButtonText: "Cancel",   
-		closeOnConfirm: true,   
-		closeOnCancel: true }, 
-		confirmSubmit
-	);
+	
+	
 }
 
 var createSubmitObj = function(tr) {
@@ -65,7 +80,6 @@ var createSubmitObj = function(tr) {
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = tr.getNotes();
-	console.log(submitObj);
 	return submitObj;
 }
 
@@ -136,9 +150,10 @@ var insufficientTable = function(insufficientTRList) {
 	return table_html;
 }
 
-var deleteEmptyTRs = function(emptyTRList) {
-	for (i in emptyTRList) {
-		deleteRow(emptyTRList[i]);
+var deleteTRs = function(TRList) {
+	for (i in TRList) {
+		console.log(TRList[i]);
+		deleteRow(TRList[i]);
 	}
 }
 //instead of returning good and bad submit objs, returns good and bad TR's
@@ -200,15 +215,21 @@ var totalHours = function(submitTRList) {
 	return [Math.floor(total / 60) + "", total % 60]
 }
 
-var reset = function() {
-	$(".content").hide(1);
-	$(".welcome").html("Loading...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
+var reset = function(TRLists) {
+	// $(".content").hide(1);
+	// $(".welcome").html("Loading...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
 	if (current_time_tr != null) {
 		stopTimer(current_time_tr);
 	}
-	tr_map = {};
-	$("#time_sheet_table tbody").empty();
-	$("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
-	loadUserData();
+	var submitTRList = TRLists[0];
+	var insufficientTRList = TRLists[1];
+	if (insufficientTRList.length == 0) {
+		addRow();
+	}
+	deleteTRs(submitTRList);
+	// tr_map = {};
+	// $("#time_sheet_table tbody").empty();
+	// $("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
+	// loadUserData();
 }
 
