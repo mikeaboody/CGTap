@@ -1,9 +1,17 @@
 var submit = function() {
-	var completeTRList = completeTRLists();
-	var submitTRList = completeTRList[0];
-	var insufficientTRList = completeTRList[1];
+	var TRList = TRLists();
+	var submitTRList = TRList[0];
+	var insufficientTRList = TRList[1];
+	var emptyTRList = TRList[2];
 	console.log(submitTRList);
 	console.log(insufficientTRList);
+	console.log(emptyTRList);
+	if (insufficientTRList.length == 0 && submitTRList.length == 0) {
+		//all empty timesheets;
+		return;
+	}
+	deleteEmptyTRs(emptyTRList);
+	
 	// if (submitObj_list == null) {
 	// 	swal("Insufficient!", "One of your projects has a bad field.", "error");
 	// 	return;
@@ -28,7 +36,6 @@ var submit = function() {
 	if (insufficientTRList.length > 0) {
 		table_html += "<div>Incomplete entries not to be submitted</div><br>";
 		table_html += insufficientTable(insufficientTRList);
-		console.log("FAILED");
 	}
 	swal({   
 		title: "Do you want to send to OpenAir?",   
@@ -48,12 +55,7 @@ var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
 	var minutes = tr.getMinutes();
 	var hours = tr.getHours();
-	var post_hours = hours;
-	if (minutes % 15 < 6) {
-		post_hours += Math.floor(minutes / 15) / 4;
-	} else {
-		post_hours += Math.ceil(minutes / 15) / 4;
-	}
+	var post_hours = tr.getConvertedHours();
 	submitObj.raw_hours = hours;
 	submitObj.raw_minutes = minutes;
 	submitObj.email = Submittable.user.email;
@@ -111,7 +113,6 @@ var insufficientTable = function(insufficientTRList) {
 
 	for (i in insufficientTRList) {
 		var obj = insufficientTRList[i].createSubmitObj()[1];
-		console.log(obj);
 		var proj_name = obj.project_nm;
 		var task_name = obj.task_nm;
 		var task_type_name = obj.task_type_nm;
@@ -146,23 +147,30 @@ var insufficientTable = function(insufficientTRList) {
 	table_html += "</tbody></table>";
 	return table_html;
 }
+
+var deleteEmptyTRs = function(emptyTRList) {
+	for (i in emptyTRList) {
+		deleteRow(emptyTRList[i]);
+	}
+}
 //instead of returning good and bad submit objs, returns good and bad TR's
-var completeTRLists = function() {
+var TRLists = function() {
+	//move the checking into here from createSubmitObj
 	var submitTRList = [];
 	var insufficientTRList = [];
+	var emptyTRList = [];
 	for (id in tr_map) {
 		var currTR = tr_map[id];
 		var currSubmitObj = currTR.createSubmitObj();
-		console.log(currSubmitObj);
 		if (currSubmitObj == null) {
-			deleteRow(currTR);
+			emptyTRList.push(currTR);
 		} else if (currSubmitObj[0]) {
 			submitTRList.push(currTR);
 		} else {
 			insufficientTRList.push(currTR);
 		}
 	}
-	return [submitTRList, insufficientTRList];
+	return [submitTRList, insufficientTRList, emptyTRList];
 }
 
 var postSubmitObjs = function(postObjs, success) {
@@ -182,7 +190,6 @@ var postSubmitObjs = function(postObjs, success) {
 				if (postObj["notes"] == "") {
 					delete postObj["notes"];
 				}
-				console.log(postObj);
 				COMMUNICATOR.postToOpenAir(postObj, next, function() {
 					console.log(postObj);
 					console.log("failure");

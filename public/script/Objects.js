@@ -221,6 +221,17 @@ function TableRow(id) {
 	this.getTaskTypeID = function() {
 		return this.$taskTypeJQ().find("option:selected").val();
 	}
+	this.getConvertedHours = function() {
+		var minutes = this.getMinutes();
+		var hours = this.getHours();
+		var convertedHours = hours;
+		if (minutes % 15 < 6) {
+			convertedHours += Math.floor(minutes / 15) / 4;
+		} else {
+			convertedHours += Math.ceil(minutes / 15) / 4;
+		}
+		return convertedHours;
+	}
 }
 
 function PastTimesheet(id, project_name, task_name, time_type, hours) {
