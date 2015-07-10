@@ -167,6 +167,9 @@ function TableRow(id) {
 	this.switchTimer = function() {
 		switchTimer(this);
 	};
+	this.createSubmitObj = function() {
+		return createSubmitObj(this);
+	};
 }
 
 function PastTimesheet(id, project_name, task_name, time_type, hours) {

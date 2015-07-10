@@ -1,13 +1,15 @@
 var submit = function() {
-	var submitObj_list = submitObjList();
-	var failed = submitObj_list[1];
-	submitObj_list = submitObj_list[0];
+	var completeTRList = completeTRLists();
+	var submitTRList = completeTRList[0];
+	var insufficientTRList = completeTRList[1];
+	console.log(submitTRList);
+	console.log(insufficientTRList);
 	// if (submitObj_list == null) {
 	// 	swal("Insufficient!", "One of your projects has a bad field.", "error");
 	// 	return;
 	// }
 	var confirmSubmit = function() {
-		postSubmitObjs(submitObj_list, function() {
+		postSubmitObjs(submitTRList, function() {
 			swal({
 				title: "You have submitted your hours!",
 				type: "success"
@@ -18,14 +20,14 @@ var submit = function() {
 
 	var date_selected = $(".submit_date .datepicker").datepicker("getDate");
 	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
-	var total_hours = totalHours(submitObj_list);
+	var total_hours = totalHours(submitTRList);
 	table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>"
 
-	table_html += submitTable(submitObj_list);
+	table_html += submitTable(submitTRList);
 
-	if (failed.length > 0) {
+	if (insufficientTRList.length > 0) {
 		table_html += "<div>Incomplete entries not to be submitted</div><br>";
-		table_html += insufficientTable(failed);
+		table_html += insufficientTable(insufficientTRList);
 		console.log("FAILED");
 	}
 	swal({   
@@ -81,14 +83,14 @@ var createSubmitObj = function(tr) {
 	}
 }
 
-var submitTable = function(submitObj_list) {
+var submitTable = function(submitTRList) {
 	var table_html = "<table id='submit_table'class='table table-bordered'>";
 	
 	table_html += "<thead><tr><th>Project</th><th>Task</th><th>Billing Type</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
 
-	for (i in submitObj_list) {
-		var obj = submitObj_list[i];
+	for (i in submitTRList) {
+		var obj = submitTRList[i].createSubmitObj()[1];
 		var proj_name = obj.project_nm;
 		var task_name = obj.task_nm;
 		var task_type_name = obj.task_type_nm;
@@ -102,14 +104,15 @@ var submitTable = function(submitObj_list) {
 	return table_html;
 }
 
-var insufficientTable = function(failed) {
+var insufficientTable = function(insufficientTRList) {
 	var table_html = "<table id='submit_table'class='table table-bordered'>";
 	
 	table_html += "<thead><tr><th>Project</th><th>Task</th><th>Billing Type</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
 
-	for (i in failed) {
-		var obj = failed[i];
+	for (i in insufficientTRList) {
+		var obj = insufficientTRList[i].createSubmitObj()[1];
+		console.log(obj);
 		var proj_name = obj.project_nm;
 		var task_name = obj.task_nm;
 		var task_type_name = obj.task_type_nm;
@@ -144,21 +147,23 @@ var insufficientTable = function(failed) {
 	table_html += "</tbody></table>";
 	return table_html;
 }
-
-var submitObjList = function() {
-	var submitObj_list = [];
-	var failed = [];
+//instead of returning good and bad submit objs, returns good and bad TR's
+var completeTRLists = function() {
+	var submitTRList = [];
+	var insufficientTRList = [];
 	for (id in tr_map) {
-		var currSubmitObj = createSubmitObj(tr_map[id]);
+		var currTR = tr_map[id];
+		var currSubmitObj = currTR.createSubmitObj();
+		console.log(currSubmitObj);
 		if (currSubmitObj == null) {
-			deleteRow(tr_map[id]);
+			deleteRow(currTR);
 		} else if (currSubmitObj[0]) {
-			submitObj_list.push(currSubmitObj[1]);
+			submitTRList.push(currTR);
 		} else {
-			failed.push(currSubmitObj[1]);
+			insufficientTRList.push(currTR);
 		}
 	}
-	return [submitObj_list, failed];
+	return [submitTRList, insufficientTRList];
 }
 
 var postSubmitObjs = function(postObjs, success) {
@@ -191,10 +196,10 @@ var postSubmitObjs = function(postObjs, success) {
 	next();
 }
 
-var totalHours = function(submitObjs) {
+var totalHours = function(submitTRList) {
 	var total = 0;
-	for (var i = 0; i < submitObjs.length; i += 1) {
-		obj = submitObjs[i];
+	for (var i = 0; i < submitTRList.length; i += 1) {
+		var obj = submitTRList[i].createSubmitObj();
 		total += obj.raw_minutes + obj.raw_hours * 60;
 	}
 	return [Math.floor(total / 60) + "", total % 60]
