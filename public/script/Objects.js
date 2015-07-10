@@ -200,6 +200,9 @@ function TableRow(id) {
 	this.getMinutes = function() {
 		return (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
 	}
+	this.getHours = function() {
+		return (this.$hoursJQ().val() == "") ? 0 : parseInt(this.$hoursJQ().val(), 10);
+	}
 	//minutes
 	//hours
 	//projectName

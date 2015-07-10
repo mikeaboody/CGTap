@@ -47,7 +47,7 @@ var submit = function() {
 var createSubmitObj = function(tr) {
 	var submitObj = new Submittable();
 	var minutes = tr.getMinutes();
-	var hours = (tr.$hoursJQ().val() == "") ? 0 : parseInt(tr.$hoursJQ().val(), 10);
+	var hours = tr.getHours();
 	var post_hours = hours;
 	if (minutes % 15 < 6) {
 		post_hours += Math.floor(minutes / 15) / 4;
