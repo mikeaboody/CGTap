@@ -65,6 +65,7 @@ var createSubmitObj = function(tr) {
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = tr.getNotes();
+	console.log(submitObj);
 	return submitObj;
 }
 
@@ -163,14 +164,12 @@ var TRClassification = function() {
 	return [submitTRList, insufficientTRList, emptyTRList];
 }
 
-var postSubmitObjs = function(postObjs, success) {
+var postSubmitObjs = function(submitTRList, success) {
 	var i = 0;
 	var next = function() {
-		if (i < postObjs.length) {
-			var postObj = postObjs[i];
+		if (i < submitTRList.length) {
+			var postObj = submitTRList[i].createSubmitObj();
 			i += 1;
-			delete postObj["raw_minutes"];
-			delete postObj["raw_hours"];
 			COMMUNICATOR.postToDatabase(postObj, function() {
 				delete postObj["first_name"];
 				delete postObj["last_name"];
