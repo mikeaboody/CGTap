@@ -114,6 +114,9 @@ function CalendarEvent(name, description, start, end) {
 function TableRow(id) {
 	this.id = id;
 	this.time = 0;
+	this.minutes = 0;
+	this.hours = 0;
+	this.notes = "";
 	this.currProjects = [];
 	this.currTasks = [];
 	this.currTaskTypes = [];
@@ -154,6 +157,14 @@ function TableRow(id) {
 		displayLoadingTimeType(this);
 		COMMUNICATOR.getTimeTypes(proj_id, success);	
 	};
+	this.updateManualTime = function() {
+		this.minutes = this.getMinutes();
+		this.hours = this.getHours();
+		updateManualTime(this);
+	};
+	this.updateNotes = function() {
+		this.notes = this.getNotes();
+	}
 	this.switchTimer = function() {
 		switchTimer(this);
 	};

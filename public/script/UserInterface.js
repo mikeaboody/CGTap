@@ -10,11 +10,15 @@ var setupTR = function(tr) {
    		updateLabel(tr);
 	});
 
+	tr.$notesJQ().on('change', function() {
+		tr.updateNotes();
+	})
+
+	tr.$hoursJQ().on('change', function() {
+		tr.updateManualTime();
+	})
 	tr.$minutesJQ().on('change', function() {
-		var minutes = tr.getMinutes();
-		var format = minutes < 10 ? "0" + minutes : "" + minutes;
-		$(this).val(format);
-   		updateLabel(tr);
+		tr.updateManualTime();
 	});
 
 	tr.$timerButtonJQ().on('click', function() {
@@ -79,6 +83,13 @@ var updateLabel = function(tr) {
 	tr.$projectJQ().selectpicker('refresh');
 	tr.$taskJQ().selectpicker('refresh');
 	tr.$taskTypeJQ().selectpicker('refresh');
+}
+
+var updateManualTime = function(tr) {
+	var minutes = tr.getMinutes();
+	var format = minutes < 10 ? "0" + minutes : "" + minutes;
+	tr.$minutesJQ().val(format);
+	updateLabel(tr);
 }
 
 var switchTimer = function(tr) {
