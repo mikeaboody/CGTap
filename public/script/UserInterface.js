@@ -7,20 +7,20 @@ var updateProject = function(tr) {
 	}
 	tr.$projectJQ().on('change', function() {
    		tr.updateTasks($(this).val());
-   		updateLabel();
+   		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
-   		updateLabel();
+   		updateLabel(tr);
 	});
 	tr.$taskTypeJQ().on('change', function() {
-   		updateLabel();
+   		updateLabel(tr);
 	});
 
 	tr.$minutesJQ().on('change', function() {
 		var minutes = tr.getMinutes();
 		var format = minutes < 10 ? "0" + minutes : "" + minutes;
 		$(this).val(format);
-   		updateLabel();
+   		updateLabel(tr);
 	});
 
 	tr.$timerButtonJQ().on('click', function() {
@@ -29,7 +29,7 @@ var updateProject = function(tr) {
 	tr.$deleteButtonJQ().on('click', function() {
 		deleteRow(tr);
 	});
-	updateLabel();
+	updateLabel(tr);
 }
 
 var updateTasks = function(tr, proj_id) {
@@ -41,12 +41,12 @@ var updateTasks = function(tr, proj_id) {
 			var currTask = data[i];
 			tr.$taskJQ().append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 		}
-		updateLabel();
+		updateLabel(tr);
 		tr.updateTimeType(proj_id);
 	}
 	tr.$taskJQ().empty();
 	tr.$taskJQ().append("<option value='' disabled selected>Loading...</option>");
-	updateLabel();
+	updateLabel(tr);
 	COMMUNICATOR.getTasks(proj_id, success);
 }
 
@@ -61,21 +61,23 @@ var updateTimeType = function(tr, proj_id) {
 				tr.$taskTypeJQ().append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
 			}
 		}
-		updateLabel();
+		updateLabel(tr);
 	}
 	tr.$taskTypeJQ().empty();
 	tr.$taskTypeJQ().append("<option value='' disabled selected>Loading...</option>");
-	updateLabel();
+	updateLabel(tr);
 	COMMUNICATOR.getTimeTypes(proj_id, success);
 }
 
 
-var updateLabel = function() {
+var updateLabel = function(tr) {
 	$(".welcome").html("Welcome " + master_user.first_name + "!");
 	if ($(".content").is(":hidden")) {
 		$(".content").show();
 	}
-	$('.selectpicker').selectpicker('refresh');
+	tr.$projectJQ().selectpicker('refresh');
+	tr.$taskJQ().selectpicker('refresh');
+	tr.$taskTypeJQ().selectpicker('refresh');
 }
 
 var switchTimer = function(tr) {
@@ -117,7 +119,7 @@ var stopTimer = function(tr) {
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;
 	tr.$minutesJQ().val(minutes < 10 ? "0" + minutes : "" + minutes);
 	tr.$hoursJQ().val(hours);
-	updateLabel();
+	updateLabel(tr);
 	tr.$timerButtonJQ().html("Start");
 	tr.$timerButtonJQ().toggleClass("btn-danger");
 }
@@ -166,7 +168,6 @@ var deleteRow = function(tr) {
 			stopTimer(tr);
 		}
 		deleteTR(tr);
-		updateLabel();
 	} else {
 		swal("You must have one or more projects on the timesheet", "", "error");
 	}	
