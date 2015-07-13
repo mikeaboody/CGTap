@@ -141,8 +141,8 @@ function TableRow(id) {
 		COMMUNICATOR.getTimeTypes(proj_id, success);	
 	};
 	this.updateManualTime = function() {
-		this.minutes = this.getMinutes();
-		this.hours = this.getHours();
+		this.minutes = (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
+		this.hours = (this.$hoursJQ().val() == "") ? 0 : parseInt(this.$hoursJQ().val(), 10);
 		updateManualTime(this);
 	};
 	this.updateNotes = function() {
@@ -203,10 +203,10 @@ function TableRow(id) {
 		return this.$getJQuery().find(".timer label");
 	}
 	this.getMinutes = function() {
-		return (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
+		return this.minutes;
 	}
 	this.getHours = function() {
-		return (this.$hoursJQ().val() == "") ? 0 : parseInt(this.$hoursJQ().val(), 10);
+		return this.hours;
 	}
 	this.getSelectedProjectName = function() {
 		return this.currProjects[this.currSelected["project"]] || "Project";
