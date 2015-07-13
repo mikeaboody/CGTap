@@ -139,7 +139,20 @@ function TableRow(id) {
 		
 	};
 	this.updateTimeType = function(proj_id) {
-		updateTimeType(this, proj_id);
+		var tr = this;
+		var success = function(data) {
+			tr.currTaskTypes = [];
+			for (var i = 0; i < data.length; i += 1) {
+				var currTimeType = new TaskType(data[i].time_type_nm, data[i].time_type_id);
+				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
+				if ($.inArray(currTimeType.name, includableTimeTypes) != -1) {
+					tr.currTaskTypes.push(currTimeType);
+				}
+			}
+			updateTimeType(tr, proj_id);
+		}
+		displayLoadingTimeType(this);
+		COMMUNICATOR.getTimeTypes(proj_id, success);	
 	};
 	this.switchTimer = function() {
 		switchTimer(this);

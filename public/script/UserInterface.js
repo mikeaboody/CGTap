@@ -42,6 +42,12 @@ var displayLoadingTasks = function(tr) {
 	updateLabel(tr);
 }
 
+var displayLoadingTimeType = function(tr) {
+	tr.$taskTypeJQ().empty();
+	tr.$taskTypeJQ().append("<option value='' disabled selected>Loading...</option>");
+	updateLabel(tr);
+}
+
 var updateTasks = function(tr, proj_id) {
 	console.log(tr);
 	tr.$taskJQ().empty();
@@ -56,24 +62,13 @@ var updateTasks = function(tr, proj_id) {
 }
 
 var updateTimeType = function(tr, proj_id) {
-	var success = function(data) {
-		tr.currTaskTypes = [];
-		tr.$taskTypeJQ().empty();
-		tr.$taskTypeJQ().append("<option value='' disabled selected>Billing Type</option>");
-		for (var i = 0; i < data.length; i += 1) {
-			var currTimeType = new TaskType(data[i].time_type_nm, data[i].time_type_id);
-			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-			if ($.inArray(currTimeType.name, includableTimeTypes) != -1) {
-				tr.$taskTypeJQ().append("<option value='" + currTimeType.id + "'> " + currTimeType.name  + "</option>");
-				tr.currTaskTypes.push(currTimeType);
-			}
-		}
-		updateLabel(tr);
-	}
 	tr.$taskTypeJQ().empty();
-	tr.$taskTypeJQ().append("<option value='' disabled selected>Loading...</option>");
+	tr.$taskTypeJQ().append("<option value='' disabled selected>Billing Type</option>");
+	for (var i = 0; i < tr.currTaskTypes.length; i += 1) {
+		var currTimeType = tr.currTaskTypes[i];
+		tr.$taskTypeJQ().append("<option value='" + currTimeType.id + "'> " + currTimeType.name  + "</option>");
+	}
 	updateLabel(tr);
-	COMMUNICATOR.getTimeTypes(proj_id, success);
 }
 
 
