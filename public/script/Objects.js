@@ -35,36 +35,35 @@ COMMUNICATOR = {
 	},
 	getUser: function(success) {
 		// $.getJSON(base + "/employees", success);
-		this.recieveData(base + "/employees", success, requestError);
+		this.recieveData(base + "/employees", success, this.requestError);
 	},
 	getProjects: function(success) {
 		// $.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
-		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success, requestError);
+		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success, this.requestError);
 	},
 	getTasks: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
-		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success, requestError);
+		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success, this.requestError);
 	},
 	getTimeTypes: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
-		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success, requestError);
+		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success, this.requestError);
 	},
 	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
-		this.pushData("/submit", postObj, success, requestError);
+		this.pushData("/submit", postObj, success, this.requestError);
 	},
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
-		this.pushData(base + "/timeentry/submit", postObj, success, requestError);
-	}
-}
-
-var requestError = function(jqXHR, textStatus, errorThrown) {
-	jqXHR.abort();
-	if (textStatus == "timeout") {
-		timeoutFailure();
-	} else {
-		generalFailure();
+		this.pushData(base + "/timeentry/submit", postObj, success, this.requestError);
+	},
+	requestError: function(jqXHR, textStatus, errorThrown) {
+		jqXHR.abort();
+		if (textStatus == "timeout") {
+			timeoutFailure();
+		} else {
+			generalFailure();
+		}
 	}
 }
 
