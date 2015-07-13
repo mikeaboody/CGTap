@@ -20,12 +20,15 @@ a.nav-expander:hover {
 a.nav-expander.fixed {
   position: fixed;
 }
- 
+
 .nav-expanded a.nav-expander.fixed {
-    right: 20em;
+  right: 20em;
 }
 .nav-expanded nav {
   right: 0;
+}
+.table-selected {
+  width: 80%;
 }
 
 #time_sheet_table tbody tr {
@@ -46,7 +49,7 @@ a.nav-expander.fixed {
   font-size: 40px;
   font-family: 'Helvetica', serif;
   padding-top: 10px;
-  text-align: left;
+  left: 0;
   font-weight: 10px;
 
 }
@@ -87,10 +90,10 @@ a.nav-expander.fixed {
   transition: @property;
 }
 
-.boxStyle() {
+/*.boxStyle() {
   background: #ffffff; 
   padding: 50px;
-}
+}*/
 
 
  
@@ -198,7 +201,13 @@ transition: right 0.3s ease-in-out 0s;
 -o-transition: right 0.3s ease-in-out 0s;
 
 .nav-expanded nav {
+  position:relative;
+
+  
   right: 0;
+}
+.shrink {
+  width: 80%;
 }
 
 body.nav-expanded {
