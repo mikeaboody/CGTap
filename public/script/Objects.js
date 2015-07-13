@@ -146,7 +146,7 @@ function TableRow(id) {
 		updateManualTime(this);
 	};
 	this.updateNotes = function() {
-		this.notes = this.getNotes();
+		this.notes = this.$notesJQ().val();
 	}
 	this.updateSelected = function() {
 		if (this.$projectJQ().find("option:selected").val() != "") {
@@ -155,7 +155,7 @@ function TableRow(id) {
 			delete this.currSelected["project"];
 		}
 		if (this.$taskJQ().find("option:selected").val() != "") {
-			this.currSelected["task"] = this.getTaskID();
+			this.currSelected["task"] = this.$taskJQ().find("option:selected").val();
 			console.log("CHANGE");
 		} else {
 			delete this.currSelected["task"];
@@ -211,20 +211,20 @@ function TableRow(id) {
 	this.getSelectedProjectName = function() {
 		return this.currProjects[this.currSelected["project"]] || "Project";
 	}
-	this.getProjectID = function() {
-		return this.$projectJQ().find("option:selected").val();
+	this.getSelectedProjectID = function() {
+		return this.currSelected["project"];
 	}
 	this.getSelectedTaskName = function() {
 		return this.currTasks[this.currSelected["task"]] || "Task";
 	}
-	this.getTaskID = function() {
-		return this.$taskJQ().find("option:selected").val();
+	this.getSelectedTaskID = function() {
+		return this.currSelected["task"];
 	}
 	this.getSelectedTaskTypeName = function() {
 		return this.currTaskTypes[this.currSelected["time_type"]] || "Billing Type";
 	}
-	this.getTaskTypeID = function() {
-		return this.$taskTypeJQ().find("option:selected").val();
+	this.getSelectedTaskTypeID = function() {
+		return this.currSelected["time_type"];
 	}
 	this.getConvertedHours = function() {
 		var minutes = this.getMinutes();
@@ -238,7 +238,7 @@ function TableRow(id) {
 		return convertedHours;
 	}
 	this.getNotes = function() {
-		return this.$notesJQ().val();
+		return this.notes;
 	}
 }
 

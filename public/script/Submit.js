@@ -72,11 +72,11 @@ var createSubmitObj = function(tr) {
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
 	submitObj.project_nm = tr.getSelectedProjectName();
-	submitObj.project_id = tr.getProjectID()
+	submitObj.project_id = tr.getSelectedProjectID()
 	submitObj.task_nm = tr.getSelectedTaskName();
-	submitObj.task_id = tr.getTaskID();
+	submitObj.task_id = tr.getSelectedTaskID();
 	submitObj.task_type_nm = tr.getSelectedTaskTypeName();
-	submitObj.task_type = tr.getTaskTypeID();
+	submitObj.task_type = tr.getSelectedTaskTypeID();
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
 	submitObj.notes = tr.getNotes();
@@ -113,27 +113,27 @@ var insufficientTable = function(insufficientTRList) {
 	for (i in insufficientTRList) {
 		var tr = insufficientTRList[i]
 		var proj_name = tr.getSelectedProjectName();
-		var proj_id = tr.getProjectID();
+		var proj_id = tr.getSelectedProjectID();
 		var task_name = tr.getSelectedTaskName();
-		var task_id = tr.getTaskID();
+		var task_id = tr.getSelectedTaskID();
 		var task_type_name = tr.getSelectedTaskTypeName();
-		var task_type_id = tr.getTaskTypeID();
+		var task_type_id = tr.getSelectedTaskTypeID();
 		var hours = tr.getHours();
 		var minutes = tr.getMinutes();
 		// var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
 		// 		submitObj.task_type == "";
 		var current_tr = "<tr>"
-		if (proj_id == "") {
+		if (proj_id == undefined) {
 			current_tr += "<td align='left' class='insufficient_entry'>" + proj_name + "</td>";
 		} else {
 			current_tr += "<td align='left' >" + proj_name + "</td>";
 		}
-		if (task_id == "") {
+		if (task_id == undefined) {
 			current_tr += "<td align='left' class='insufficient_entry'>" + task_name + "</td>";
 		} else {
 			current_tr += "<td align='left'>" + task_name + "</td>";
 		}
-		if (task_type_id == "") {
+		if (task_type_id == undefined) {
 			current_tr +=  "<td align='left' class='insufficient_entry'>" + task_type_name + "</td>";
 		} else {
 			current_tr +=  "<td align='left'>" + task_type_name + "</td>";
@@ -164,10 +164,10 @@ var TRClassification = function() {
 	var emptyTRList = [];
 	for (id in tr_map) {
 		var tr = tr_map[id];
-		var empty = tr.getConvertedHours() <= 0 && tr.getProjectID() == "" && tr.getTaskID() == "" &&
-				tr.getTaskTypeID() == "" && tr.getNotes() == "";
-		var insufficient = tr.getConvertedHours() <= 0 || tr.getProjectID() == "" || tr.getTaskID() == "" ||
-				tr.getTaskTypeID() == "";
+		var empty = tr.getConvertedHours() <= 0 && tr.getSelectedProjectID() == undefined && tr.getSelectedTaskID() == undefined &&
+				tr.getSelectedTaskTypeID() == undefined && tr.getNotes() == "";
+		var insufficient = tr.getConvertedHours() <= 0 || tr.getSelectedProjectID() == undefined || tr.getSelectedTaskID() == undefined ||
+				tr.getSelectedTaskTypeID() == undefined;
 		if (empty) {
 			emptyTRList.push(tr);
 		} else if (insufficient) {
