@@ -13,7 +13,6 @@ var setup = function() {
 			updateCalendar();
 		})
 		updateCalendar();
-		setupHashtagSearch();
 		loadUserData();
 	}
 	$template_row = $("#time_sheet_table tbody tr:nth-child(1)").clone();
@@ -34,7 +33,6 @@ var loadCalendarEvents = function() {
 }
 
 var findEmployeeInfo = function(email, data) {
-	console.log(data);
 	for (var i = 0; i < data.length; i += 1) {
 		if (data[i].email.toLowerCase() == email.toLowerCase()) {
 			return [data[i].first_nm, data[i].last_nm, email];

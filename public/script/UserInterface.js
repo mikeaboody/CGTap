@@ -41,8 +41,12 @@ var updateTasks = function(tr, proj_id) {
 			var currTask = data[i];
 			tr.$taskJQ().append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
 		}
+		updateLabel();
 		tr.updateTimeType(proj_id);
 	}
+	tr.$taskJQ().empty();
+	tr.$taskJQ().append("<option value='' disabled selected>Loading...</option>");
+	updateLabel();
 	COMMUNICATOR.getTasks(proj_id, success);
 }
 
@@ -59,6 +63,9 @@ var updateTimeType = function(tr, proj_id) {
 		}
 		updateLabel();
 	}
+	tr.$taskTypeJQ().empty();
+	tr.$taskTypeJQ().append("<option value='' disabled selected>Loading...</option>");
+	updateLabel();
 	COMMUNICATOR.getTimeTypes(proj_id, success);
 }
 
@@ -193,12 +200,6 @@ var updateCalendar = function() {
 			empty = false;
 			var tr = "<tr>";
 			tr += "<td>" + curr_event.name + "</td>";
-			// if (curr_event.description != undefined) {
-			// 	tr += "<td>" + curr_event.description + "</td>";
-			// } else {
-			// 	tr += "<td>No description.</td>";
-			// }
-			
 			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
 			var start_ampm = (start_hours < 12) ? "A.M." : "P.M.";
@@ -223,18 +224,6 @@ var updateCalendar = function() {
 	// if (master_user.events.length == 0) {
 	// 	$(".today").append("<h5>No events today on Google Calendar.</h5>");
 	// }
-}
-
-var setupHashtagSearch = function() {
-	eventTags = [];
-	for (var i = 0; i < master_user.events.length; i += 1) {
-		eventTags.push(master_user.events[i].name);
-	}
-	$(function() {
-	    $("#events").autocomplete({
-	     	source: eventTags
-	    });
-  	});
 }
 
 var dateFormat = function(date) {
