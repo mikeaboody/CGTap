@@ -71,11 +71,11 @@ var createSubmitObj = function(tr) {
 	submitObj.email = Submittable.user.email;
 	submitObj.first_name = Submittable.user.first_name;
 	submitObj.last_name = Submittable.user.last_name;
-	submitObj.project_nm = tr.getProjectName();
+	submitObj.project_nm = tr.getSelectedProjectName();
 	submitObj.project_id = tr.getProjectID()
-	submitObj.task_nm = tr.getTaskName();
+	submitObj.task_nm = tr.getSelectedTaskName();
 	submitObj.task_id = tr.getTaskID();
-	submitObj.task_type_nm = tr.getTaskTypeName();
+	submitObj.task_type_nm = tr.getSelectedTaskTypeName();
 	submitObj.task_type = tr.getTaskTypeID();
 	submitObj.hours = tr.getConvertedHours();
 	submitObj.date = $(".submit_date .datepicker").datepicker( "getDate" ).getTime();
@@ -91,9 +91,9 @@ var submitTable = function(submitTRList) {
 
 	for (i in submitTRList) {
 		var tr = submitTRList[i];
-		var proj_name = tr.getProjectName();
-		var task_name = tr.getTaskName();
-		var task_type_name = tr.getTaskTypeName();
+		var proj_name = tr.getSelectedProjectName();
+		var task_name = tr.getSelectedTaskName();
+		var task_type_name = tr.getSelectedTaskTypeName();
 		var hours = tr.getHours();
 		var minutes = tr.getMinutes();
 		var current_tr = "<tr><td align='left' >" + proj_name + "</td><td align='left'>" + task_name + "</td><td align='left'>" +
@@ -112,11 +112,11 @@ var insufficientTable = function(insufficientTRList) {
 
 	for (i in insufficientTRList) {
 		var tr = insufficientTRList[i]
-		var proj_name = tr.getProjectName();
+		var proj_name = tr.getSelectedProjectName();
 		var proj_id = tr.getProjectID();
-		var task_name = tr.getTaskName();
+		var task_name = tr.getSelectedTaskName();
 		var task_id = tr.getTaskID();
-		var task_type_name = tr.getTaskTypeName();
+		var task_type_name = tr.getSelectedTaskTypeName();
 		var task_type_id = tr.getTaskTypeID();
 		var hours = tr.getHours();
 		var minutes = tr.getMinutes();
