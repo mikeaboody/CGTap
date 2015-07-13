@@ -7,109 +7,64 @@ var tr_map = {};
 var current_time_tr = null;
 
 COMMUNICATOR = {
-	getUser: function(success) {
-		// $.getJSON(base + "/employees", success);
+	recieveData: function(url, success, failure) {
 		$.ajax({
 	        type: "GET",
 	        dataType: 'json',
-	        url: base + "/employees",
-	        success: success,
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
+	        url: url,
+	        success: function(data, textStatus, jqXHR) {
+	        	console.log(jqXHR);
+	        	console.log(data);
+	        	if (textStatus == "nocontent" || data == 0) {
+	        		failure(jqXHR, textStatus, null);
 	        	} else {
-	        		console.log(errorThrown);
-	        		generalFailure();
+	        		success(data);
 	        	}
-	        }
+	        },
+	        timeout: 5000,
+	        error: failure
 		});
+	},
+	pushData: function(url, data, success, failure) {
+		$.ajax({
+	        data: data,
+	        url: url,
+	        timeout: 5000,
+	        error: failure
+		}).done(success);
+	},
+	getUser: function(success) {
+		// $.getJSON(base + "/employees", success);
+		this.recieveData(base + "/employees", success, requestError);
 	},
 	getProjects: function(success) {
 		// $.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
-		$.ajax({
-	        type: "GET",
-	        dataType: 'json',
-	        url: base + "/timeentry/projectlist?id=" + master_user.email,
-	        success: success,
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
-	        	} else {
-	        		generalFailure();
-	        	}
-	        }
-		});
+		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success, requestError);
 	},
 	getTasks: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
-		$.ajax({
-	        type: "GET",
-	        dataType: 'json',
-	        url: base + "/timeentry/tasklist?id=" + proj_id,
-	        success: success,
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
-	        	} else {
-	        		generalFailure();
-	        	}
-	        }
-		});
+		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success, requestError);
 	},
 	getTimeTypes: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
-		$.ajax({
-	        type: "GET",
-	        dataType: 'json',
-	        url: base + "/timeentry/timetypelist?id=" + proj_id,
-	        success: success,
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
-	        	} else {
-	        		generalFailure();
-	        	}
-	        }
-		});
+		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success, requestError);
 	},
 	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
-		$.ajax({
-	        data: postObj,
-	        url: "/submit",
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	jqXHR.abort();
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
-	        	} else {
-	        		generalFailure();
-	        	}
-	        }
-		}).done(success);
+		this.pushData("/submit", postObj, success, requestError);
 	},
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
-		$.ajax({
-	        data: postObj,
-	        url: base + "/timeentry/submit",
-	        timeout: 5000,
-	        error: function(jqXHR, textStatus, errorThrown) {
-	        	jqXHR.abort();
-	        	if (textStatus == "timeout") {
-	        		timeoutFailure();
-	        	} else {
-	        		generalFailure();
-	        	}
-	        }
-		}).done(function() {
-			success();
-			console.log("SENT");
-		});
+		this.pushData(base + "/timeentry/submit", postObj, success, requestError);
+	}
+}
+
+var requestError = function(jqXHR, textStatus, errorThrown) {
+	jqXHR.abort();
+	if (textStatus == "timeout") {
+		timeoutFailure();
+	} else {
+		generalFailure();
 	}
 }
 

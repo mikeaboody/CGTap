@@ -1,9 +1,5 @@
 var setup = function() {
 	var success = function(data) {
-		if (data == 0) {
-			timeoutFailure();
-			return;
-		}
 		var personData = findEmployeeInfo(master_email, data);
 		if (personData != null) {
 			master_user = new User(personData[0], personData[1], personData[2]);
