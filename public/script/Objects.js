@@ -71,27 +71,10 @@ function User(first_name, last_name, email) {
 	this.first_name = first_name;
 	this.last_name = last_name;
 	this.email = email;
-	this.projects = [];
+	this.projects = {};
 	this.events = [];
-	this.setProjects = function(lst) {
-		this.projects = lst;
-	}
-
-};
-function Project(name, id) {
-	this.name = name;
-	this.id = id;
 };
 
-function Task(name, id) {
-	this.name = name;
-	this.id = id;
-}
-
-function TaskType(name, id) {
-	this.name = name;
-	this.id = id;
-}
 function Submittable() {
 	this.project_nm = "";
 	this.project_id = 0;
@@ -117,9 +100,9 @@ function TableRow(id) {
 	this.minutes = 0;
 	this.hours = 0;
 	this.notes = "";
-	this.currProjects = [];
-	this.currTasks = [];
-	this.currTaskTypes = [];
+	this.currProjects = {};
+	this.currTasks = {};
+	this.currTaskTypes = {};
 	this.setupTR = function() {
 		setupTR(this);
 	}
@@ -130,10 +113,9 @@ function TableRow(id) {
 	this.updateTasks = function(proj_id) {
 		var tr = this;
 		var success = function(data) {
-			tr.currTasks = [];
+			tr.currTasks = {};
 			for (var i = 0; i < data.length; i += 1) {
-				var currTask = new Task(data[i].proj_task_nm, data[i].proj_task_id);
-				tr.currTasks.push(currTask);
+				tr.currTasks[data[i].proj_task_id] = data[i].proj_task_nm;
 			}
 			updateTasks(tr, proj_id);
 		}
@@ -144,12 +126,11 @@ function TableRow(id) {
 	this.updateTimeType = function(proj_id) {
 		var tr = this;
 		var success = function(data) {
-			tr.currTaskTypes = [];
+			tr.currTaskTypes = {};
 			for (var i = 0; i < data.length; i += 1) {
-				var currTimeType = new TaskType(data[i].time_type_nm, data[i].time_type_id);
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-				if ($.inArray(currTimeType.name, includableTimeTypes) != -1) {
-					tr.currTaskTypes.push(currTimeType);
+				if ($.inArray(data[i].time_type_nm, includableTimeTypes) != -1) {
+					tr.currTaskTypes[data[i].time_type_id] = data[i].time_type_nm;
 				}
 			}
 			updateTimeType(tr, proj_id);

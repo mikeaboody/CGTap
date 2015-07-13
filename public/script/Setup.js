@@ -44,17 +44,14 @@ var findEmployeeInfo = function(email, data) {
 var loadUserData = function() {
 	if (master_user) {
     	var success = function(data) {
-        	var projectList = [];
         	var unincluded_stage_names = ["pending closure", "complete", "canceled"];
         	for(var i = 0; i < data.length; i += 1) {
         		var currProj = data[i];
         		if ($.inArray(currProj.proj_stage_nm.toLowerCase(), unincluded_stage_names) == -1) {
-        			var newProj = new Project(currProj.proj_nm, currProj.proj_id);
-        			projectList.push(newProj);
+        			master_user.projects[currProj.proj_id] = currProj.proj_nm;
         		}
         	}
-        	master_user.setProjects(projectList);
-    		if (master_user.projects != []) {
+    		if (master_user.projects != {}) {
     			createTR();
     			//assumes only one key in the tr_map
     			var first_tr = tr_map[Object.keys(tr_map)[0]];
