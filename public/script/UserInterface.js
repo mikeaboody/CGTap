@@ -5,9 +5,11 @@ var setupTR = function(tr) {
 	});
 	tr.$taskJQ().on('change', function() {
    		updateLabel(tr);
+   		tr.updateSelected();
 	});
 	tr.$taskTypeJQ().on('change', function() {
    		updateLabel(tr);
+   		tr.updateSelected();
 	});
 
 	tr.$notesJQ().on('change', function() {

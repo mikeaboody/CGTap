@@ -103,6 +103,7 @@ function TableRow(id) {
 	this.currProjects = {};
 	this.currTasks = {};
 	this.currTaskTypes = {};
+	this.currSelected = {};
 	this.setupTR = function() {
 		setupTR(this);
 	}
@@ -112,6 +113,7 @@ function TableRow(id) {
 	};
 	this.updateTasks = function(proj_id) {
 		var tr = this;
+		displayLoadingTasks(this);
 		var success = function(data) {
 			tr.currTasks = {};
 			for (var i = 0; i < data.length; i += 1) {
@@ -119,7 +121,6 @@ function TableRow(id) {
 			}
 			updateTasks(tr, proj_id);
 		}
-		displayLoadingTasks(this);
 		COMMUNICATOR.getTasks(proj_id, success);
 		
 	};
@@ -134,6 +135,7 @@ function TableRow(id) {
 				}
 			}
 			updateTimeType(tr, proj_id);
+			tr.updateSelected();
 		}
 		displayLoadingTimeType(this);
 		COMMUNICATOR.getTimeTypes(proj_id, success);	
@@ -146,6 +148,23 @@ function TableRow(id) {
 	this.updateNotes = function() {
 		this.notes = this.getNotes();
 	}
+	this.updateSelected = function() {
+		if (this.$projectJQ().find("option:selected").val() != "") {
+			this.currSelected["project"] = this.$projectJQ().find("option:selected").val();
+		} else {
+			delete this.currSelected["project"];
+		}
+		if (this.$taskJQ().find("option:selected").val() != "") {
+			this.currSelected["task"] = this.getTaskID();
+		} else {
+			delete this.currSelected["task"];
+		}
+		if (this.$taskTypeJQ().find("option:selected").val() != "") {
+			this.currSelected["time_type"] = this.$taskTypeJQ().find("option:selected").val();
+		} else {
+			delete this.currSelected["time_type"];
+		}
+	};
 	this.switchTimer = function() {
 		switchTimer(this);
 	};
