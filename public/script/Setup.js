@@ -60,6 +60,7 @@ var loadUserData = function() {
     			var first_tr = tr_map[Object.keys(tr_map)[0]];
     			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
     			first_tr.updateProject();
+    			first_tr.setupTR();
     			// first_tr.updateTasks(master_user.projects[0].id);
 			} else {
     			document.write("failed task data");

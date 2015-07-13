@@ -117,9 +117,9 @@ function TableRow(id) {
 	this.currProjects = [];
 	this.currTasks = [];
 	this.currTaskTypes = [];
-	this.$getJQuery = function() {
-		return $("#time_sheet_table tbody #" + this.id);
-	};
+	this.setupTR = function() {
+		setupTR(this);
+	}
 	this.updateProject = function() {
 		this.currProjects = master_user.projects;
 		updateProject(this);
@@ -159,6 +159,9 @@ function TableRow(id) {
 	};
 	this.createSubmitObj = function() {
 		return createSubmitObj(this);
+	};
+	this.$getJQuery = function() {
+		return $("#time_sheet_table tbody #" + this.id);
 	};
 	this.$projectJQ = function() {
 		return this.$getJQuery().find(".projects select");

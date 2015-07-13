@@ -32,7 +32,6 @@ var updateProject = function(tr) {
 		var currProj = tr.currProjects[i];
 		tr.$projectJQ().append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 	}
-	setupTR(tr);
 	updateLabel(tr);
 }
 
@@ -160,6 +159,7 @@ var addRow = function() {
 		$("#time_sheet_table tbody tr:last").after(myHTML);
 	}
     tr_map[id].updateProject();
+    tr_map[id].setupTR();
     // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
