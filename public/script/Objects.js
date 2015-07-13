@@ -121,10 +121,22 @@ function TableRow(id) {
 		return $("#time_sheet_table tbody #" + this.id);
 	};
 	this.updateProject = function() {
+		this.currProjects = master_user.projects;
 		updateProject(this);
 	};
 	this.updateTasks = function(proj_id) {
-		updateTasks(this, proj_id);
+		var tr = this;
+		var success = function(data) {
+			tr.currTasks = [];
+			for (var i = 0; i < data.length; i += 1) {
+				var currTask = new Task(data[i].proj_task_nm, data[i].proj_task_id);
+				tr.currTasks.push(currTask);
+			}
+			updateTasks(tr, proj_id);
+		}
+		displayLoadingTasks(this);
+		COMMUNICATOR.getTasks(proj_id, success);
+		
 	};
 	this.updateTimeType = function(proj_id) {
 		updateTimeType(this, proj_id);

@@ -26,35 +26,33 @@ var setupTR = function(tr) {
 }
 
 var updateProject = function(tr) {
-	tr.currProjects = master_user.projects;
 	tr.$projectJQ().empty();
 	tr.$projectJQ().append("<option value='' disabled selected>Project</option>");
-	for (var i = 0; i < master_user.projects.length; i += 1) {
-		var currProj = master_user.projects[i];
+	for (var i = 0; i < tr.currProjects.length; i += 1) {
+		var currProj = tr.currProjects[i];
 		tr.$projectJQ().append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
 	}
 	setupTR(tr);
 	updateLabel(tr);
 }
 
-var updateTasks = function(tr, proj_id) {
-	var success = function(data) {
-		tr.currTasks = [];
-		tr.$taskJQ().empty();
-		tr.$taskJQ().append("<option value='' disabled selected>Task</option>");
-
-		for (var i = 0; i < data.length; i += 1) {
-			var currTask = new Task(data[i].proj_task_nm, data[i].proj_task_id);
-			tr.$taskJQ().append("<option value='" + currTask.id + "'> " + currTask.name  + "</option>");
-			tr.currTasks.push(currTask);
-		}
-		updateLabel(tr);
-		tr.updateTimeType(proj_id);
-	}
+var displayLoadingTasks = function(tr) {
 	tr.$taskJQ().empty();
 	tr.$taskJQ().append("<option value='' disabled selected>Loading...</option>");
 	updateLabel(tr);
-	COMMUNICATOR.getTasks(proj_id, success);
+}
+
+var updateTasks = function(tr, proj_id) {
+	console.log(tr);
+	tr.$taskJQ().empty();
+	tr.$taskJQ().append("<option value='' disabled selected>Task</option>");
+
+	for (var i = 0; i < tr.currTasks.length; i += 1) {
+		var currTask = tr.currTasks[i];
+		tr.$taskJQ().append("<option value='" + currTask.id + "'> " + currTask.name  + "</option>");
+	}
+	updateLabel(tr);
+	tr.updateTimeType(proj_id);
 }
 
 var updateTimeType = function(tr, proj_id) {
