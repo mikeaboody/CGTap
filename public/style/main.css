@@ -7,7 +7,7 @@ body {
   -o-transition: right 0.3s ease-in-out 0s;
 }
 #time_sheet_table {
-  float: left;
+position: relative;
 
 }
 ul {
@@ -26,9 +26,6 @@ a.nav-expander.fixed {
 }
 .nav-expanded nav {
   right: 0;
-}
-.table-selected {
-  width: 80%;
 }
 
 #time_sheet_table tbody tr {
@@ -156,7 +153,7 @@ padding: 20px 40px 20px 20px;
 /*
 off-canvas*/
 nav {
-  background: #febc26;
+  background: #fee602;
   display: block;
   height: 100%;
   overflow: auto;
@@ -207,7 +204,7 @@ transition: right 0.3s ease-in-out 0s;
   right: 0;
 }
 .shrink {
-  width: 80%;
+  width: 75%;
 }
 
 body.nav-expanded {
