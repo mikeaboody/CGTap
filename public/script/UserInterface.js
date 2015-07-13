@@ -1,10 +1,4 @@
-var updateProject = function(tr) {
-	tr.$projectJQ().empty();
-	tr.$projectJQ().append("<option value='' disabled selected>Project</option>");
-	for (var i = 0; i < master_user.projects.length; i += 1) {
-		var currProj = master_user.projects[i];
-		tr.$projectJQ().append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
-	}
+var setupTR = function(tr) {
 	tr.$projectJQ().on('change', function() {
    		tr.updateTasks($(this).val());
    		// updateLabel(tr);
@@ -29,17 +23,30 @@ var updateProject = function(tr) {
 	tr.$deleteButtonJQ().on('click', function() {
 		deleteRow(tr);
 	});
+}
+
+var updateProject = function(tr) {
+	tr.currProjects = master_user.projects;
+	tr.$projectJQ().empty();
+	tr.$projectJQ().append("<option value='' disabled selected>Project</option>");
+	for (var i = 0; i < master_user.projects.length; i += 1) {
+		var currProj = master_user.projects[i];
+		tr.$projectJQ().append("<option value='" + currProj.id + "'>" + currProj.name  + "</option>");
+	}
+	setupTR(tr);
 	updateLabel(tr);
 }
 
 var updateTasks = function(tr, proj_id) {
 	var success = function(data) {
+		tr.currTasks = [];
 		tr.$taskJQ().empty();
 		tr.$taskJQ().append("<option value='' disabled selected>Task</option>");
 
 		for (var i = 0; i < data.length; i += 1) {
-			var currTask = data[i];
-			tr.$taskJQ().append("<option value='" + currTask.proj_task_id + "'> " + currTask.proj_task_nm  + "</option>");
+			var currTask = new Task(data[i].proj_task_nm, data[i].proj_task_id);
+			tr.$taskJQ().append("<option value='" + currTask.id + "'> " + currTask.name  + "</option>");
+			tr.currTasks.push(currTask);
 		}
 		updateLabel(tr);
 		tr.updateTimeType(proj_id);
@@ -52,13 +59,15 @@ var updateTasks = function(tr, proj_id) {
 
 var updateTimeType = function(tr, proj_id) {
 	var success = function(data) {
+		tr.currTaskTypes = [];
 		tr.$taskTypeJQ().empty();
 		tr.$taskTypeJQ().append("<option value='' disabled selected>Billing Type</option>");
 		for (var i = 0; i < data.length; i += 1) {
-			var currTimeType = data[i];
+			var currTimeType = new TaskType(data[i].time_type_nm, data[i].time_type_id);
 			var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
-			if ($.inArray(currTimeType.time_type_nm, includableTimeTypes) != -1) {
-				tr.$taskTypeJQ().append("<option value='" + currTimeType.time_type_id + "'> " + currTimeType.time_type_nm  + "</option>");
+			if ($.inArray(currTimeType.name, includableTimeTypes) != -1) {
+				tr.$taskTypeJQ().append("<option value='" + currTimeType.id + "'> " + currTimeType.name  + "</option>");
+				tr.currTaskTypes.push(currTimeType);
 			}
 		}
 		updateLabel(tr);

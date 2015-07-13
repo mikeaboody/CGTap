@@ -83,6 +83,15 @@ function Project(name, id) {
 	this.id = id;
 };
 
+function Task(name, id) {
+	this.name = name;
+	this.id = id;
+}
+
+function TaskType(name, id) {
+	this.name = name;
+	this.id = id;
+}
 function Submittable() {
 	this.project_nm = "";
 	this.project_id = 0;
@@ -105,6 +114,9 @@ function CalendarEvent(name, description, start, end) {
 function TableRow(id) {
 	this.id = id;
 	this.time = 0;
+	this.currProjects = [];
+	this.currTasks = [];
+	this.currTaskTypes = [];
 	this.$getJQuery = function() {
 		return $("#time_sheet_table tbody #" + this.id);
 	};
