@@ -138,7 +138,7 @@ function TableRow(id) {
 	this.updateManualTime = function() {
 		this.minutes = (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
 		this.hours = (this.$hoursJQ().val() == "") ? 0 : parseInt(this.$hoursJQ().val(), 10);
-		updateManualTime(this);
+		updateManualTimeUI(this);
 	};
 	this.updateNotes = function() {
 		this.notes = this.$notesJQ().val();

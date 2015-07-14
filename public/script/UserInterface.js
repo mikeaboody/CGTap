@@ -3,9 +3,9 @@ var loadTRData = function(tr) {
 	setupTRUI(tr);
 	updateTasksUI(tr);
 	updateTimeTypeUI(tr);
-	updateManualTime(tr);
-	updateNotes(tr);
-	updateTimerLabel(tr);
+	updateManualTimeUI(tr);
+	updateNotesUI(tr);
+	updateTimerLabelUI(tr);
 
 }
 
@@ -133,7 +133,7 @@ var updateLabel = function(tr) {
 	tr.$taskTypeJQ().selectpicker('refresh');
 }
 
-var updateManualTime = function(tr) {
+var updateManualTimeUI = function(tr) {
 	var minutes = tr.getMinutes();
 	var hours = tr.getHours();
 	var format = minutes < 10 ? "0" + minutes : "" + minutes;
@@ -142,11 +142,11 @@ var updateManualTime = function(tr) {
 	updateLabel(tr);
 }
 
-var updateNotes = function(tr) {
+var updateNotesUI = function(tr) {
 	tr.$notesJQ().val(tr.getNotes());
 }
 
-var updateTimerLabel = function(tr) {
+var updateTimerLabelUI = function(tr) {
 	var hours = Math.floor(tr.time / (3600*1000));
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;
 	var seconds = Math.floor(tr.time / 1000) % 60;
