@@ -1,7 +1,7 @@
 var loadTRData = function(tr) {
 	updateProjectUI(tr);
 	setupTRUI(tr);
-	updateTasks(tr);
+	updateTasksUI(tr);
 	updateTimeType(tr);
 	updateManualTime(tr);
 	updateNotes(tr);
@@ -12,6 +12,7 @@ var loadTRData = function(tr) {
 var setupTRUI = function(tr) {
 	tr.$projectJQ().on('change', function() {
 		tr.updateTasks($(this).val());
+		updateTasksUI(tr);
 		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
@@ -77,7 +78,8 @@ var displayLoadingTimeType = function(tr) {
 	updateLabel(tr);
 }
 
-var updateTasks = function(tr, proj_id) {
+var updateTasksUI = function(tr, proj_id) {
+	console.log(tr.currTasks);
 	tr.$taskJQ().empty();
 	if (tr.getSelectedTaskID() == undefined) {
 		tr.$taskJQ().append("<option value='' selected disabled>Task</option>");
