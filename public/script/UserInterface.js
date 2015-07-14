@@ -131,6 +131,16 @@ var updateNotes = function(tr) {
 	tr.$notesJQ().val(tr.getNotes());
 }
 
+var updateTimerLabel = function(tr) {
+	var hours = Math.floor(tr.time / (3600*1000));
+	var minutes = Math.floor(tr.time / (60*1000)) % 60;
+	var seconds = Math.floor(tr.time / 1000) % 60;
+	var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
+					+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
+					+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
+	tr.$timerLabelJQ().html(newLabel);
+}
+
 var switchTimer = function(tr) {
 	var updateTimer = function() {
 		current_time_tr.time += 1000;
