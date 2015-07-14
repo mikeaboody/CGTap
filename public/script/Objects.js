@@ -104,12 +104,8 @@ function TableRow(id) {
 	this.currTasks = {};
 	this.currTaskTypes = {};
 	this.currSelected = {};
-	this.setupTR = function() {
-		setupTR(this);
-	}
 	this.updateProject = function() {
 		this.currProjects = master_user.projects;
-		updateProject(this);
 	};
 	this.updateTasks = function(proj_id) {
 		var tr = this;

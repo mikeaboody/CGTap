@@ -1,6 +1,6 @@
 var loadTRData = function(tr) {
-	updateProject(tr);
-	setupTR(tr);
+	updateProjectUI(tr);
+	setupTRUI(tr);
 	updateTasks(tr);
 	updateTimeType(tr);
 	updateManualTime(tr);
@@ -9,7 +9,7 @@ var loadTRData = function(tr) {
 
 }
 
-var setupTR = function(tr) {
+var setupTRUI = function(tr) {
 	tr.$projectJQ().on('change', function() {
 		tr.updateTasks($(this).val());
 		// updateLabel(tr);
@@ -43,7 +43,7 @@ var setupTR = function(tr) {
 	});
 }
 
-var updateProject = function(tr) {
+var updateProjectUI = function(tr) {
 	tr.$projectJQ().empty();
 	if (tr.getSelectedProjectID() == undefined) {
 		tr.$projectJQ().append("<option value='' selected disabled>Project</option>");
@@ -231,7 +231,8 @@ var addRow = function() {
 		$("#time_sheet_table tbody tr:last").after(myHTML);
 	}
     tr_map[id].updateProject();
-    tr_map[id].setupTR();
+    updateProjectUI(tr_map[id]);
+    setupTRUI(tr_map[id]);
     // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
