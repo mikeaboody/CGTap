@@ -97,8 +97,10 @@ var updateLabel = function(tr) {
 
 var updateManualTime = function(tr) {
 	var minutes = tr.getMinutes();
+	var hours = tr.getHours();
 	var format = minutes < 10 ? "0" + minutes : "" + minutes;
 	tr.$minutesJQ().val(format);
+	tr.$hoursJQ().val(hours);
 	updateLabel(tr);
 }
 
