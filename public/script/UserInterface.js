@@ -201,6 +201,7 @@ var stopTimer = function(tr) {
 	var minutes = Math.floor(tr.time / (60*1000)) % 60;
 	tr.$minutesJQ().val(minutes < 10 ? "0" + minutes : "" + minutes);
 	tr.$hoursJQ().val(hours);
+	tr.updateManualTime();
 	updateLabel(tr);
 	tr.$timerButtonJQ().html("Start");
 	tr.$timerButtonJQ().toggleClass("btn-danger");
