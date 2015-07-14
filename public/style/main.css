@@ -39,7 +39,6 @@ a.nav-expander.fixed {
 }
 .navbar {
   background-color: #05abd5;
-
 }
 
 .navbar-brand {
@@ -49,6 +48,9 @@ a.nav-expander.fixed {
   left: 0;
   font-weight: 10px;
 
+}
+.btn-group-left {
+  float: left;
 }
 .btn-group {
   display: inline;
@@ -204,8 +206,13 @@ transition: right 0.3s ease-in-out 0s;
   right: 0;
 }
 .shrink {
-  width: 75%;
+  width: 80%;
 }
+
+.navshrink {
+ padding-right: 300px;
+}
+
 
 body.nav-expanded {
   margin-left: 0em;
