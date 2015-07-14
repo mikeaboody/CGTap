@@ -130,7 +130,6 @@ function TableRow(id) {
 					tr.currTaskTypes[data[i].time_type_id] = data[i].time_type_nm;
 				}
 			}
-			updateTimeType(tr, proj_id);
 			tr.updateSelected();
 		}
 		displayLoadingTimeType(this);

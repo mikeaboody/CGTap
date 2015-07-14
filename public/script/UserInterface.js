@@ -2,7 +2,7 @@ var loadTRData = function(tr) {
 	updateProjectUI(tr);
 	setupTRUI(tr);
 	updateTasksUI(tr);
-	updateTimeType(tr);
+	updateTimeTypeUI(tr);
 	updateManualTime(tr);
 	updateNotes(tr);
 	updateTimerLabel(tr);
@@ -13,6 +13,7 @@ var setupTRUI = function(tr) {
 	tr.$projectJQ().on('change', function() {
 		tr.updateTasks($(this).val());
 		updateTasksUI(tr);
+		updateTimeTypeUI(tr);
 		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
@@ -100,7 +101,7 @@ var updateTasksUI = function(tr, proj_id) {
 	updateLabel(tr);
 }
 
-var updateTimeType = function(tr, proj_id) {
+var updateTimeTypeUI = function(tr, proj_id) {
 	tr.$taskTypeJQ().empty();
 	if (tr.getSelectedTaskTypeID() == undefined) {
 		tr.$taskTypeJQ().append("<option value='' selected disabled>Billing Type</option>");
