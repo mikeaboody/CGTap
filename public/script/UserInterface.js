@@ -19,11 +19,15 @@ var setupTRUI = function(tr) {
 	tr.$taskJQ().on('change', function() {
 		console.log("CHANGE");
    		updateLabel(tr);
-   		tr.updateSelected();
+   		tr.updateSelectedProject();
+   		tr.updateSelectedTask();
+   		tr.updateSelectedTimeType();
 	});
 	tr.$taskTypeJQ().on('change', function() {
    		updateLabel(tr);
-   		tr.updateSelected();
+   		tr.updateSelectedProject();
+   		tr.updateSelectedTask();
+   		tr.updateSelectedTimeType();
 	});
 
 	tr.$notesJQ().on('change', function() {

@@ -130,7 +130,9 @@ function TableRow(id) {
 					tr.currTaskTypes[data[i].time_type_id] = data[i].time_type_nm;
 				}
 			}
-			tr.updateSelected();
+			tr.updateSelectedProject();
+	   		tr.updateSelectedTask();
+	   		tr.updateSelectedTimeType();
 		}
 		displayLoadingTimeType(this);
 		COMMUNICATOR.getTimeTypes(proj_id, success);	
@@ -143,17 +145,21 @@ function TableRow(id) {
 	this.updateNotes = function() {
 		this.notes = this.$notesJQ().val();
 	}
-	this.updateSelected = function() {
+	this.updateSelectedProject = function() {
 		if (this.$projectJQ().find("option:selected").val() != "") {
 			this.currSelected["project"] = this.$projectJQ().find("option:selected").val();
 		} else {
 			delete this.currSelected["project"];
 		}
+	};
+	this.updateSelectedTask = function() {
 		if (this.$taskJQ().find("option:selected").val() != "") {
 			this.currSelected["task"] = this.$taskJQ().find("option:selected").val();
 		} else {
 			delete this.currSelected["task"];
 		}
+	};
+	this.updateSelectedTimeType = function() {
 		if (this.$taskTypeJQ().find("option:selected").val() != "") {
 			this.currSelected["time_type"] = this.$taskTypeJQ().find("option:selected").val();
 		} else {
