@@ -11,9 +11,11 @@ var loadTRData = function(tr) {
 
 var setupTRUI = function(tr) {
 	tr.$projectJQ().on('change', function() {
-		tr.updateTasks($(this).val());
-		updateTasksUI(tr);
-		updateTimeTypeUI(tr);
+		tr.updateTasks($(this).val(), function() {
+			updateTasksUI(tr);
+			updateTimeTypeUI(tr);
+		});
+		
 		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {

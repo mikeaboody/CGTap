@@ -107,22 +107,29 @@ function TableRow(id) {
 	this.updateProject = function() {
 		this.currProjects = master_user.projects;
 	};
-	this.updateTasks = function(proj_id) {
+	this.updateTasks = function(proj_id, success) {
 		var tr = this;
 		displayLoadingTasks(this);
-		var success = function(data) {
+		var afterRequest = function(data) {
 			tr.currTasks = {};
 			for (var i = 0; i < data.length; i += 1) {
 				tr.currTasks[data[i].proj_task_id] = data[i].proj_task_nm;
 			}
-			tr.updateTimeType(proj_id);
+			if (success != undefined) {
+				success();
+			}
+			tr.updateTimeType(proj_id, function() {
+				tr.updateSelectedProject();
+		   		tr.updateSelectedTask();
+		   		tr.updateSelectedTimeType();
+			});
 		}
-		COMMUNICATOR.getTasks(proj_id, success);
+		COMMUNICATOR.getTasks(proj_id, afterRequest);
 		
 	};
-	this.updateTimeType = function(proj_id) {
+	this.updateTimeType = function(proj_id, success) {
 		var tr = this;
-		var success = function(data) {
+		var afterRequest = function(data) {
 			tr.currTaskTypes = {};
 			for (var i = 0; i < data.length; i += 1) {
 				var includableTimeTypes = ["Billable", "Non-Billable", "Off-Hours Support", "On-Site Support", "Remote Support"];
@@ -130,12 +137,12 @@ function TableRow(id) {
 					tr.currTaskTypes[data[i].time_type_id] = data[i].time_type_nm;
 				}
 			}
-			tr.updateSelectedProject();
-	   		tr.updateSelectedTask();
-	   		tr.updateSelectedTimeType();
+			if (success != undefined) {
+				success();
+			}
 		}
 		displayLoadingTimeType(this);
-		COMMUNICATOR.getTimeTypes(proj_id, success);	
+		COMMUNICATOR.getTimeTypes(proj_id, afterRequest);	
 	};
 	this.updateManualTime = function() {
 		this.minutes = (this.$minutesJQ().val() == "") ? 0 : parseInt(this.$minutesJQ().val(), 10);
