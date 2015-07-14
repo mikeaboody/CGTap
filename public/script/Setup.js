@@ -12,6 +12,11 @@ var setup = function() {
 		$(".calendar_date input").on("change", function() {
 			updateCalendar();
 		})
+		$(".addRow button").on("click", function() {
+			console.log("hi");
+			addRow();
+			saveStorage();
+		});
 		updateCalendar();
 		loadUserData();
 	}
@@ -52,14 +57,36 @@ var loadUserData = function() {
         		}
         	}
     		if (master_user.projects != {}) {
-    			createTR();
-    			//assumes only one key in the tr_map
-    			var first_tr = tr_map[Object.keys(tr_map)[0]];
-    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
-    			first_tr.updateProject();
-    			updateProjectUI(first_tr);
-    			setupTRUI(first_tr);
-    			// first_tr.updateTasks(master_user.projects[0].id);
+    			if(typeof(Storage) !== "undefined" && window.localStorage["test-storage"] != undefined) {
+    				$("#time_sheet_table tbody").empty();
+					var storageObj = JSON.parse(window.localStorage["test-storage"]);
+					tr_count = storageObj.tr_count;
+					for (var k in storageObj.tr_map) {
+						var oldTR = storageObj.tr_map[k];
+						console.log(oldTR);
+						var newTR = new TableRow(k);
+						newTR.time = oldTR.time;
+						newTR.minutes = oldTR.minutes;
+						newTR.hours = oldTR.hours;
+						newTR.notes = oldTR.notes;
+						newTR.currProjects = oldTR.currProjects;
+						newTR.currTasks = oldTR.currTasks;
+						newTR.currTaskTypes = oldTR.currTaskTypes;
+						newTR.currSelected = oldTR.currSelected;
+						// tr_map[k] = newTR;
+						console.log(newTR);
+						addRow(newTR);
+						loadTRUI(newTR);
+					}
+				} else {
+				    createTR();
+    				//assumes only one key in the tr_map
+	    			var first_tr = tr_map[Object.keys(tr_map)[0]];
+	    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
+	    			first_tr.updateProject();
+	    			updateProjectUI(first_tr);
+	    			setupTRUI(first_tr);
+				}
 			} else {
     			document.write("failed task data");
 			}
@@ -73,6 +100,16 @@ var loadUserData = function() {
 		$(".content").show();
 	}
 }
+
+var saveStorage = function() {
+	var obj = {
+		tr_count: tr_count,
+		tr_map: tr_map
+	};
+	console.log(tr_map[0]["currTasks"]);
+	localStorage.setItem("test-storage", JSON.stringify(obj));
+}
+
 
 //currently unused
 var asyncDataRetrieve = function(urls) {

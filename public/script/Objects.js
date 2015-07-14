@@ -256,11 +256,18 @@ function PastTimesheet(id, project_name, task_name, time_type, hours) {
 	this.hours = hours;
 }
 
-var createTR = function() {
-	var newTR = new TableRow(tr_count);
-	tr_map[tr_count] = newTR;
-	tr_count += 1;
-	return newTR.id;
+var createTR = function(tr) {
+	if (tr == undefined) {
+		var newTR = new TableRow(tr_count);
+		tr_map[tr_count] = newTR;
+		tr_count += 1;
+		return newTR.id;
+	} else {
+		var newTR = tr;
+		tr_map[newTR.id] = newTR;
+		return newTR.id;
+	}
+	
 }
 
 var deleteTR = function(tr) {

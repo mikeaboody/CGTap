@@ -1,4 +1,4 @@
-var loadTRData = function(tr) {
+var loadTRUI = function(tr) {
 	updateProjectUI(tr);
 	setupTRUI(tr);
 	updateTasksUI(tr);
@@ -6,7 +6,7 @@ var loadTRData = function(tr) {
 	updateManualTimeUI(tr);
 	updateNotesUI(tr);
 	updateTimerLabelUI(tr);
-
+	updateLabel(tr);
 }
 
 var setupTRUI = function(tr) {
@@ -19,6 +19,7 @@ var setupTRUI = function(tr) {
 				updateTimeTypeUI(tr);
 		   		tr.updateSelectedTask();
 		   		tr.updateSelectedTimeType();
+		   		saveStorage();
 			});
 		});
 		// updateLabel(tr);
@@ -26,28 +27,35 @@ var setupTRUI = function(tr) {
 	tr.$taskJQ().on('change', function() {
    		updateLabel(tr);
    		tr.updateSelectedTask();
+   		saveStorage();
 	});
 	tr.$taskTypeJQ().on('change', function() {
    		updateLabel(tr);
    		tr.updateSelectedTimeType();
+   		saveStorage();
 	});
 
 	tr.$notesJQ().on('change', function() {
 		tr.updateNotes();
+		saveStorage();
 	})
 
 	tr.$hoursJQ().on('change', function() {
 		tr.updateManualTime();
+		saveStorage();
 	})
 	tr.$minutesJQ().on('change', function() {
 		tr.updateManualTime();
+		saveStorage();
 	});
 
 	tr.$timerButtonJQ().on('click', function() {
 		tr.switchTimer();
+		saveStorage();
 	});
 	tr.$deleteButtonJQ().on('click', function() {
 		deleteRow(tr);
+		saveStorage();
 	});
 }
 
@@ -86,7 +94,6 @@ var displayLoadingTimeType = function(tr) {
 }
 
 var updateTasksUI = function(tr, proj_id) {
-	console.log(tr.currTasks);
 	tr.$taskJQ().empty();
 	if (tr.getSelectedTaskID() == undefined) {
 		tr.$taskJQ().append("<option value='' selected disabled>Task</option>");
@@ -231,18 +238,28 @@ var fixHelper = function(e, ui) {
 
 
 
-var addRow = function() {
-	var id = createTR();
+var addRow = function(tr) {
+	var id;
+	if (tr != undefined) {
+		id = createTR(tr);
+	} else {
+		id = createTR();
+	}
+	
 	var myRow = $template_row;
 	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
 	if ($("#time_sheet_table tbody tr:last").index() == -1) {
+		console.log("hi");
 		$("#time_sheet_table tbody").append(myHTML);
 	} else {
 		$("#time_sheet_table tbody tr:last").after(myHTML);
 	}
-    tr_map[id].updateProject();
-    updateProjectUI(tr_map[id]);
-    setupTRUI(tr_map[id]);
+	if (tr == undefined) {
+		tr_map[id].updateProject();
+	    updateProjectUI(tr_map[id]);
+	}
+	setupTRUI(tr_map[id]);
+    
     // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
