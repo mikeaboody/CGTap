@@ -33,13 +33,22 @@ var setupTR = function(tr) {
 
 var updateProject = function(tr) {
 	tr.$projectJQ().empty();
-	tr.$projectJQ().append("<option value='' disabled selected>Project</option>");
+	if (tr.getSelectedProjectID() == undefined) {
+		tr.$projectJQ().append("<option value='' selected disabled>Project</option>");
+	} else {
+		tr.$projectJQ().append("<option value='' disabled>Project</option>");
+	}
 	var keys = Object.keys(tr.currProjects).sort(function(a, b) {
 		return tr.currProjects[a].localeCompare(tr.currProjects[b]);
 	});
 	for (var i = 0; i < keys.length; i += 1) {
 		k = keys[i];
-		tr.$projectJQ().append("<option value='" + k + "'>" + tr.currProjects[k]  + "</option>");
+		if (tr.getSelectedProjectID() == k) {
+			tr.$projectJQ().append("<option value='" + k + "' selected>" + tr.currProjects[k]  + "</option>");
+		} else {
+			tr.$projectJQ().append("<option value='" + k + "'>" + tr.currProjects[k]  + "</option>");
+		}
+		
 	}
 	updateLabel(tr);
 }
@@ -57,29 +66,43 @@ var displayLoadingTimeType = function(tr) {
 }
 
 var updateTasks = function(tr, proj_id) {
-	console.log(tr);
 	tr.$taskJQ().empty();
-	tr.$taskJQ().append("<option value='' disabled selected>Task</option>");
+	if (tr.getSelectedTaskID() == undefined) {
+		tr.$taskJQ().append("<option value='' selected disabled>Task</option>");
+	} else {
+		tr.$taskJQ().append("<option value='' disabled>Task</option>");
+	}
 	var keys = Object.keys(tr.currTasks).sort(function(a, b) {
 		return tr.currTasks[a].localeCompare(tr.currTasks[b]);
 	});
 	for (var i = 0; i < keys.length; i += 1) {
 		k = keys[i];
-		tr.$taskJQ().append("<option value='" + k + "'> " + tr.currTasks[k]  + "</option>");
+		if (tr.getSelectedTaskID() == k) {
+			tr.$taskJQ().append("<option value='" + k + "' selected> " + tr.currTasks[k]  + "</option>");
+		} else {
+			tr.$taskJQ().append("<option value='" + k + "'> " + tr.currTasks[k]  + "</option>");
+		}
 	}
 	updateLabel(tr);
-	tr.updateTimeType(proj_id);
 }
 
 var updateTimeType = function(tr, proj_id) {
 	tr.$taskTypeJQ().empty();
-	tr.$taskTypeJQ().append("<option value='' disabled selected>Billing Type</option>");
+	if (tr.getSelectedTaskTypeID() == undefined) {
+		tr.$taskTypeJQ().append("<option value='' selected disabled>Billing Type</option>");
+	} else {
+		tr.$taskTypeJQ().append("<option value='' disabled>Billing Type</option>");
+	}
 	var keys = Object.keys(tr.currTaskTypes).sort(function(a, b) {
 		return tr.currTaskTypes[a].localeCompare(tr.currTaskTypes[b]);
 	});
 	for (var i = 0; i < keys.length; i += 1) {
 		k = keys[i];
-		tr.$taskTypeJQ().append("<option value='" + k + "'> " + tr.currTaskTypes[k] + "</option>");
+		if (tr.getSelectedTaskTypeID() == k) {
+			tr.$taskTypeJQ().append("<option value='" + k + "' selected> " + tr.currTaskTypes[k]  + "</option>");
+		} else {
+			tr.$taskTypeJQ().append("<option value='" + k + "'> " + tr.currTaskTypes[k]  + "</option>");
+		}
 	}
 	updateLabel(tr);
 }
@@ -102,6 +125,10 @@ var updateManualTime = function(tr) {
 	tr.$minutesJQ().val(format);
 	tr.$hoursJQ().val(hours);
 	updateLabel(tr);
+}
+
+var updateNotes = function(tr) {
+	tr.$notesJQ().val(tr.getNotes());
 }
 
 var switchTimer = function(tr) {

@@ -120,6 +120,7 @@ function TableRow(id) {
 				tr.currTasks[data[i].proj_task_id] = data[i].proj_task_nm;
 			}
 			updateTasks(tr, proj_id);
+			tr.updateTimeType(proj_id);
 		}
 		COMMUNICATOR.getTasks(proj_id, success);
 		
