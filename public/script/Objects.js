@@ -107,9 +107,11 @@ function TableRow(id) {
 	this.updateProject = function() {
 		this.currProjects = master_user.projects;
 	};
-	this.updateTasks = function(proj_id, success) {
+	this.updateTasks = function(proj_id, loading, success) {
+		if (loading != undefined) {
+			loading(this);
+		}
 		var tr = this;
-		displayLoadingTasks(this);
 		var afterRequest = function(data) {
 			tr.currTasks = {};
 			for (var i = 0; i < data.length; i += 1) {
@@ -118,16 +120,14 @@ function TableRow(id) {
 			if (success != undefined) {
 				success();
 			}
-			tr.updateTimeType(proj_id, function() {
-				tr.updateSelectedProject();
-		   		tr.updateSelectedTask();
-		   		tr.updateSelectedTimeType();
-			});
 		}
 		COMMUNICATOR.getTasks(proj_id, afterRequest);
 		
 	};
-	this.updateTimeType = function(proj_id, success) {
+	this.updateTimeType = function(proj_id, loading, success) {
+		if (loading != undefined) {
+			loading(this);
+		}
 		var tr = this;
 		var afterRequest = function(data) {
 			tr.currTaskTypes = {};
@@ -141,7 +141,6 @@ function TableRow(id) {
 				success();
 			}
 		}
-		displayLoadingTimeType(this);
 		COMMUNICATOR.getTimeTypes(proj_id, afterRequest);	
 	};
 	this.updateManualTime = function() {

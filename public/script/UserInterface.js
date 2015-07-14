@@ -11,24 +11,24 @@ var loadTRData = function(tr) {
 
 var setupTRUI = function(tr) {
 	tr.$projectJQ().on('change', function() {
-		tr.updateTasks($(this).val(), function() {
+		tr.currSelected = {};
+		tr.updateSelectedProject();
+		tr.updateTasks(tr.getSelectedProjectID(), displayLoadingTasks, function() {
 			updateTasksUI(tr);
-			updateTimeTypeUI(tr);
+			tr.updateTimeType(tr.getSelectedProjectID(), displayLoadingTimeType, function() {
+				updateTimeTypeUI(tr);
+		   		tr.updateSelectedTask();
+		   		tr.updateSelectedTimeType();
+			});
 		});
-		
 		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
-		console.log("CHANGE");
    		updateLabel(tr);
-   		tr.updateSelectedProject();
    		tr.updateSelectedTask();
-   		tr.updateSelectedTimeType();
 	});
 	tr.$taskTypeJQ().on('change', function() {
    		updateLabel(tr);
-   		tr.updateSelectedProject();
-   		tr.updateSelectedTask();
    		tr.updateSelectedTimeType();
 	});
 
