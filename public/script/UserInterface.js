@@ -1,9 +1,21 @@
+var loadTRData = function(tr) {
+	updateProject(tr);
+	setupTR(tr);
+	updateTasks(tr);
+	updateTimeType(tr);
+	updateManualTime(tr);
+	updateNotes(tr);
+	updateTimerLabel(tr);
+
+}
+
 var setupTR = function(tr) {
 	tr.$projectJQ().on('change', function() {
-   		tr.updateTasks($(this).val());
-   		// updateLabel(tr);
+		tr.updateTasks($(this).val());
+		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
+		console.log("CHANGE");
    		updateLabel(tr);
    		tr.updateSelected();
 	});
