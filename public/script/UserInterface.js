@@ -34,7 +34,11 @@ var setupTR = function(tr) {
 var updateProject = function(tr) {
 	tr.$projectJQ().empty();
 	tr.$projectJQ().append("<option value='' disabled selected>Project</option>");
-	for (var k in tr.currProjects) {
+	var keys = Object.keys(tr.currProjects).sort(function(a, b) {
+		return tr.currProjects[a].localeCompare(tr.currProjects[b]);
+	});
+	for (var i = 0; i < keys.length; i += 1) {
+		k = keys[i];
 		tr.$projectJQ().append("<option value='" + k + "'>" + tr.currProjects[k]  + "</option>");
 	}
 	updateLabel(tr);
@@ -56,7 +60,11 @@ var updateTasks = function(tr, proj_id) {
 	console.log(tr);
 	tr.$taskJQ().empty();
 	tr.$taskJQ().append("<option value='' disabled selected>Task</option>");
-	for (var k in tr.currTasks) {
+	var keys = Object.keys(tr.currTasks).sort(function(a, b) {
+		return tr.currTasks[a].localeCompare(tr.currTasks[b]);
+	});
+	for (var i = 0; i < keys.length; i += 1) {
+		k = keys[i];
 		tr.$taskJQ().append("<option value='" + k + "'> " + tr.currTasks[k]  + "</option>");
 	}
 	updateLabel(tr);
@@ -66,7 +74,11 @@ var updateTasks = function(tr, proj_id) {
 var updateTimeType = function(tr, proj_id) {
 	tr.$taskTypeJQ().empty();
 	tr.$taskTypeJQ().append("<option value='' disabled selected>Billing Type</option>");
-	for (var k in  tr.currTaskTypes) {
+	var keys = Object.keys(tr.currTaskTypes).sort(function(a, b) {
+		return tr.currTaskTypes[a].localeCompare(tr.currTaskTypes[b]);
+	});
+	for (var i = 0; i < keys.length; i += 1) {
+		k = keys[i];
 		tr.$taskTypeJQ().append("<option value='" + k + "'> " + tr.currTaskTypes[k] + "</option>");
 	}
 	updateLabel(tr);

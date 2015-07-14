@@ -156,7 +156,6 @@ function TableRow(id) {
 		}
 		if (this.$taskJQ().find("option:selected").val() != "") {
 			this.currSelected["task"] = this.$taskJQ().find("option:selected").val();
-			console.log("CHANGE");
 		} else {
 			delete this.currSelected["task"];
 		}
