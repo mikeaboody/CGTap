@@ -8,7 +8,7 @@ var current_time_tr = null;
 var storageVarName = null;
 
 COMMUNICATOR = {
-	recieveData: function(url, success, failure) {
+	recieveData: function(url, success) {
 		$.ajax({
 	        type: "GET",
 	        dataType: 'json',
@@ -17,47 +17,47 @@ COMMUNICATOR = {
 	        	console.log(jqXHR);
 	        	console.log(data);
 	        	if (textStatus == "nocontent" || data == 0) {
-	        		failure(jqXHR, "timeout", null);
+	        		this.requestError(jqXHR, "timeout", null);
 	        	} else {
 	        		success(data);
 	        	}
 	        },
 	        timeout: 5000,
-	        error: failure
+	        error: this.requestError
 		});
 	},
-	pushData: function(url, data, success, failure) {
+	pushData: function(url, data, success) {
 		$.ajax({
 	        data: data,
 	        url: url,
 	        timeout: 5000,
-	        error: failure
+	        error: this.requestError
 		}).done(success);
 	},
 	getUser: function(success) {
 		// $.getJSON(base + "/employees", success);
-		this.recieveData(base + "/employees", success, this.requestError);
+		this.recieveData(base + "/employees", success);
 	},
 	getProjects: function(success) {
 		// $.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
-		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success, this.requestError);
+		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success);
 	},
 	getTasks: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
-		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success, this.requestError);
+		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success);
 	},
 	getTimeTypes: function(proj_id, success) {
 		// $.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
-		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success, this.requestError);
+		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success);
 	},
 	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
-		this.pushData("/submit", postObj, success, this.requestError);
+		this.pushData("/submit", postObj, success);
 		// success();
 	},
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
-		this.pushData(base + "/timeentry/submit", postObj, success, this.requestError);
+		this.pushData(base + "/timeentry/submit", postObj, success);
 	},
 	requestError: function(jqXHR, textStatus, errorThrown) {
 		jqXHR.abort();
