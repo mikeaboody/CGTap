@@ -2,7 +2,7 @@ var setup = function() {
 	var success = function(data) {
 		var personData = findEmployeeInfo(master_email, data);
 		if (personData != null) {
-			master_user = new User(personData[0], personData[1], personData[2]);
+			master_user = new User(personData[0], personData[1], personData[2], personData[3]);
 		} else {
 			loadUserData();
 			return;
@@ -39,7 +39,7 @@ var loadCalendarEvents = function() {
 var findEmployeeInfo = function(email, data) {
 	for (var i = 0; i < data.length; i += 1) {
 		if (data[i].email.toLowerCase() == email.toLowerCase()) {
-			return [data[i].first_nm, data[i].last_nm, email];
+			return [data[i].first_nm, data[i].last_nm, email, data[i].emp_id];
 		}
 	}
 	return null;
@@ -55,6 +55,7 @@ var loadUserData = function() {
         			master_user.projects[currProj.proj_id] = currProj.proj_nm;
         		}
         	}
+        	storageVarName = "tap-id{" + master_user.id + "}-storage-data";
     		if (master_user.projects != {}) {
     			if(typeof(Storage) !== "undefined" && window.localStorage[storageVarName] != undefined) {
     				$("#time_sheet_table tbody").empty();

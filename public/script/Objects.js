@@ -5,7 +5,7 @@ var $template_row = null;
 var tr_count = 0;
 var tr_map = {};
 var current_time_tr = null;
-var storageVarName = master_email + "-tap-data";
+var storageVarName = null;
 
 COMMUNICATOR = {
 	recieveData: function(url, success, failure) {
@@ -69,11 +69,13 @@ COMMUNICATOR = {
 	}
 }
 
-function User(first_name, last_name, email) {
+function User(first_name, last_name, email, id) {
 	this.first_name = first_name;
 	this.last_name = last_name;
 	this.email = email;
 	this.projects = {};
+	this.events = [];
+	this.id = id;
 };
 
 function Submittable() {
