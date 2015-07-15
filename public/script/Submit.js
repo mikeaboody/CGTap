@@ -164,7 +164,7 @@ var TRClassification = function() {
 	for (id in tr_map) {
 		var tr = tr_map[id];
 		var empty = tr.getConvertedHours() <= 0 && tr.getSelectedProjectID() == undefined && tr.getSelectedTaskID() == undefined &&
-				tr.getSelectedTaskTypeID() == undefined && tr.getNotes() == "";
+				tr.getSelectedTaskTypeID() == undefined && tr.getNotes() == "" && current_time_tr != tr;
 		var insufficient = tr.getConvertedHours() <= 0 || tr.getSelectedProjectID() == undefined || tr.getSelectedTaskID() == undefined ||
 				tr.getSelectedTaskTypeID() == undefined;
 		if (empty) {
