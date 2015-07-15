@@ -172,13 +172,8 @@ var updateTimerLabelUI = function(tr) {
 var switchTimer = function(tr) {
 	var updateTimer = function() {
 		current_time_tr.time += 1000;
-		var hours = Math.floor(current_time_tr.time / (3600*1000));
-		var minutes = Math.floor(current_time_tr.time / (60*1000)) % 60;
-		var seconds = Math.floor(current_time_tr.time / 1000) % 60;
-		var newLabel = ((hours < 10) ? ("0" + hours) : ("" + hours)) + ":"
-						+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
-						+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
-		current_time_tr.$timerLabelJQ().html(newLabel);
+		updateTimerLabelUI(tr);
+		saveStorage();
 	}
 
 	if (tr_timer == null) { //just starting the timer
@@ -257,8 +252,10 @@ var addRow = function(tr) {
 	if (tr == undefined) {
 		tr_map[id].updateProject();
 	    updateProjectUI(tr_map[id]);
+	    setupTRUI(tr_map[id]);
+	} else {
+		loadTRUI(tr);
 	}
-	setupTRUI(tr_map[id]);
     
     // tr_map[id].updateTasks(master_user.projects[0].id);
 }

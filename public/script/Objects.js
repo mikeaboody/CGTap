@@ -51,7 +51,8 @@ COMMUNICATOR = {
 	},
 	postToDatabase: function(postObj, success) {
 		// $.post("/submit", postObj, success, failure);
-		this.pushData("/submit", postObj, success, this.requestError);
+		// this.pushData("/submit", postObj, success, this.requestError);
+		success();
 	},
 	postToOpenAir: function(postObj, success) {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);

@@ -74,14 +74,10 @@ var loadUserData = function() {
 						newTR.currTaskTypes = oldTR.currTaskTypes;
 						newTR.currSelected = oldTR.currSelected;
 						// tr_map[k] = newTR;
-						console.log(newTR);
 						addRow(newTR);
-						loadTRUI(newTR);
 					}
 				} else {
-				    createTR();
-    				//assumes only one key in the tr_map
-	    			var first_tr = tr_map[Object.keys(tr_map)[0]];
+	    			var first_tr = tr_map[createTR()];
 	    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
 	    			first_tr.updateProject();
 	    			updateProjectUI(first_tr);
