@@ -102,7 +102,6 @@ var saveStorage = function() {
 		tr_count: tr_count,
 		tr_map: tr_map
 	};
-	console.log(tr_map[0]["currTasks"]);
 	localStorage.setItem(storageVarName, JSON.stringify(obj));
 }
 
