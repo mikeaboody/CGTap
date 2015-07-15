@@ -8,7 +8,12 @@ var current_time_tr = null;
 var storageVarName = null;
 
 COMMUNICATOR = {
+	attempts: 0,
+	timeout: 5000,
 	recieveData: function(url, success) {
+		console.log("CALLED: " + url);
+		this.attempts += 1;
+		communicator = this;
 		$.ajax({
 	        type: "GET",
 	        dataType: 'json',
@@ -17,22 +22,34 @@ COMMUNICATOR = {
 	        	console.log(jqXHR);
 	        	console.log(data);
 	        	if (textStatus == "nocontent" || data == 0) {
-	        		this.requestError(jqXHR, "timeout", null);
+	        		communicator.requestError(jqXHR, "timeout", null, {url: url, success: success});
 	        	} else {
+	        		communicator.attempts = 0;
 	        		success(data);
 	        	}
 	        },
-	        timeout: 5000,
-	        error: this.requestError
+	        timeout: communicator.timeout,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	communicator.requestError(jqXHR, textStatus, errorThrown, {url: url, success: success});
+	        }
+	        
 		});
 	},
 	pushData: function(url, data, success) {
+		console.log("CALLED: " + url);
+		this.attempts += 1;
+		communicator = this;
 		$.ajax({
 	        data: data,
 	        url: url,
-	        timeout: 5000,
-	        error: this.requestError
-		}).done(success);
+	        timeout: communicator.timeout,
+	        error: function(jqXHR, textStatus, errorThrown) {
+	        	communicator.requestError(jqXHR, textStatus, errorThrown, {url: url, success: success, data: data});
+	        }
+		}).done(function(data) {
+			communicator.attempts = 0;
+			success(data);
+		});
 	},
 	getUser: function(success) {
 		// $.getJSON(base + "/employees", success);
@@ -59,12 +76,21 @@ COMMUNICATOR = {
 		// $.post(base + "/timeentry/submit", postObj, success, failure);
 		this.pushData(base + "/timeentry/submit", postObj, success);
 	},
-	requestError: function(jqXHR, textStatus, errorThrown) {
-		jqXHR.abort();
-		if (textStatus == "timeout") {
-			timeoutFailure();
+	requestError: function(jqXHR, textStatus, errorThrown, retryObj) {
+		if (this.attempts > 1) {
+			this.attempts = 0;
+			jqXHR.abort();
+			if (textStatus == "timeout") {
+				timeoutFailure();
+			} else {
+				generalFailure();
+			}
 		} else {
-			generalFailure();
+			if (retryObj.data == undefined) {
+				this.recieveData(retryObj.url, retryObj.success);
+			} else {
+				this.pushData(retryObj.url, retryObj.data, retryObj.success);
+			}
 		}
 	}
 }
