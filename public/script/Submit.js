@@ -5,7 +5,7 @@ var submit = function() {
 	var emptyTRList = TRLists[2];
 	if (insufficientTRList.length == 0 && submitTRList.length == 0) {
 		swal({   
-			title: "Timesheet empty",
+			title: "Timesheet Empty!",
 			text: "Please fill out your timesheet before submitting.",
 			type: "error"
 		});
@@ -21,7 +21,7 @@ var submit = function() {
 		postSubmitObjs(submitTRList, function() {
 			setTimeout(function() {
 				swal({
-					title: "You have submitted your hours!",
+					title: "You Have Sent Your Timesheet to OpenAir!",
 					type: "success"
 				}, function() {
 					reset(TRLists);
@@ -37,11 +37,11 @@ var submit = function() {
 		table_html += "<div>Total time: " + total_hours[0] + " hours " + total_hours[1] + " minutes</div><br>";
 		table_html += submitTable(submitTRList);
 		if (insufficientTRList.length > 0) {
-			table_html += "<div>Incomplete entries not to be submitted</div><br>";
+			table_html += "<div>These entries are incomplete and will not be sent:</div><br>";
 			table_html += insufficientTable(insufficientTRList);
 		}
 		swal({   
-			title: "Do you want to send to OpenAir?",   
+			title: "Do You Want to Send to OpenAir?",   
 			text: table_html,
 			html: true,    
 			showCancelButton: true,   
@@ -53,10 +53,10 @@ var submit = function() {
 			confirmSubmit
 		);
 	} else {
-		table_html = "<div>Incomplete entries not to be submitted</div><br>";
+		table_html = "<div>Please complete one or more entries before submitting.</div><br>";
 		table_html += insufficientTable(insufficientTRList);
 		swal({   
-			title: "No complete entries",
+			title: "No Complete Entries!",
 			type: "error",   
 			text: table_html,
 			html: true

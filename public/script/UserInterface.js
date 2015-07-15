@@ -267,7 +267,7 @@ var deleteRow = function(tr) {
 		}
 		deleteTR(tr);
 	} else {
-		swal("You must have one or more projects on the timesheet", "", "error");
+		swal("Can't Delete Entry!", "You must have one or more projects on the timesheet.", "error");
 	}	
 }
 
