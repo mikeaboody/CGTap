@@ -17,7 +17,7 @@ COMMUNICATOR = {
 	        	console.log(jqXHR);
 	        	console.log(data);
 	        	if (textStatus == "nocontent" || data == 0) {
-	        		failure(jqXHR, textStatus, null);
+	        		failure(jqXHR, "timeout", null);
 	        	} else {
 	        		success(data);
 	        	}
