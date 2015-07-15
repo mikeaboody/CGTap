@@ -273,7 +273,8 @@ var deleteRow = function(tr) {
 
 var timeoutFailure = function() {
 	swal({
-		title: "Page Timed Out. Please try again later.",
+		title: "Page Timed Out!",
+		text: "Please refresh (we'll try to save your data) or try again later.",
 		type: "error"
 	});
 	$(".welcome").html("Timed out.");
@@ -281,7 +282,8 @@ var timeoutFailure = function() {
 
 var generalFailure = function() {
 	swal({
-		title: "Something went wrong. Please try again later.",
+		title: "Oops!",
+		text: "Tap Time experienced an error. Try refreshing your browser (we'll try to save your data) or contact brian.forster@controlgroup.com if the problem persists.",
 		type: "error"
 	});
 	$(".welcome").html("Something went wrong.");
