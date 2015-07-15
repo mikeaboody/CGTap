@@ -5,6 +5,7 @@ var $template_row = null;
 var tr_count = 0;
 var tr_map = {};
 var current_time_tr = null;
+var storageVarName = master_email + "-tap-data";
 
 COMMUNICATOR = {
 	recieveData: function(url, success, failure) {

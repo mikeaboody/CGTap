@@ -57,9 +57,9 @@ var loadUserData = function() {
         		}
         	}
     		if (master_user.projects != {}) {
-    			if(typeof(Storage) !== "undefined" && window.localStorage["test-storage"] != undefined) {
+    			if(typeof(Storage) !== "undefined" && window.localStorage[storageVarName] != undefined) {
     				$("#time_sheet_table tbody").empty();
-					var storageObj = JSON.parse(window.localStorage["test-storage"]);
+					var storageObj = JSON.parse(window.localStorage[storageVarName]);
 					tr_count = storageObj.tr_count;
 					for (var k in storageObj.tr_map) {
 						var oldTR = storageObj.tr_map[k];
@@ -103,7 +103,7 @@ var saveStorage = function() {
 		tr_map: tr_map
 	};
 	console.log(tr_map[0]["currTasks"]);
-	localStorage.setItem("test-storage", JSON.stringify(obj));
+	localStorage.setItem(storageVarName, JSON.stringify(obj));
 }
 
 

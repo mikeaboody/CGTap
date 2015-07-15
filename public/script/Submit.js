@@ -227,6 +227,7 @@ var reset = function(TRLists) {
 		addRow();
 	}
 	deleteTRs(submitTRList);
+	saveStorage();
 	// tr_map = {};
 	// $("#time_sheet_table tbody").empty();
 	// $("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
