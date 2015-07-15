@@ -13,7 +13,6 @@ var setup = function() {
 			updateCalendar();
 		})
 		$(".addRow button").on("click", function() {
-			console.log("hi");
 			addRow();
 			saveStorage();
 		});
@@ -63,7 +62,6 @@ var loadUserData = function() {
 					tr_count = storageObj.tr_count;
 					for (var k in storageObj.tr_map) {
 						var oldTR = storageObj.tr_map[k];
-						console.log(oldTR);
 						var newTR = new TableRow(k);
 						newTR.time = oldTR.time;
 						newTR.minutes = oldTR.minutes;

@@ -152,7 +152,6 @@ var insufficientTable = function(insufficientTRList) {
 
 var deleteTRs = function(TRList) {
 	for (i in TRList) {
-		console.log(TRList[i]);
 		deleteRow(TRList[i]);
 	}
 }

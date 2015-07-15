@@ -244,7 +244,6 @@ var addRow = function(tr) {
 	var myRow = $template_row;
 	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
 	if ($("#time_sheet_table tbody tr:last").index() == -1) {
-		console.log("hi");
 		$("#time_sheet_table tbody").append(myHTML);
 	} else {
 		$("#time_sheet_table tbody tr:last").after(myHTML);
