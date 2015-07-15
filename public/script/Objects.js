@@ -21,7 +21,10 @@ COMMUNICATOR = {
 	        success: function(data, textStatus, jqXHR) {
 	        	console.log(jqXHR);
 	        	console.log(data);
-	        	if (textStatus == "nocontent" || data == 0) {
+	        	if (data == 0) {
+	        		communicator.requestError(jqXHR, "noapidata", null, {url: url, success: success});
+	        	}
+	        	else if (textStatus == "nocontent") {
 	        		communicator.requestError(jqXHR, "timeout", null, {url: url, success: success});
 	        	} else {
 	        		communicator.attempts = 0;
@@ -80,10 +83,13 @@ COMMUNICATOR = {
 		if (this.attempts > 1) {
 			this.attempts = 0;
 			jqXHR.abort();
-			if (textStatus == "timeout") {
+			if (textStatus == "noapidata") {
+				faultyDataFailure();
+			}
+			else if (textStatus == "timeout") {
 				timeoutFailure();
 			} else {
-				generalFailure();
+				generalNetworkFailure();
 			}
 		} else {
 			if (retryObj.data == undefined) {

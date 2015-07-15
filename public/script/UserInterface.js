@@ -274,19 +274,28 @@ var deleteRow = function(tr) {
 var timeoutFailure = function() {
 	swal({
 		title: "Page Timed Out!",
-		text: "Please refresh (we'll try to save your data) or try again later.",
+		text: "Tap Time timed out. Try refreshing your browser (we'll try to save your progress) or try again later.",
 		type: "error"
 	});
-	$(".welcome").html("Timed out.");
+	$(".welcome").html("Page Timed Out!");
 }
 
-var generalFailure = function() {
+var faultyDataFailure = function() {
 	swal({
-		title: "Oops!",
-		text: "Tap Time experienced an error. Try refreshing your browser (we'll try to save your data) or contact brian.forster@controlgroup.com if the problem persists.",
+		title: "No Data Recieved!",
+		text: "Tap Time didn't recieve any data from the server. Try refreshing your browser (we'll try to save your progress) or contact brian.forster@controlgroup.com if the problem persists.",
 		type: "error"
 	});
-	$(".welcome").html("Something went wrong.");
+	$(".welcome").html("No Data Recieved!");
+}
+
+var generalNetworkFailure = function() {
+	swal({
+		title: "Oops!",
+		text: "Tap Time experienced an error. Try refreshing your browser (we'll try to save your progress) or contact brian.forster@controlgroup.com if the problem persists.",
+		type: "error"
+	});
+	$(".welcome").html("Oops!");
 }
 
 var updateCalendar = function() {
