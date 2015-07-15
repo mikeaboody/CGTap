@@ -74,7 +74,6 @@ function User(first_name, last_name, email) {
 	this.last_name = last_name;
 	this.email = email;
 	this.projects = {};
-	this.events = [];
 };
 
 function Submittable() {
@@ -117,7 +116,11 @@ function TableRow(id) {
 		var afterRequest = function(data) {
 			tr.currTasks = {};
 			for (var i = 0; i < data.length; i += 1) {
-				tr.currTasks[data[i].proj_task_id] = data[i].proj_task_nm;
+				if (data[i].phase_task_nm != undefined) {
+					tr.currTasks[data[i].proj_task_id] = data[i].phase_task_nm;
+				} else {
+					tr.currTasks[data[i].proj_task_id] = data[i].proj_task_nm;
+				}	
 			}
 			if (success != undefined) {
 				success();
