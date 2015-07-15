@@ -7,7 +7,7 @@ body {
   -o-transition: right 0.3s ease-in-out 0s;
 }
 #time_sheet_table {
-  float: left;
+position: relative;
 
 }
 ul {
@@ -20,9 +20,9 @@ a.nav-expander:hover {
 a.nav-expander.fixed {
   position: fixed;
 }
- 
+
 .nav-expanded a.nav-expander.fixed {
-    right: 20em;
+  right: 20em;
 }
 .nav-expanded nav {
   right: 0;
@@ -46,7 +46,7 @@ a.nav-expander.fixed {
   font-size: 40px;
   font-family: 'Helvetica', serif;
   padding-top: 10px;
-  text-align: left;
+  left: 0;
   font-weight: 10px;
 
 }
@@ -87,10 +87,10 @@ a.nav-expander.fixed {
   transition: @property;
 }
 
-.boxStyle() {
+/*.boxStyle() {
   background: #ffffff; 
   padding: 50px;
-}
+}*/
 
 #submit_table {
   font-size: 14px;
@@ -160,7 +160,7 @@ padding: 20px 40px 20px 20px;
 /*
 off-canvas*/
 nav {
-  background: #febc26;
+  background: #fee602;
   display: block;
   height: 100%;
   overflow: auto;
@@ -205,7 +205,13 @@ transition: right 0.3s ease-in-out 0s;
 -o-transition: right 0.3s ease-in-out 0s;
 
 .nav-expanded nav {
+  position:relative;
+
+  
   right: 0;
+}
+.shrink {
+  width: 75%;
 }
 
 body.nav-expanded {
