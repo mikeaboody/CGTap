@@ -122,7 +122,8 @@ function Submittable() {
 	this.notes = "";
 }
 
-function CalendarEvent(name, description, start, end) {
+function CalendarEvent(id, name, description, start, end) {
+	this.id = "cal-event-" + id;
 	this.name = name;
 	this.description = description;
 	this.start = start;

@@ -300,16 +300,16 @@ var generalNetworkFailure = function() {
 
 var updateCalendar = function() {
 	$("#event_table").empty();
-	$("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");
-	$("#event_table").append("<tbody></tbody>");
+	// $("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");
+	// $("#event_table").append("<tbody></tbody>");
 	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
 	var empty = true;; 
 	for (var i = 0; i < master_user.events.length; i += 1) {
 		var curr_event = master_user.events[i];
 		if (date_selected.getDate() == curr_event.start.getDate()) {
 			empty = false;
-			var tr = "<tr>";
-			tr += "<td>" + curr_event.name + "</td>";
+			var tr = "<div id='" + curr_event.id + "' draggable='true' ondragstart = 'drag(event)' style='background-color:blue;'>";
+			tr += "<div>" + curr_event.name + "</div>";
 			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
 			var start_ampm = (start_hours < 12) ? "A.M." : "P.M.";
@@ -322,9 +322,9 @@ var updateCalendar = function() {
 
 			var time_string = start_hours + ":" + start_minutes + " " + start_ampm + " - " + end_hours + ":" + end_minutes + " " + end_ampm;
 
-			tr += "<td>" + time_string + "</td>";
-			tr += "</tr>";
-			$("#event_table tbody").append(tr);
+			tr += "<div>" + time_string + "</div>";
+			tr += "</div>";
+			$("#event_table").append(tr);
 		}
 	}
 	if (empty) {
@@ -349,6 +349,30 @@ $('.selectpicker').selectpicker();
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
+
+function allowDrop(event) {
+	event.preventDefault();
+}
+
+
+function doDrop(event) {
+	event.preventDefault();
+	console.log(event.dataTransfer.getData("text"));
+  	// if (event.dataTransfer.files.length != 0) {
+  	// 	var newFiles = event.dataTransfer.files;
+  	// 	for (var i = 0; i < newFiles.length; i++) {
+  	// 		var file = event.dataTransfer.files.item(i);
+ 		// 	all_files.push(file);
+  	// 	}
+  	// 	updateList();
+  	// }
+}
+
+function drag(event) {
+	console.log(event)
+	event.dataTransfer.setData("text", event.target.id);
+
+}
 
 $(function() {
 	$( ".datepicker" ).datepicker({ 
