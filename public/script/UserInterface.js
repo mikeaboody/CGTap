@@ -278,6 +278,21 @@ var addRowFromCalendar = function(calendarEvent) {
 	saveStorage();
 }
 
+var addAllCalendarEvents = function() {
+	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
+	var keys = Object.keys(master_user.events).sort(function(a, b) {
+		return master_user.events[a].start.getTime() - master_user.events[b].start.getTime();
+	});
+	for (var i = 0; i < keys.length; i += 1) {
+		var k = keys[i];
+		var calendarEvent = master_user.events[k];
+		if (date_selected.getDate() == calendarEvent.start.getDate()) {
+			addRowFromCalendar(calendarEvent);
+		}
+	}
+
+}
+
 // //delete a row from projects
 var deleteRow = function(tr) {
 	if (($("#time_sheet_table tbody tr:last").index() + 1) > 1) {

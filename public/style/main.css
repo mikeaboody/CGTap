@@ -228,7 +228,8 @@ transition: right 0.3s ease-in-out 0s;
 }
 
 .event_div {
-  height: 120px;
+  height: 80px;
+  width: 200px;
   background-color: #05abd5;
   border: solid blue 3px;
   border-radius: 2px;
