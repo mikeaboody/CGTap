@@ -165,7 +165,8 @@ nav {
   background: #fee602;
   display: block;
   height: 100%;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: fixed;
   right: -20em;
   font-size: 15px;
@@ -208,8 +209,6 @@ transition: right 0.3s ease-in-out 0s;
 
 .nav-expanded nav {
   position:relative;
-
-  
   right: 0;
 }
 .shrink {
@@ -228,11 +227,11 @@ transition: right 0.3s ease-in-out 0s;
 }
 
 .event_div {
-  height: 80px;
   width: 200px;
   background-color: #05abd5;
   border: solid blue 3px;
   border-radius: 2px;
+  min-height: 80px;
 }
 
 .event_div .description {
