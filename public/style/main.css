@@ -223,9 +223,21 @@ transition: right 0.3s ease-in-out 0s;
 .addRowFromCalendar {
   border: blue solid;
   height: 98px;
-  width: 100%;
+  width: 96%;
+  text-align: center;
 }
 
+.event_div {
+  height: 120px;
+  background-color: #05abd5;
+  border: solid blue 3px;
+  border-radius: 2px;
+}
+
+.event_div .description {
+  overflow:hidden;
+  position: relative;
+}
 body.nav-expanded {
   margin-left: 0em;
   transition: right 0.4s ease-in-out 0s;

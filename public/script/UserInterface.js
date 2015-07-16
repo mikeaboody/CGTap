@@ -260,7 +260,6 @@ var addRow = function(tr) {
 }
 
 var addRowFromCalendar = function(calendarEvent) {
-	console.log("called");
 	var id = createTR();
 	
 	var myRow = $template_row;
@@ -335,8 +334,7 @@ var updateCalendar = function() {
 		var curr_event = master_user.events[k];
 		if (date_selected.getDate() == curr_event.start.getDate()) {
 			empty = false;
-			var tr = "<div id='" + k + "' draggable='true' ondragstart = 'drag(event)' style='background-color:blue;'>";
-			tr += "<div>" + curr_event.name + "</div>";
+			var event_div = "<div id='" + k + "' draggable='true' ondragstart = 'drag(event)' class='event_div'>";
 			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
 			var start_ampm = (start_hours < 12) ? "A.M." : "P.M.";
@@ -349,9 +347,13 @@ var updateCalendar = function() {
 
 			var time_string = start_hours + ":" + start_minutes + " " + start_ampm + " - " + end_hours + ":" + end_minutes + " " + end_ampm;
 
-			tr += "<div>" + time_string + "</div>";
-			tr += "</div><br>";
-			$("#event_table").append(tr);
+			event_div += "<div><b>" + time_string + "</b></div>";
+			event_div += "<div>" + curr_event.name + "</div>";
+			// if (curr_event.description != undefined) {
+			// 	event_div += "<div class = 'description'>Description:<br>" + curr_event.description + "</div>";
+			// }
+			event_div += "</div><br>";
+			$("#event_table").append(event_div);
 		}
 	}
 	if (empty) {
@@ -387,25 +389,28 @@ function doDropUpdate(event) {
 	var id = $(event.target).closest("tr").attr("id");
 	var trToUpdate = tr_map[id];
 	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
-
-	var total_minutes = Math.floor(calendarEvent.end.getTime() - calendarEvent.start.getTime()) / (60000);
-	trToUpdate.hours += Math.floor(total_minutes / 60);
-	trToUpdate.minutes += total_minutes % 60;
-	if (trToUpdate.notes != "") {
-		trToUpdate.notes += ", ";
+	if (calendarEvent != undefined) {
+		var total_minutes = Math.floor(calendarEvent.end.getTime() - calendarEvent.start.getTime()) / (60000);
+		trToUpdate.minutes += total_minutes;
+		trToUpdate.hours += Math.floor(trToUpdate.minutes / 60);
+		trToUpdate.minutes %= 60;
+		if (trToUpdate.notes != "") {
+			trToUpdate.notes += ", ";
+		}
+		trToUpdate.notes += calendarEvent.name;
+		updateManualTimeUI(trToUpdate);
+		updateNotesUI(trToUpdate);
+		saveStorage();
 	}
-	trToUpdate.notes += calendarEvent.name;
-	updateManualTimeUI(trToUpdate);
-	updateNotesUI(trToUpdate);
-	saveStorage();
-	//TODO: edit the time to make it not overflow
-	// addRowFromCalendar(calendarEvent);
 }
 
 function doDropAdd(event) {
 	event.preventDefault();
 	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
-	addRowFromCalendar(calendarEvent)
+	if (calendarEvent != undefined) {
+		addRowFromCalendar(calendarEvent);
+	}
+	
 }
 
 function drag(event) {
