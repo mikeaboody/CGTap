@@ -106,7 +106,7 @@ function User(first_name, last_name, email, id) {
 	this.last_name = last_name;
 	this.email = email;
 	this.projects = {};
-	this.events = [];
+	this.events = {};
 	this.id = id;
 };
 
@@ -122,8 +122,7 @@ function Submittable() {
 	this.notes = "";
 }
 
-function CalendarEvent(id, name, description, start, end) {
-	this.id = "cal-event-" + id;
+function CalendarEvent(name, description, start, end) {
 	this.name = name;
 	this.description = description;
 	this.start = start;

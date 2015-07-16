@@ -28,12 +28,9 @@ var loadCalendarEvents = function() {
 	for (var i = 0; i < items.length; i += 1) {
 		var curr_event = items[i];
 		if (curr_event["status"] != "cancelled") {
-			master_user.events.push(new CalendarEvent(curr_event["id"], curr_event["summary"], curr_event["description"], new Date(curr_event["start"]["dateTime"]), new Date(curr_event["end"]["dateTime"])));
+			master_user.events["cal-event-" + curr_event["id"]] = new CalendarEvent(curr_event["summary"], curr_event["description"], new Date(curr_event["start"]["dateTime"]), new Date(curr_event["end"]["dateTime"]));
 		}
 	}
-	master_user.events.sort(function(a, b) {
-		return a.start.getTime() - b.start.getTime();
-	})
 }
 
 var findEmployeeInfo = function(email, data) {

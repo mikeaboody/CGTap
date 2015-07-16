@@ -303,12 +303,19 @@ var updateCalendar = function() {
 	// $("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");
 	// $("#event_table").append("<tbody></tbody>");
 	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
-	var empty = true;; 
-	for (var i = 0; i < master_user.events.length; i += 1) {
-		var curr_event = master_user.events[i];
+	var empty = true;
+	// master_user.events.sort(function(a, b) {
+	// 	return a.start.getTime() - b.start.getTime();
+	// });
+	var keys = Object.keys(master_user.events).sort(function(a, b) {
+		return master_user.events[a].start.getTime() - master_user.events[b].start.getTime();
+	});
+	for (var i = 0; i < keys.length; i += 1) {
+		var k = keys[i];
+		var curr_event = master_user.events[k];
 		if (date_selected.getDate() == curr_event.start.getDate()) {
 			empty = false;
-			var tr = "<div id='" + curr_event.id + "' draggable='true' ondragstart = 'drag(event)' style='background-color:blue;'>";
+			var tr = "<div id='" + k + "' draggable='true' ondragstart = 'drag(event)' style='background-color:blue;'>";
 			tr += "<div>" + curr_event.name + "</div>";
 			var start_hours = curr_event.start.getHours();
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
@@ -323,7 +330,7 @@ var updateCalendar = function() {
 			var time_string = start_hours + ":" + start_minutes + " " + start_ampm + " - " + end_hours + ":" + end_minutes + " " + end_ampm;
 
 			tr += "<div>" + time_string + "</div>";
-			tr += "</div>";
+			tr += "</div><br>";
 			$("#event_table").append(tr);
 		}
 	}
@@ -357,7 +364,7 @@ function allowDrop(event) {
 
 function doDrop(event) {
 	event.preventDefault();
-	console.log(event.dataTransfer.getData("text"));
+	console.log(master_user.events[event.dataTransfer.getData("text")]);
   	// if (event.dataTransfer.files.length != 0) {
   	// 	var newFiles = event.dataTransfer.files;
   	// 	for (var i = 0; i < newFiles.length; i++) {
@@ -369,7 +376,6 @@ function doDrop(event) {
 }
 
 function drag(event) {
-	console.log(event)
 	event.dataTransfer.setData("text", event.target.id);
 
 }
