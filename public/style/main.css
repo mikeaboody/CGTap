@@ -221,9 +221,9 @@ transition: right 0.3s ease-in-out 0s;
 }
 
 .addRowFromCalendar {
-  border: blue solid;
+  border: #dddddd solid;
   height: 98px;
-  width: 96%;
+  width: 98%;
   text-align: center;
 }
 
