@@ -382,9 +382,10 @@ function allowDrop(event) {
 }
 
 
-function doDrop(event) {
+function doDropUpdate(event) {
 	event.preventDefault();
-	// console.log(event.target.);
+	var id = $(event.target).closest("tr").attr("id");
+	console.log(tr_map[id]);
 	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
 	console.log(calendarEvent);
 	addRowFromCalendar(calendarEvent);

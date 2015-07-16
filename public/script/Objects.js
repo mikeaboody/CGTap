@@ -297,7 +297,7 @@ function PastTimesheet(id, project_name, task_name, time_type, hours) {
 
 var createTR = function(tr) {
 	if (tr == undefined) {
-		var newTR = new TableRow(tr_count);
+		var newTR = new TableRow(tr_count + "");
 		tr_map[tr_count] = newTR;
 		tr_count += 1;
 		return newTR.id;

@@ -74,7 +74,7 @@ var loadUserData = function() {
 					}
 				} else {
 	    			var first_tr = tr_map[createTR()];
-	    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", "" + first_tr.id);
+	    			$("#time_sheet_table tbody tr:nth-child(1)").attr("id", first_tr.id);
 	    			first_tr.updateProject();
 	    			updateProjectUI(first_tr);
 	    			setupTRUI(first_tr);
