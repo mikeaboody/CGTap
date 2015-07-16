@@ -11,15 +11,15 @@ var createData = function() {
 
 
 var displayData = function() {
-	var w = 750,                        //width
+	var w = 250,                        //width
     h = w,                            //height
     r = w/2,                            //radius
     color = d3.scale.category20c();     //builtin range of colors
 
     data = createData();
     
-    var vis = d3.select("body")
-        .append("svg:svg")              //create the SVG element inside the <body>
+    var vis = d3.select(".modal-body").append('svg')
+                                         //create the SVG element inside the <body>
         .data([data])                   //associate our data with the document
             .attr("width", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
             .attr("height", h)
