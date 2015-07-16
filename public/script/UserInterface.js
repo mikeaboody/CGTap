@@ -385,18 +385,21 @@ function allowDrop(event) {
 function doDropUpdate(event) {
 	event.preventDefault();
 	var id = $(event.target).closest("tr").attr("id");
-	console.log(tr_map[id]);
+	var trToUpdate = tr_map[id];
 	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
-	console.log(calendarEvent);
-	addRowFromCalendar(calendarEvent);
-  	// if (event.dataTransfer.files.length != 0) {
-  	// 	var newFiles = event.dataTransfer.files;
-  	// 	for (var i = 0; i < newFiles.length; i++) {
-  	// 		var file = event.dataTransfer.files.item(i);
- 		// 	all_files.push(file);
-  	// 	}
-  	// 	updateList();
-  	// }
+
+	var total_minutes = Math.floor(calendarEvent.end.getTime() - calendarEvent.start.getTime()) / (60000);
+	trToUpdate.hours += Math.floor(total_minutes / 60);
+	trToUpdate.minutes += total_minutes % 60;
+	if (trToUpdate.notes != "") {
+		trToUpdate.notes += ", ";
+	}
+	trToUpdate.notes += calendarEvent.name;
+	updateManualTimeUI(trToUpdate);
+	updateNotesUI(trToUpdate);
+	saveStorage();
+	//TODO: edit the time to make it not overflow
+	// addRowFromCalendar(calendarEvent);
 }
 
 function drag(event) {
