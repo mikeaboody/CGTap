@@ -326,7 +326,7 @@ var faultyDataFailure = function() {
 var generalNetworkFailure = function() {
 	swal({
 		title: "Oops!",
-		text: "Tap Time experienced an error. Try refreshing your browser (we'll try to save your progress) or contact brian.forster@controlgroup.com if the problem persists.",
+		text: "Tap Time experienced an error when trying to access the data. Try refreshing your browser (we'll try to save your progress) or contact brian.forster@controlgroup.com if the problem persists.",
 		type: "error"
 	});
 	$(".welcome").html("Oops!");
