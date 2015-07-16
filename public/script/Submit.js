@@ -118,6 +118,7 @@ var insufficientTable = function(insufficientTRList) {
 		var task_id = tr.getSelectedTaskID();
 		var task_type_name = tr.getSelectedTaskTypeName();
 		var task_type_id = tr.getSelectedTaskTypeID();
+		var converted_hours = tr.getConvertedHours();
 		var hours = tr.getHours();
 		var minutes = tr.getMinutes();
 		// var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
@@ -138,7 +139,7 @@ var insufficientTable = function(insufficientTRList) {
 		} else {
 			current_tr +=  "<td align='left'>" + task_type_name + "</td>";
 		}
-		if (hours <= 0) {
+		if (converted_hours <= 0) {
 			current_tr += "<td align='left' class='insufficient_entry'>" + hours + " hours " + minutes + " minutes</td>";
 		} else {
 			current_tr += "<td align='left'>" + hours + " hours " + minutes + " minutes</td>";
