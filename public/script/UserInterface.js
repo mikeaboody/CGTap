@@ -402,6 +402,12 @@ function doDropUpdate(event) {
 	// addRowFromCalendar(calendarEvent);
 }
 
+function doDropAdd(event) {
+	event.preventDefault();
+	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
+	addRowFromCalendar(calendarEvent)
+}
+
 function drag(event) {
 	event.dataTransfer.setData("cal-event-data", event.target.id);
 

@@ -220,6 +220,11 @@ transition: right 0.3s ease-in-out 0s;
  padding-right: 300px;
 }
 
+.addRowFromCalendar {
+  border: blue solid;
+  height: 98px;
+  width: 100%;
+}
 
 body.nav-expanded {
   margin-left: 0em;

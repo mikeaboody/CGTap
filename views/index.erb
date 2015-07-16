@@ -197,7 +197,11 @@ $(document).ready(function(){
                 </tbody>
               </table>
               <hr/ width = 100%>
-              <div class="addRow" style = "margin-top:-18px;">
+              <div class = "addRowFromCalendar" style = "margin-top:-18px;" ondrop="doDropAdd(event)" ondragover="allowDrop(event)">
+                Add Calendar Event
+              </div>
+              <br>
+              <div class="addRow">
                 <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                </button>
               </div>    
