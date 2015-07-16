@@ -259,6 +259,26 @@ var addRow = function(tr) {
     // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
+var addRowFromCalendar = function(calendarEvent) {
+	console.log("called");
+	var id = createTR();
+	
+	var myRow = $template_row;
+	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
+	if ($("#time_sheet_table tbody tr:last").index() == -1) {
+		$("#time_sheet_table tbody").append(myHTML);
+	} else {
+		$("#time_sheet_table tbody tr:last").after(myHTML);
+	}
+	var total_minutes = Math.floor(calendarEvent.end.getTime() - calendarEvent.start.getTime()) / (60000);
+	tr_map[id].hours = Math.floor(total_minutes / 60);
+	tr_map[id].minutes = total_minutes % 60;
+	tr_map[id].notes = calendarEvent.name;
+	tr_map[id].updateProject();
+	loadTRUI(tr_map[id]);
+	saveStorage();
+}
+
 // //delete a row from projects
 var deleteRow = function(tr) {
 	if (($("#time_sheet_table tbody tr:last").index() + 1) > 1) {
@@ -364,7 +384,10 @@ function allowDrop(event) {
 
 function doDrop(event) {
 	event.preventDefault();
-	console.log(master_user.events[event.dataTransfer.getData("text")]);
+	// console.log(event.target.);
+	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
+	console.log(calendarEvent);
+	addRowFromCalendar(calendarEvent);
   	// if (event.dataTransfer.files.length != 0) {
   	// 	var newFiles = event.dataTransfer.files;
   	// 	for (var i = 0; i < newFiles.length; i++) {
@@ -376,7 +399,7 @@ function doDrop(event) {
 }
 
 function drag(event) {
-	event.dataTransfer.setData("text", event.target.id);
+	event.dataTransfer.setData("cal-event-data", event.target.id);
 
 }
 
