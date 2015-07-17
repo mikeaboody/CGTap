@@ -1,12 +1,28 @@
-timesheets = [];
+var timesheets = [];
+
+var todaysTimesheets = function(ts) {
+    var date_selected = $(".submit_date .datepicker").datepicker("getDate").getDate();
+    console.log(date_selected);
+    var newTS = [];
+    for (var i = 0; i < ts.length; i += 1) {
+        var currTS = ts[i];
+        if(date_selected == currTS.date.getDate()) {
+            newTS.push(currTS);
+        }
+    }
+    return newTS;
+}
 
 var createData = function() {
-    var data = [];
-    for (var i = 0; i < timesheets.length; i += 1) {
-        var dataPoint = {"label":timesheets[i].project_name, "value":timesheets[i].hours};
-        data.push(dataPoint);
+    var dailyHours = 0;
+    var todaysTS = todaysTimesheets(timesheets);
+    console.log(todaysTS);
+    for (var i = 0; i < todaysTS.length; i += 1) {
+        var currTS = todaysTS[i];
+        dailyHours += currTS.hours;
     }
-    return data;
+    console.log(dailyHours);
+    return [{value: dailyHours, color: '#75ad3e', middleText: 'TARGET'}];
 }
 
 
@@ -54,78 +70,70 @@ var displayData = function() {
 }
 // past time sheet billing info
 
-              timesheets = [];
-              var createData = function() {
-                var data = [];
-                for (var i = 0; i < timesheets.length; i += 1) {
-                var dataPoint = {"label":timesheets[i].project_name, "value":timesheets[i].hours};
-                  data.push(dataPoint);
-                }
-                return data;
-              }
-              var width = 250,
-              height = 250,
-               radius = 125,
-                colors = d3.scale.ordinal()
-                .range(['#71D18A', '#29a949', '#037220']);
+//               var width = 250,
+//               height = 250,
+//                radius = 125,
+//                 colors = d3.scale.ordinal()
+//                 .range(['#71D18A', '#29a949', '#037220']);
 
-              var piedata = [
-                { label: "", 
-                 value: 50}, 
-                { label:"", 
-                 value: 50},
-                { label:"", 
-                  value: 50}
+//               var piedata = [
+//                 { label: "", 
+//                  value: 50}, 
+//                 { label:"", 
+//                  value: 50},
+//                 { label:"", 
+//                   value: 50}
       
-                ]
+//                 ]
 
-              var pie = d3.layout.pie()
-               .value(function(d) {
-                 return d.value;
-                })
-              var arc = d3.svg.arc()
-              .innerRadius(radius - 100)
-              .outerRadius(radius - 50);
+//               var pie = d3.layout.pie()
+//                .value(function(d) {
+//                  return d.value;
+//                 })
+//               var arc = d3.svg.arc()
+//               .innerRadius(radius - 100)
+//               .outerRadius(radius - 50);
 
-              var myChart = d3.select('.modal-body').append('svg')
-                .attr('width', width)
-                .attr('height', height)
-                .append('g')
-                .attr('transform', 'translate('+(width - radius)+', '+(height-radius)+')')
-                .selectAll('path').data(pie(piedata))
-                .enter().append('g')
-  // create a class called slice to slap some data on
-                .attr('class', 'slice')
+//               var myChart = d3.select('.modal-body').append('svg')
+//                 .attr('width', width)
+//                 .attr('height', height)
+//                 .append('g')
+//                 .attr('transform', 'translate('+(width - radius)+', '+(height-radius)+')')
+//                 .selectAll('path').data(pie(piedata))
+//                 .enter().append('g')
+//   // create a class called slice to slap some data on
+//                 .attr('class', 'slice');
 
-              var slices = d3.selectAll('g.slice')
-                .append('path')
-                .attr('fill', function(d, i) {
-                 return colors(i); 
-               })
-                .attr('d', arc)
-// each element has its own data object   
-              var text = d3.selectAll('g.slice')
-                .append('text')
-                .text(function(d, i) {
-                   return d.data.label;
-                })
-// here come the attributes which format
-               .attr('text-anchor', 'middle')
-              .attr('fill', 'black')
-             .attr('transform', function(d){ 
-              d.innerRadius = 0;
-              d.outerRadius = radius;
-                return 'translate('+ arc.centroid(d)+')'
-                      })
+//               var slices = d3.selectAll('g.slice')
+//                 .append('path')
+//                 .attr('fill', function(d, i) {
+//                  return colors(i); 
+//                })
+//                 .attr('d', arc);
+// // each element has its own data object   
+//               var text = d3.selectAll('g.slice')
+//                 .append('text')
+//                 .text(function(d, i) {
+//                    return d.data.label;
+//                 })
+// // here come the attributes which format
+//                .attr('text-anchor', 'middle')
+//               .attr('fill', 'black')
+//              .attr('transform', function(d){ 
+//               d.innerRadius = 0;
+//               d.outerRadius = radius;
+//                 return 'translate('+ arc.centroid(d)+')'
+//                       });
 
-             </script>
 
 // donut for total daily time
+
+
     
 var donutChart;
-(function() {
-  var w = 250,
-   h = 150,
+    (function() {
+    var w = 250,
+    h = 150,
    r = 50,
    innerRadius = 40,
    transitionsDuration = 1000,
@@ -152,7 +160,7 @@ var donutChart;
      */
     draw: function(container, data) {
 
-      var svg = d3.select('#donut').append('svg');
+      var svg = d3.select('#donut-chart').append('svg');
 
       createBigCircle(svg);
       var vis = createChartContainer(svg, data);
@@ -251,6 +259,5 @@ var donutChart;
   }
 })();
 
-donutChart.draw('#donut-chart', [{value: 0, color: '#75ad3e', middleText: 'TARGET'}] )
-      </script>
+    
 

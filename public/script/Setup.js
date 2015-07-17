@@ -20,7 +20,7 @@ var setup = function() {
 var setupJQuery = function() {
 	$(".calendar_date input").on("change", function() {
 			updateCalendar();
-		})
+	});
 	$(".addRow button").on("click", function() {
 		addRow();
 		saveStorage();
@@ -41,6 +41,14 @@ var setupJQuery = function() {
       $(".addRowFromCalendar").hide();
       $(".panel-body .addallbtn").hide();
     });
+    $(".submit_date input").on("change", function() {
+    	$("#donut-chart").empty();
+  		donutChart.draw('#donut-chart', createData());
+    });
+   //  $("#donut-chart").empty();
+  	// donutChart.draw('#donut-chart', createData());
+    $("#donut-chart").empty();
+  	donutChart.draw('#donut-chart', createData());
 
 }
 
