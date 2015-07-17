@@ -39,7 +39,7 @@ a.nav-expander.fixed {
 }
 .navbar {
   background-color: #05abd5;
-  height: 15%;
+  height: 120px;
 }
 
 .navbar-brand {
@@ -185,7 +185,7 @@ transition: right 0.3s ease-in-out 0s;
 #donut {
   position: fixed;
   top: 10%;
-  left: 40%;
+  left: 14%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
  
