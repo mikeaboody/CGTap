@@ -295,7 +295,7 @@ var addAllCalendarEvents = function() {
 
 // //delete a row from projects
 var deleteRow = function(tr) {
-	if (($("#time_sheet_table tbody tr:last").index() + 1) > 1) {
+	if (Object.keys(tr_map).length > 1) {
 		if (current_time_tr == tr) {
 			stopTimer(tr);
 		}
