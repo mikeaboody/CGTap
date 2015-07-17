@@ -59,7 +59,7 @@
     <div class = "container calendar_date">
       <p><input type="text" class="datepicker" readonly="readonly"></p>
     </div>
-        <p>Google Calendar</p> 
+        <div style = "border-bottom: 1px grey solid;">Google Calendar<br/></div>
         <div id = "event_table"></div>
         <button onclick="addAllCalendarEvents()" class="btn addallbtn">Add All</button>
     </div> 
@@ -154,7 +154,7 @@
               </table>
               <hr/ width = 100%>
               <div class = "addRowFromCalendar" style = "margin-top:-18px;" ondrop="doDropAdd(event)" ondragover="allowDrop(event)" hidden>
-              <h4><span class="glyphicon glyphicon-upload" aria-hidden="true"> Drag Calendar Event to Add or Update An Entry</span></h4>
+              <h4><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Drag Calendar Event to Add or Update An Entry</h4>
               </div>
               <br>
               <div class="addRow">

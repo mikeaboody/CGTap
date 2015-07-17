@@ -367,7 +367,7 @@ var updateCalendar = function() {
 			// if (curr_event.description != undefined) {
 			// 	event_div += "<div class = 'description'>Description:<br>" + curr_event.description + "</div>";
 			// }
-			event_div += "<button class='btn btn-xs btn-default' aria-label='Add'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></button></div><br>";
+			event_div += "<button class='btn btn-xs btn-default' aria-label='Add'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></button></div>";
 			$("#event_table").append(event_div);
 		}
 	}

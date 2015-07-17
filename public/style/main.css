@@ -203,13 +203,18 @@ transition: right 0.3s ease-in-out 0s;
 }*/
 
 .event_div {
-  width: 200px;
-  background-color: #05abd5;
-  border: solid blue 3px;
-  border-radius: 2px;
+  width: 100%;
+  background-color: #fee602;
+  border-bottom: 1px grey solid;
+  padding: 5px;
   min-height: 80px;
   position: relative;
 }
+
+.event_div:hover {
+  background-color: #ffff00;
+}
+
 .event_div button {
   position: absolute;
   right:0;
