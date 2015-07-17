@@ -9,19 +9,41 @@ var setup = function() {
 		}
 		Submittable.user = master_user;
 		loadCalendarEvents();
-		$(".calendar_date input").on("change", function() {
-			updateCalendar();
-		})
-		$(".addRow button").on("click", function() {
-			addRow();
-			saveStorage();
-		});
 		updateCalendar();
+		setupJQuery();
 		loadUserData();
 	}
 	$template_row = $("#time_sheet_table tbody tr:nth-child(1)").clone();
 	COMMUNICATOR.getUser(success);
 }
+
+var setupJQuery = function() {
+	$(".calendar_date input").on("change", function() {
+			updateCalendar();
+		})
+	$(".addRow button").on("click", function() {
+		addRow();
+		saveStorage();
+	});
+	$('#nav-expander').on('click',function(e){
+      e.preventDefault();
+      $('body').toggleClass('nav-expanded');
+      $('body').find('.content').toggleClass('shrink');
+      $('body').find('.navbar').toggleClass('navshrink');
+      $(".addRowFromCalendar").toggle();
+      $(".panel-body .addallbtn").toggle();
+    });
+    $('#nav-close').on('click',function(e){
+      e.preventDefault();
+      $('body').removeClass('nav-expanded');
+      $('body').find('.content').removeClass('shrink');
+      $('body').find('.navbar').removeClass('navshrink');
+      $(".addRowFromCalendar").hide();
+      $(".panel-body .addallbtn").hide();
+    });
+
+}
+
 
 var loadCalendarEvents = function() {
 	var items = event_json["items"];
