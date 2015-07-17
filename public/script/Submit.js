@@ -22,9 +22,18 @@ var submit = function() {
 			setTimeout(function() {
 				swal({
 					title: "You Have Sent Your Timesheet to OpenAir!",
-					type: "success"
-				}, function() {
-					reset(TRLists);
+					text: "Do you want to reset your timesheet?",
+					type: "success",
+					showCancelButton: true,
+					confirmButtonColor: "#FF6700",
+					confirmButtonText: "Yes",
+					cancelButtonText: "No",
+				}, function(isSubmitted) {
+					if (isSubmitted) {
+						reset(TRLists);
+					} else {
+						//do something else
+					}
 				});
 			}, 500);
 		});
