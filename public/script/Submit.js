@@ -22,7 +22,7 @@ var submit = function() {
 			setTimeout(function() {
 				swal({
 					title: "You Have Sent Your Timesheet to OpenAir!",
-					text: "Do you want to reset your timesheet?",
+					text: "Do you want to clear submitted entries?",
 					type: "success",
 					showCancelButton: true,
 					confirmButtonColor: "#FF6700",
