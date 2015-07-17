@@ -39,6 +39,7 @@ $(document).ready(function(){
           $('body').find('.content').toggleClass('shrink');
           $('body').find('.navbar').toggleClass('navshrink');
           $(".addRowFromCalendar").toggle();
+          $(".panel-body .addallbtn").toggle();
         });
         $('#nav-close').on('click',function(e){
           e.preventDefault();
@@ -46,6 +47,7 @@ $(document).ready(function(){
           $('body').find('.content').removeClass('shrink');
           $('body').find('.navbar').removeClass('navshrink');
           $(".addRowFromCalendar").hide();
+          $(".panel-body .addallbtn").hide();
         });
 
         // Initialize navgoco with default options
@@ -108,7 +110,7 @@ $(document).ready(function(){
     </div>
         <p>Google Calendar</p> 
         <div id = "event_table"></div>
-        <button onclick="addAllCalendarEvents()" class="btn" style="background-color: #ff6600;position: absolute;right:0;bottom:0;">Add All</button>
+        <button onclick="addAllCalendarEvents()" class="btn addallbtn">Add All</button>
     </div> 
 </nav>
  
@@ -205,7 +207,7 @@ $(document).ready(function(){
               </div>
               <br>
               <div class="addRow">
-                <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Add a project" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Add an entry" aria-label="Add"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                </button>
               </div>    
             </div>

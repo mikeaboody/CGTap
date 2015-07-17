@@ -214,6 +214,17 @@ transition: right 0.3s ease-in-out 0s;
 .shrink {
   width: 80%;
 }
+.panel-body {
+  position: relative;
+}
+
+.panel-body .addallbtn {
+  background-color: #ff6600;
+  position: fixed;
+  right:0;
+  bottom:0;
+  display: none;
+}
 
 .navshrink {
  padding-right: 300px;
@@ -232,6 +243,12 @@ transition: right 0.3s ease-in-out 0s;
   border: solid blue 3px;
   border-radius: 2px;
   min-height: 80px;
+  position: relative;
+}
+.event_div button {
+  position: absolute;
+  right:0;
+  bottom:0;
 }
 
 .event_div .description {

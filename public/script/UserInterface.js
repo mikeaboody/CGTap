@@ -367,10 +367,16 @@ var updateCalendar = function() {
 			// if (curr_event.description != undefined) {
 			// 	event_div += "<div class = 'description'>Description:<br>" + curr_event.description + "</div>";
 			// }
-			event_div += "</div><br>";
+			event_div += "<button class='btn btn-xs btn-default' aria-label='Add'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></button></div><br>";
 			$("#event_table").append(event_div);
 		}
 	}
+	$(".event_div button").on("click", function() {
+		var id = $(this).closest(".event_div").attr("id");
+		var calendarEvent = master_user.events[id];
+		addRowFromCalendar(calendarEvent);
+	});
+
 	if (empty) {
 		$("#event_table").empty();
 		$("#event_table").append("<h5>No calendar events.</h5>");
