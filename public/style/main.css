@@ -39,7 +39,7 @@ a.nav-expander.fixed {
 }
 .navbar {
   background-color: #05abd5;
-  height: 15%;
+  height: 120px;
 }
 
 .navbar-brand {
@@ -182,11 +182,11 @@ transition: right 0.3s ease-in-out 0s;
 .navshrink {
   padding-right: 300px;
 }
-#donut {
+#donut-chart {
   position: fixed;
-  top: 10%;
-  left: 40%;
-  -webkit-transform: translate(-50%, -50%);
+  /*top: 10%;
+  left: 14%;
+*/  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
  
 }
@@ -249,7 +249,11 @@ body.nav-expanded {
   fill: #D6E3E3
 }
 /*end of off canvas*/
-
+.modal-body {
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 @-webkit-keyframes spin2 {
     from { -webkit-transform: rotate(0deg);}
     to { -webkit-transform: rotate(360deg);}

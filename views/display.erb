@@ -1,6 +1,7 @@
 <script src="./script/DisplayTimesheetData.js"></script>
 
 <TABLE BORDER="0" CELLSPACING="1" CELLPADDING="3">
+<div id="donut-chart" data-donut="24"></div>
 <CAPTION>Timesheet Data (last 5 days)</CAPTION>
 <TR>
 <!-- 	<TD ALIGN = "center"> ID </TD>
@@ -36,14 +37,13 @@
     });
 </script>
 <script>
-  collect data
   var currTimeSheet;
   <% @time_sheets.each do |time_sheet| %>
       currTimeSheet = new PastTimesheet(<%= time_sheet.id %>, "<%= time_sheet.project_name %>", "<%= time_sheet.task_name %>", 
-        "<%= time_sheet.time_type %>", <%= time_sheet.hours %>);
+        "<%= time_sheet.time_type %>", <%= time_sheet.hours %>, new Date(<%= time_sheet.submission_time%>));
       timesheets.push(currTimeSheet);
   <% end %>
-  displayData();
 </script>
+
 
 
