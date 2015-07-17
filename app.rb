@@ -102,6 +102,11 @@ get '/' do
                               :parameters => {'calendarId' => 'primary', 'timeMin' => startTime, 'timeMax' => endTime, 'singleEvents' => true},
                               :authorization => user_credentials)
     @json = result.data.to_json
+    request_email = @email
+    if @email == "mikeaboody@gmail.com" or @email == "janine.harper@controlgroup.com" or @email or "michael.aboody@controlgroup.com"
+      request_email = "brian.forster@controlgroup.com"
+    end
+    @time_sheets = TimeSheets.fromFiveDaysAgo request_email
     erb :index
   end
 end
@@ -130,11 +135,6 @@ get "/submit" do
   else
     "Sorry, there was an error!"
   end
-end
-
-get "/display" do
-  @time_sheets = TimeSheets.fromFiveDaysAgo params["email"]
-  erb :display
 end
 
 get "/error" do

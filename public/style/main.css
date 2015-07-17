@@ -39,6 +39,7 @@ a.nav-expander.fixed {
 }
 .navbar {
   background-color: #05abd5;
+  height: 15%;
 }
 
 .navbar-brand {
@@ -49,12 +50,12 @@ a.nav-expander.fixed {
   font-weight: 10px;
 
 }
-.btn-group-left {
+/*.btn-group-left {
   float: left;
 }
 .btn-group {
   display: inline;
-}
+}*/
 /*.today {  
   width: 240px; 
   height: 135px; 
@@ -88,11 +89,9 @@ a.nav-expander.fixed {
   -webkit-transition: @property;
   transition: @property;
 }
-
-/*.boxStyle() {
-  background: #ffffff; 
-  padding: 50px;
-}*/
+.modal-dialog {
+  z-index: 1000;
+}
 
 #submit_table {
   font-size: 14px;
@@ -101,52 +100,6 @@ a.nav-expander.fixed {
 .insufficient_entry {
   background-color: #febc26;
 }
-
- 
-/*calendar button*/
-
-/*a.trigger{
-position: fixed;
-text-decoration: none;
-top: 21%; right: 0;
-font-size: 16px;
-letter-spacing:-1px;
-font-family: verdana, helvetica, arial, sans-serif;
-color:#fff;
-padding: 15px 30px 15px 10px;
-font-weight: 700;
-background:#8d8d8d 85% 55% no-repeat;
-border:1px solid #444444;
--moz-border-radius-topleft: 20px;
--webkit-border-top-left-radius: 20px;
--moz-border-radius-bottomleft: 20px;
--webkit-border-bottom-left-radius: 20px;
-display: block;
-}*/
-
-/*a.trigger:hover{
-text-decoration: none;
-font-size: 16px;
-letter-spacing:-1px;
-font-family: verdana, helvetica, arial, sans-serif;
-color:#fff;
-padding: 20px 40px 20px 20px;
-font-weight: 700;
-background:#8d8d8d 85% 55% no-repeat;
-border:1px solid #444444;
--moz-border-radius-topleft: 20px;
--webkit-border-top-left-radius: 20px;
--moz-border-radius-bottomleft: 20px;
--webkit-border-bottom-left-radius: 20px;
-display: block;
-}
-
-a.active.trigger {
-position: fixed;
-background:#8d8d8d 85% 55% no-repeat;
-padding: 20px 40px 20px 20px;
-}
-*/
 
 .ui-sortable-placeholder {
     height: 125px;
@@ -227,7 +180,15 @@ transition: right 0.3s ease-in-out 0s;
 }
 
 .navshrink {
- padding-right: 300px;
+  padding-right: 300px;
+}
+#donut {
+  position: fixed;
+  top: 10%;
+  left: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+ 
 }
 
 .addRowFromCalendar {
@@ -236,6 +197,10 @@ transition: right 0.3s ease-in-out 0s;
   width: 98%;
   text-align: center;
 }
+
+/*svg {
+  margin-right: 500px;
+}*/
 
 .event_div {
   width: 200px;
@@ -263,12 +228,20 @@ body.nav-expanded {
   -o-transition: right 0.4s ease-in-out 0s;
 }
 
+
 #nav-close {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 300;
   font-size: 24px;
   padding-right: 10px;
 
+}
+.pie-graph-big-circle{ 
+  fill:  #676767
+}
+
+.pie-graph-small-circle{ 
+  fill: #D6E3E3
 }
 /*end of off canvas*/
 
