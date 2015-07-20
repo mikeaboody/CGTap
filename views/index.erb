@@ -167,9 +167,14 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <h4 class="modal-title" id="myModalLabel">Past Timesheets</h4>
+                   <p>Note: This only takes into account timesheets entered on Tap Time, NOT on OpenAir. Refresh the page to see the new entries.</p>
                 </div>
             <div class="modal-body">
-              <p>Note: This only takes into account timesheets entered on Tap Time, NOT on OpenAir. Refresh the page to see the new entries.</p>
+              <input type="radio" name="mychart" class="mychart" id= "projects" value="projects" onclick= "" checked>    Projects
+              <input type="radio" name="mychart" class="mychart" id= "billing_type" value="billing_type" onclick= "">   Billing Type
+             <br>
+             <br>
+              <div id="myChart"></div>
               <%= erb :display %>
           </div>
       <div class="modal-footer">
