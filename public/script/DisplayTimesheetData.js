@@ -1,13 +1,13 @@
-var timesheets = [];
+var weekly_timesheet = [];
 
-var todaysTimesheets = function(ts) {
+var todaysTimesheet = function(ts) {
     var date_selected = $(".submit_date .datepicker").datepicker("getDate").getDate();
     console.log(date_selected);
     var newTS = [];
     for (var i = 0; i < ts.length; i += 1) {
-        var currTS = ts[i];
-        if(date_selected == currTS.date.getDate()) {
-            newTS.push(currTS);
+        var currEntry = ts[i];
+        if(date_selected == currEntry.date.getDate()) {
+            newTS.push(currEntry);
         }
     }
     return newTS;
@@ -15,11 +15,11 @@ var todaysTimesheets = function(ts) {
 
 var createData = function() {
     var dailyHours = 0;
-    var todaysTS = todaysTimesheets(timesheets);
+    var todaysTS = todaysTimesheet(weekly_timesheet);
     console.log(todaysTS);
     for (var i = 0; i < todaysTS.length; i += 1) {
-        var currTS = todaysTS[i];
-        dailyHours += currTS.hours;
+        var currEntry = todaysTS[i];
+        dailyHours += currEntry.hours;
     }
     console.log(dailyHours);
     return [{value: dailyHours, color: '#75ad3e', middleText: 'TARGET'}];

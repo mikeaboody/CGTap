@@ -37,11 +37,11 @@
     });
 </script>
 <script>
-  var currTimeSheet;
+  var currEntry;
   <% @time_sheets.each do |time_sheet| %>
-      currTimeSheet = new PastTimesheet(<%= time_sheet.id %>, "<%= time_sheet.project_name %>", "<%= time_sheet.task_name %>", 
+      currEntry = new PastEntry(<%= time_sheet.id %>, "<%= time_sheet.project_name %>", "<%= time_sheet.task_name %>", 
         "<%= time_sheet.time_type %>", <%= time_sheet.hours %>, new Date(<%= time_sheet.submission_time%>));
-      timesheets.push(currTimeSheet);
+      weekly_timesheet.push(currEntry);
   <% end %>
 </script>
 
