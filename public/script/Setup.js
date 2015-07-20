@@ -88,7 +88,11 @@ var loadUserData = function() {
     				$("#time_sheet_table tbody").empty();
 					var storageObj = JSON.parse(window.localStorage[storageVarName]);
 					tr_count = storageObj.tr_count;
-					tr_map_keys = storageObj.tr_map_keys
+					if (storageObj.tr_map_keys != undefined) {
+						tr_map_keys = storageObj.tr_map_keys
+					} else {
+						tr_map_keys = Object.keys(storageObj.tr_map);
+					}
 					console.log(tr_map_keys);
 					for (var i = 0; i < tr_map_keys.length; i += 1) {
 						var k = tr_map_keys[i];
