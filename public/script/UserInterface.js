@@ -167,12 +167,13 @@ var updateTimerLabelUI = function(tr) {
 					+ ((minutes < 10) ? ("0" + minutes) : ("" + minutes)) + ":"
 					+ ((seconds < 10) ? ("0" + seconds) : ("" + seconds));
 	tr.$timerLabelJQ().html(newLabel);
+	return newLabel;
 }
 
 var switchTimer = function(tr) {
 	var updateTimer = function() {
 		current_time_tr.time += 1000;
-		updateTimerLabelUI(tr);
+		$(".bigTimerLabel h1").html(updateTimerLabelUI(tr));
 		saveStorage();
 	}
 
@@ -207,6 +208,7 @@ var stopTimer = function(tr) {
 	updateLabel(tr);
 	tr.$timerButtonJQ().html("Start");
 	tr.$timerButtonJQ().toggleClass("btn-danger");
+	$(".bigTimerLabel h1").html("&nbsp;");
 }
 
 var redirectToTimesheet = function() {
