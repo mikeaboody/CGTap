@@ -194,6 +194,7 @@ var startTimer = function(tr, action) {
 	current_time_tr = tr;
 	current_time_tr.$timerButtonJQ().html("Stop");
 	current_time_tr.$timerButtonJQ().toggleClass("btn-danger");
+	$(".bigTimerLabel h1").html(updateTimerLabelUI(tr));
 }
 
 var stopTimer = function(tr) {
