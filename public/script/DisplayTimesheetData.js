@@ -70,82 +70,106 @@ var displayData = function() {
 }
 // past time sheet billing info
 
-//               var width = 250,
-//               height = 250,
-//                radius = 125,
-//                 colors = d3.scale.ordinal()
-//                 .range(['#71D18A', '#29a949', '#037220']);
+            var width = 200,
+                height = 200,
+                radius = 125,
+                color = d3.scale.category20c();
 
-//               var piedata = [
-//                 { label: "", 
-//                  value: 50}, 
-//                 { label:"", 
-//                  value: 50},
-//                 { label:"", 
-//                   value: 50}
+            var data = [{"label":"ONE", "value":194}, 
+                {"label":"TWO", "value":567}, 
+                {"label":"THREE", "value":1314},
+                {"label":"FOUR", "value":793},
+                {"label":"FIVE", "value":1929},
+                {"label":"SIX", "value":1383}];
+
+              // var piedata = [
+              //   { label: "", 
+              //    value: 50}, 
+              //   { label:"", 
+              //    value: 50},
+              //   { label:"", 
+              //     value: 50}
       
-//                 ]
+              //   ]
 
-//               var pie = d3.layout.pie()
-//                .value(function(d) {
-//                  return d.value;
-//                 })
-//               var arc = d3.svg.arc()
-//               .innerRadius(radius - 100)
-//               .outerRadius(radius - 50);
+            var pie = d3.layout.pie()
+               .value(function(d) {
+                 return d.value;
+                })
+            var arc = d3.svg.arc()
+              .innerRadius(radius - 100)
+              .outerRadius(radius - 50);
 
-//               var myChart = d3.select('.modal-body').append('svg')
-//                 .attr('width', width)
-//                 .attr('height', height)
-//                 .append('g')
-//                 .attr('transform', 'translate('+(width - radius)+', '+(height-radius)+')')
-//                 .selectAll('path').data(pie(piedata))
-//                 .enter().append('g')
-//   // create a class called slice to slap some data on
-//                 .attr('class', 'slice');
+            var myChart = d3.select('#myChart').append('svg')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', 'translate('+(width - radius)+', '+(height-radius)+')')
+                .selectAll('path').data(pie(data))
+                .enter().append('g')
+  // create a class called slice to slap some data on
+                .attr('class', 'slice');
 
-//               var slices = d3.selectAll('g.slice')
-//                 .append('path')
-//                 .attr('fill', function(d, i) {
-//                  return colors(i); 
-//                })
-//                 .attr('d', arc);
-// // each element has its own data object   
-//               var text = d3.selectAll('g.slice')
-//                 .append('text')
-//                 .text(function(d, i) {
-//                    return d.data.label;
-//                 })
-// // here come the attributes which format
-//                .attr('text-anchor', 'middle')
-//               .attr('fill', 'black')
-//              .attr('transform', function(d){ 
-//               d.innerRadius = 0;
-//               d.outerRadius = radius;
-//                 return 'translate('+ arc.centroid(d)+')'
-//                       });
+            var slices = d3.selectAll('g.slice')
+                .append('path')
+                .attr('fill', function(d, i) {
+                 return color(i); 
+               })
+                .attr('d', arc);
+// each element has its own data object   
+            var text = d3.selectAll('g.slice')
+                .append('text')
+                .text(function(d, i) {
+                   return d.data.label;
+                })
+// here come the attributes which format
+                .attr('text-anchor', 'middle')
+                .attr('fill', 'black')
+                .attr('transform', function(d){ 
+                    d.innerRadius = 0;
+                    d.outerRadius = radius;
+                return 'translate('+ arc.centroid(d)+')'
+                      });
 
+            var legend = d3.select("#myChart").append("svg")
+                .attr("class", "legend")
+                .attr("width", width)
+                .attr("height", height)
+                .selectAll("g")
+                .data(data)
+                 .enter().append("g")
+                .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
+                legend.append("rect")
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", function(d, i) { return color(i); });
+
+                legend.append("text")
+                 .attr("x", 24)
+                 .attr("y", 9)
+                 .attr("dy", ".35em")
+                .text(function(d) { return d.label; });
 // donut for total daily time
 
 
     
-var donutChart;
-    (function() {
-    var w = 250,
-    h = 150,
-   r = 50,
-   innerRadius = 40,
-   transitionsDuration = 1000,
-   transitionsDelay = 250,
-   hoursTextSize = '1.5rem';
+            var donutChart;
+                (function() {
+            var w = 250,
+                h = 150,
+                r = 50,
+                innerRadius = 40,
+                transitionsDuration = 1000,
+                transitionsDelay = 250,
+                 hoursTextSize = '1.5rem';
 
   // This is the scale to avoid using gradiant for the angles.
-  var rScale = d3.scale.linear().domain([0, 24]).range([0, 2 * Math.PI]);
+            var rScale = d3.scale.linear().domain([0, 24]).range([0, 2 * Math.PI]);
 
   // Here we use the helper function of d3 to draw arcs easier
-  var arc = d3.svg.arc()
-    .outerRadius(r + 0.8)
+            var arc = d3.svg.arc()
+                .outerRadius(r + 0.8)
     .innerRadius(innerRadius);
 
   // Another helper function of d3 to bind the data to the arcs
