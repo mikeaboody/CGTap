@@ -152,8 +152,6 @@ var verifyValidStorage = function() {
 	}
 	window.localStorage.removeItem(storageVarName);
 	return  false;
-
-
 }
 
 
