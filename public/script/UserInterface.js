@@ -222,7 +222,10 @@ var redirectToTimesheet = function() {
 
  $(function() {
     $("#time_sheet_table tbody").sortable({
-		helper:fixHelper
+		helper:fixHelper,
+		stop: function( event, ui ) {
+			saveStorage();
+		}
 	}).disableSelection();
  });
 

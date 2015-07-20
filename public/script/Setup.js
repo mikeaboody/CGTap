@@ -88,7 +88,10 @@ var loadUserData = function() {
     				$("#time_sheet_table tbody").empty();
 					var storageObj = JSON.parse(window.localStorage[storageVarName]);
 					tr_count = storageObj.tr_count;
-					for (var k in storageObj.tr_map) {
+					tr_map_keys = storageObj.tr_map_keys
+					console.log(tr_map_keys);
+					for (var i = 0; i < tr_map_keys.length; i += 1) {
+						var k = tr_map_keys[i];
 						var oldTR = storageObj.tr_map[k];
 						var newTR = new TableRow(k);
 						newTR.time = oldTR.time;
@@ -124,9 +127,14 @@ var loadUserData = function() {
 }
 
 var saveStorage = function() {
+	var keys = [];
+	for (var i = 0; i < ($("#time_sheet_table tbody tr:last").index() + 1); i += 1) {
+		keys.push($("#time_sheet_table tbody tr:nth-child(" + (i + 1) + ")").attr("id"));
+	}
 	var obj = {
 		tr_count: tr_count,
-		tr_map: tr_map
+		tr_map: tr_map,
+		tr_map_keys: keys
 	};
 	localStorage.setItem(storageVarName, JSON.stringify(obj));
 }
