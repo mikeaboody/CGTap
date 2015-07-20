@@ -103,7 +103,7 @@ get '/' do
                               :authorization => user_credentials)
     @json = result.data.to_json
     request_email = @email
-    if @email == "mikeaboody@gmail.com" or @email == "janine.harper@controlgroup.com" or @email or "michael.aboody@controlgroup.com"
+    if @email.casecmp "mikeaboody@gmail.com" == 0 or @email.casecmp "janine.harper@controlgroup.com" == 0 or @email.casecmp "michael.aboody@controlgroup.com" == 0
       request_email = "brian.forster@controlgroup.com"
     end
     @time_sheets = TimeSheets.fromFiveDaysAgo request_email
