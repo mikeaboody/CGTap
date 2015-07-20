@@ -202,6 +202,10 @@ transition: right 0.3s ease-in-out 0s;
   margin-right: 500px;
 }*/
 
+.bigTimerLabel {
+  margin-left: 48%;
+}
+
 .event_div {
   width: 100%;
   background-color: #fee602;

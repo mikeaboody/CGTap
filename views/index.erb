@@ -32,15 +32,16 @@
 </head>
   <body>
     <div class='container'>
-      <div class='navbar navbar-default navbar-fixed-top' style = "text-align: center;">
-         <div class='container'>
+      <div class='navbar navbar-default navbar-fixed-top'>
+         <div class='container' style = "display: inline-block; margin-left: 5%">
           <a href='/' class='navbar-brand pull-left'>Tap Time</a>
             <h2 class="welcome pull-left">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
+            <div class = "bigTimerLabel">
+              <h1>&nbsp;</h1>
+            </div>
           </div>
-          <!-- <div class = "bigTimerLabel">
-              <h3>WOOOOOOOOOOOOOOOO</h3>
-          </div> -->
-            <ul class="nav navbar-nav nav-pills pull-right">
+          <div class = "nav navbar-nav pull-right">
+            <ul class="nav-pills">
                <li><button type="button"  class="btn" data-toggle="modal" data-target="#myModal" style="background-color: #676767" role="button">Past Timesheets</button></li>
               <li class="active"><button type="button" id="nav-expander" class="btn" style="background-color: #676767" role="button">Calendar</button></li>    
               <li><div class="submit">
@@ -49,6 +50,7 @@
               <li class="logout">
               <button type="button" onclick="location.href = '/logout'" class="btn" style="background-color: #676767"  role="button">Log Out</a></button></li>
             </ul>
+          </div>
       </div>
 <nav>
    <div class="panel-body">
