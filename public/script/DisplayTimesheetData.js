@@ -156,8 +156,8 @@ var displayData = function() {
     
             var donutChart;
                 (function() {
-            var w = 250,
-                h = 150,
+            var w = 100,
+                h = 100,
                 r = 50,
                 innerRadius = 40,
                 transitionsDuration = 1000,
@@ -184,7 +184,7 @@ var displayData = function() {
      */
     draw: function(container, data) {
 
-      var svg = d3.select('#donut-chart').append('svg');
+      var svg = d3.select('#donutChart').append('svg');
 
       createBigCircle(svg);
       var vis = createChartContainer(svg, data);
