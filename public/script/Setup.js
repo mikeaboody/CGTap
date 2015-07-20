@@ -84,7 +84,7 @@ var loadUserData = function() {
         	}
         	storageVarName = "tap-id{" + master_user.id + "}-storage-data";
     		if (master_user.projects != {}) {
-    			if(typeof(Storage) !== "undefined" && window.localStorage[storageVarName] != undefined) {
+    			if(typeof(Storage) !== "undefined" && verifyValidStorage()) {
     				$("#time_sheet_table tbody").empty();
 					var storageObj = JSON.parse(window.localStorage[storageVarName]);
 					tr_count = storageObj.tr_count;
@@ -141,6 +141,19 @@ var saveStorage = function() {
 		tr_map_keys: keys
 	};
 	localStorage.setItem(storageVarName, JSON.stringify(obj));
+}
+
+var verifyValidStorage = function() {
+	if (window.localStorage[storageVarName] != undefined) {
+		var storageObj = JSON.parse(window.localStorage[storageVarName]);
+		if (storageObj["tr_count"] != undefined && storageObj["tr_map"] != undefined && storageObj["tr_map_keys"] != undefined) {
+			return true;
+		}
+	}
+	window.localStorage.removeItem(storageVarName);
+	return  false;
+
+
 }
 
 
