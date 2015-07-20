@@ -80,7 +80,7 @@ COMMUNICATOR = {
 		this.pushData(base + "/timeentry/submit", postObj, success);
 	},
 	requestError: function(jqXHR, textStatus, errorThrown, retryObj) {
-		if (this.attempts > 1) {
+		if (this.attempts > 1 || retryObj["data"] != undefined) {
 			this.attempts = 0;
 			jqXHR.abort();
 			if (textStatus == "noapidata") {
