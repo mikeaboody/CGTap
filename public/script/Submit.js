@@ -18,8 +18,10 @@ var submit = function() {
 	// 	return;
 	// }
 	var confirmSubmit = function() {
+		$(".welcome").html("Submitting...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
 		postSubmitObjs(submitTRList, function() {
 			setTimeout(function() {
+				$(".welcome").html("Welcome " + master_user.first_name + "!");
 				swal({
 					title: "You Have Sent Your Timesheet to OpenAir!",
 					text: "Do you want to clear submitted entries?",
@@ -28,11 +30,9 @@ var submit = function() {
 					confirmButtonColor: "#FF6700",
 					confirmButtonText: "Yes",
 					cancelButtonText: "No",
-				}, function(isSubmitted) {
-					if (isSubmitted) {
+				}, function(confirmReset) {
+					if (confirmReset) {
 						reset(TRLists);
-					} else {
-						//do something else
 					}
 				});
 			}, 500);
