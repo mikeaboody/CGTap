@@ -203,7 +203,9 @@ transition: right 0.3s ease-in-out 0s;
 }*/
 
 .bigTimerLabel {
-  margin-left: 48%;
+  margin-left: 27%;
+  width: 56%;
+  text-align: center;
 }
 
 .event_div {
