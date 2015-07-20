@@ -93,7 +93,6 @@ var loadUserData = function() {
 					} else {
 						tr_map_keys = Object.keys(storageObj.tr_map);
 					}
-					console.log(tr_map_keys);
 					for (var i = 0; i < tr_map_keys.length; i += 1) {
 						var k = tr_map_keys[i];
 						var oldTR = storageObj.tr_map[k];
