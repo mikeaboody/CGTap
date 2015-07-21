@@ -338,6 +338,17 @@ var generalNetworkFailure = function() {
 	$(".welcome").html("Oops!");
 }
 
+var unknownIfSentFailure = function() {
+	setTimeout(function() {
+		$(".welcome").html("Unkown If Data Sent!");
+		swal({
+			title: "Unkown If Data Sent!",
+			text: "Tap Time didn't hear back from the database when trying to send your data to OpenAir. Please check OpenAir or refresh and view the progress bar to see if the data was sent.",
+			type: "error"
+		});
+	}, 500);	
+}
+
 var updateCalendar = function() {
 	$("#event_table").empty();
 	// $("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");

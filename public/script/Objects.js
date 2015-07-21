@@ -40,17 +40,15 @@ COMMUNICATOR = {
 	},
 	pushData: function(url, data, success) {
 		console.log("CALLED: " + url);
-		this.attempts += 1;
 		communicator = this;
 		$.ajax({
 	        data: data,
 	        url: url,
 	        timeout: communicator.timeout,
 	        error: function(jqXHR, textStatus, errorThrown) {
-	        	communicator.requestError(jqXHR, textStatus, errorThrown, {url: url, success: success, data: data});
+	        	communicator.pushError(jqXHR, textStatus, errorThrown);
 	        }
 		}).done(function(data) {
-			communicator.attempts = 0;
 			success(data);
 		});
 	},
@@ -80,7 +78,7 @@ COMMUNICATOR = {
 		this.pushData(base + "/timeentry/submit", postObj, success);
 	},
 	requestError: function(jqXHR, textStatus, errorThrown, retryObj) {
-		if (this.attempts > 1 || retryObj["data"] != undefined) {
+		if (this.attempts > 1) {
 			this.attempts = 0;
 			jqXHR.abort();
 			if (textStatus == "noapidata") {
@@ -92,12 +90,12 @@ COMMUNICATOR = {
 				generalNetworkFailure();
 			}
 		} else {
-			if (retryObj.data == undefined) {
-				this.recieveData(retryObj.url, retryObj.success);
-			} else {
-				this.pushData(retryObj.url, retryObj.data, retryObj.success);
-			}
+			this.recieveData(retryObj.url, retryObj.success);
 		}
+	},
+	pushError: function(jqXHR, textStatus, errorThrown) {
+		jqXHR.abort();
+		unknownIfSentFailure();
 	}
 }
 
