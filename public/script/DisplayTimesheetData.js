@@ -15,10 +15,7 @@ var todaysTimesheet = function(ts) {
         var currSubmitObj = currPageSubmitObjs[i];
         var newEntry = new PastEntry(null, currSubmitObj.project_nm, currSubmitObj.task_nm, currSubmitObj.task_type,
                                       currSubmitObj.hours, new Date(currSubmitObj.date));
-        console.log(date_selected);
-        console.log(newEntry.date.getDate())
         if (date_selected == newEntry.date.getDate()) {
-            console.log("SHOULD HAPPEND");
             newTS.push(newEntry);
         }
     }
