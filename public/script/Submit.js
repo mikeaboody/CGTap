@@ -194,22 +194,21 @@ var postSubmitObjs = function(submitTRList, success) {
 	var next = function() {
 		if (i < submitTRList.length) {
 			var postObj = submitTRList[i].createSubmitObj();
+			var databaseObj = jQuery.extend({}, postObj);
 			currPageSubmitObjs.push(jQuery.extend({}, postObj));
 			i += 1;
-			COMMUNICATOR.postToDatabase(postObj, function() {
-				delete postObj["first_name"];
-				delete postObj["last_name"];
-				delete postObj["project_nm"];
-				delete postObj["task_nm"];
-				delete postObj["task_type_nm"];
-				if (postObj["notes"] == "") {
-					delete postObj["notes"];
-				}
-				COMMUNICATOR.postToOpenAir(postObj, next, function() {
-					console.log(postObj);
-					console.log("failure");
-				});
+			delete postObj["first_name"];
+			delete postObj["last_name"];
+			delete postObj["project_nm"];
+			delete postObj["task_nm"];
+			delete postObj["task_type_nm"];
+			if (postObj["notes"] == "") {
+				delete postObj["notes"];
+			}
+			COMMUNICATOR.postToOpenAir(postObj, function() {
+				COMMUNICATOR.postToDatabase(databaseObj, next);
 			});
+			
 		} else {
 			success();
 		}
