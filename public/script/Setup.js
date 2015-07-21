@@ -42,13 +42,11 @@ var setupJQuery = function() {
       $(".panel-body .addallbtn").hide();
     });
     $(".submit_date input").on("change", function() {
-    	$("#donutChart").empty();
-  		donutChart.draw('#donutChart', createData());
+    	drawProgressDonut();
     });
    //  $("#donut-chart").empty();
   	// donutChart.draw('#donut-chart', createData());
-    $("#donutChart").empty();
-  	donutChart.draw('#donutChart', createData());
+    drawProgressDonut();
 
 }
 

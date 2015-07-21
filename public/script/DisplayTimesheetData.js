@@ -1,4 +1,5 @@
 var weekly_timesheet = [];
+var currPageSubmitObjs = [];
 
 var todaysTimesheet = function(ts) {
     var date_selected = $(".submit_date .datepicker").datepicker("getDate").getDate();
@@ -6,8 +7,19 @@ var todaysTimesheet = function(ts) {
     var newTS = [];
     for (var i = 0; i < ts.length; i += 1) {
         var currEntry = ts[i];
-        if(date_selected == currEntry.date.getDate()) {
+        if (date_selected == currEntry.date.getDate()) {
             newTS.push(currEntry);
+        }
+    }
+    for (var i = 0; i < currPageSubmitObjs.length; i += 1) {
+        var currSubmitObj = currPageSubmitObjs[i];
+        var newEntry = new PastEntry(null, currSubmitObj.project_nm, currSubmitObj.task_nm, currSubmitObj.task_type,
+                                      currSubmitObj.hours, new Date(currSubmitObj.date));
+        console.log(date_selected);
+        console.log(newEntry.date.getDate())
+        if (date_selected == newEntry.date.getDate()) {
+            console.log("SHOULD HAPPEND");
+            newTS.push(newEntry);
         }
     }
     return newTS;

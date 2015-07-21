@@ -399,6 +399,11 @@ var dateFormat = function(date) {
 	return days[date.getDay()] + ", " + months[date.getMonth()] + " " + date.getDate();
 }
 
+var drawProgressDonut = function() {
+	$("#donutChart").empty();
+  	donutChart.draw('#donutChart', createData());
+}
+
 $('.selectpicker').selectpicker();
 
 //intitializes tooltip

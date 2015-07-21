@@ -31,6 +31,7 @@ var submit = function() {
 					confirmButtonText: "Yes",
 					cancelButtonText: "No",
 				}, function(confirmReset) {
+					drawProgressDonut();
 					if (confirmReset) {
 						reset(TRLists);
 					}
@@ -193,6 +194,7 @@ var postSubmitObjs = function(submitTRList, success) {
 	var next = function() {
 		if (i < submitTRList.length) {
 			var postObj = submitTRList[i].createSubmitObj();
+			currPageSubmitObjs.push(jQuery.extend({}, postObj));
 			i += 1;
 			COMMUNICATOR.postToDatabase(postObj, function() {
 				delete postObj["first_name"];
