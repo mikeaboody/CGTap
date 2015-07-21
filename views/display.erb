@@ -32,7 +32,7 @@
     $(".sub_time_td").each(function() {
     	var sub_time = parseInt($(this).html());
     	var date = new Date(sub_time);
-    	$(this).html(date);
+    	$(this).html(dateFormat(date));
     });
 </script>
 <script>
