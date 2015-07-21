@@ -422,12 +422,12 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-function allowDrop(event) {
+var allowDrop = function(event) {
 	event.preventDefault();
 }
 
 
-function doDropUpdate(event) {
+var doDropUpdate = function(event) {
 	event.preventDefault();
 	var id = $(event.target).closest("tr").attr("id");
 	var trToUpdate = tr_map[id];
@@ -447,7 +447,7 @@ function doDropUpdate(event) {
 	}
 }
 
-function doDropAdd(event) {
+var doDropAdd = function(event) {
 	event.preventDefault();
 	var calendarEvent = master_user.events[event.dataTransfer.getData("cal-event-data")];
 	if (calendarEvent != undefined) {
@@ -456,7 +456,7 @@ function doDropAdd(event) {
 	
 }
 
-function drag(event) {
+var drag = function(event) {
 	event.dataTransfer.setData("cal-event-data", event.target.id);
 
 }

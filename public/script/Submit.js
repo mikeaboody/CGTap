@@ -194,8 +194,8 @@ var postSubmitObjs = function(submitTRList, success) {
 	var next = function() {
 		if (i < submitTRList.length) {
 			var postObj = submitTRList[i].createSubmitObj();
-			var databaseObj = jQuery.extend({}, postObj);
-			currPageSubmitObjs.push(jQuery.extend({}, postObj));
+			var databaseObj = cloneObject(postObj);
+			currPageSubmitObjs.push(cloneObject(postObj));
 			i += 1;
 			delete postObj["first_name"];
 			delete postObj["last_name"];
@@ -214,6 +214,10 @@ var postSubmitObjs = function(submitTRList, success) {
 		}
 	}
 	next();
+}
+
+var cloneObject = function(obj) {
+	return jQuery.extend({}, obj);
 }
 
 var totalHours = function(submitTRList) {
