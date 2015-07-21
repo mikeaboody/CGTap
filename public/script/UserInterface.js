@@ -340,10 +340,10 @@ var generalNetworkFailure = function() {
 
 var unknownIfSentFailure = function() {
 	setTimeout(function() {
-		$(".welcome").html("Unkown If Data Sent!");
+		$(".welcome").html("Unable to Verify that Data was Sent!");
 		swal({
-			title: "Unkown If Data Sent!",
-			text: "Tap Time didn't hear back from the database when trying to send your data to OpenAir. Please check OpenAir or refresh and view the progress bar to see if the data was sent.",
+			title: "Unable to Verify that Data was Sent!",
+			text: "Tap Time didn't hear back from the database when trying to send your data to OpenAir. Please check OpenAir or refresh and view the progress bar to see if the data was correctly sent.",
 			type: "error"
 		});
 	}, 500);	
