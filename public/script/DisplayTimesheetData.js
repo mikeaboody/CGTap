@@ -22,7 +22,7 @@ var todaysTimesheet = function(ts) {
     return newTS;
 }
 
-var createData = function() {
+var createDonutData = function() {
     var dailyHours = 0;
     var todaysTS = todaysTimesheet(weekly_timesheet);
     console.log(todaysTS);
@@ -41,7 +41,7 @@ var displayData = function() {
     r = w/2,                            //radius
     color = d3.scale.category20c();     //builtin range of colors
 
-    data = createData();
+    data = createDonutData();
     
     var vis = d3.select(".modal-body").append('svg')
                                          //create the SVG element inside the <body>

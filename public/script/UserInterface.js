@@ -412,7 +412,7 @@ var dateFormat = function(date) {
 
 var drawProgressDonut = function() {
 	$("#donutChart").empty();
-  	donutChart.draw('#donutChart', createData());
+  	donutChart.draw('#donutChart', createDonutData());
 }
 
 $('.selectpicker').selectpicker();
