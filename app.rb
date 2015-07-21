@@ -106,7 +106,7 @@ get '/' do
     if @email.casecmp("mikeaboody@gmail.com") == 0 or @email.casecmp("janine.harper@controlgroup.com") == 0 or @email.casecmp("michael.aboody@controlgroup.com") == 0
       request_email = "brian.forster@controlgroup.com"
     end
-    @time_sheets = TimeSheets.fromFiveDaysAgo request_email
+    @time_sheets = TimeSheets.fromSevenDaysAgo request_email
     erb :index
   end
 end
