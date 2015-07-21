@@ -31,44 +31,43 @@
   <script src="./script/Main.js"></script>
 </head>
   <body>
-    <div class='container'>
-      <div class='navbar navbar-default navbar-fixed-top'>
-         <div class='container' style = "display: inline-block; margin-left: 5%">
-          <a href='/' class='navbar-brand pull-left'>Tap Time</a>
-            <h2 class="welcome pull-left">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
-            <div class = "bigTimerLabel">
-              <h1>&nbsp;</h1>
-            </div>
-          </div>
-          <div class = "nav navbar-nav pull-right">
-            <ul class="nav-pills">
-               <li><button type="button"  class="btn" data-toggle="modal" data-target="#myModal" style="background-color: #676767" role="button">Past Timesheets</button></li>
-              <li class="active"><button type="button" id="nav-expander" class="btn" style="background-color: #676767" role="button">Calendar</button></li>    
-              <li><div class="submit">
-              <button onclick="submit()" class="btn" style="background-color: #ff6600">Submit</button>
-              </div></li>
-              <li class="logout">
-              <button type="button" onclick="location.href = '/logout'" class="btn" style="background-color: #676767"  role="button">Log Out</a></button></li>
-            </ul>
-          </div>
+    <div class='navbar navbar-default navbar-fixed-top'>
+      <div class = "title">
+      <a href='/' class='navbar-brand'>Tap Time</a>
+      <h2 class="welcome">Loading...<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h2>
       </div>
-<nav>
-   <div class="panel-body">
-      <ul class="list-unstyled main-menu">
-    <li class="text-right"><a href="#" id="nav-close">X</a></li>
-    <div class = "container calendar_date">
-      <p><input type="text" class="datepicker" readonly="readonly"></p>
+      <div id = "donutChart"></div>
+      <div class = "bigTimerLabel">
+        <h1>&nbsp;</h1>
+      </div>
+      <div class = "nav buttons pull-right">
+        <br>
+        <br>
+        <br>
+        <ul class="nav-pills">
+           <li><button type="button"  class="btn" data-toggle="modal" data-target="#myModal" style="background-color: #676767" role="button">Past Timesheets</button></li>
+          <li class="active"><button type="button" id="nav-expander" class="btn" style="background-color: #676767" role="button">Calendar</button></li>    
+          <li><div class="submit">
+          <button onclick="submit()" class="btn" style="background-color: #ff6600">Submit</button>
+          </div></li>
+          <li class="logout">
+          <button type="button" onclick="location.href = '/logout'" class="btn" style="background-color: #676767"  role="button">Log Out</a></button></li>
+        </ul>
+      </div>
+
     </div>
-        <div style = "border-bottom: 1px grey solid;">Google Calendar<br/></div>
-        <div id = "event_table"></div>
-        <button onclick="addAllCalendarEvents()" class="btn addallbtn">Add All</button>
-    </div> 
-</nav>
- 
-    </div>
-</div>
-    
-    </div>
+    <nav>
+       <div class="panel-body">
+          <ul class="list-unstyled main-menu">
+        <li class="text-right"><a href="#" id="nav-close">X</a></li>
+        <div class = "container calendar_date">
+          <p><input type="text" class="datepicker" readonly="readonly"></p>
+        </div>
+            <div style = "border-bottom: 1px grey solid;">Google Calendar<br/></div>
+            <div id = "event_table"></div>
+            <button onclick="addAllCalendarEvents()" class="btn addallbtn">Add All</button>
+        </div> 
+    </nav>
                        
       <br>
       <br>
