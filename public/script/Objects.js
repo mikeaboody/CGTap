@@ -1,6 +1,6 @@
 var master_user = null;
 var tr_timer = null;
-var base = "https://cgp-api.controlgroup.com";
+var base = "https://cgp-prod-proxyapi-dc51rhijnd1c-1613864680.us-east-1.elb.amazonaws.com";
 var $template_row = null;
 var tr_count = 0;
 var tr_map = {};
