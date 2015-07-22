@@ -52,9 +52,14 @@ a.nav-expander.fixed {
 
 .navbar-brand {
   font-size: 40px;
-  font-family: 'Helvetica', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 10px;
+  color: white;
 
+}
+.navbar-default .navbar-brand {
+    color: #FCFCFC;
+    font-weight: 200px;
 }
 /*.btn-group-left {
   float: left;
@@ -78,11 +83,11 @@ a.nav-expander.fixed {
     
 
 .btn-default.raised {
-    box-shadow: 0 3px 0 0 #007299;
+   /* box-shadow: 0 3px 0 0 #007299;*/
 }
 
 .btn-default.raised:active, .btn-group.raised.active {
-    background: #33a6cc;
+/*    background: #33a6cc;*/
     box-shadow: none;
   /*  margin-bottom: -3px;
     margin-top: 3px;*/

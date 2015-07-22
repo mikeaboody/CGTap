@@ -8,7 +8,7 @@ The documentation to support Tap Time app can be found [here.](https://docs.goog
 
 ##Technologies and Libraries used
 + Sinatra 
-+ Ruby
++ Ruby 2.0~
 + JavaScript
 + JQuery
 + D3
