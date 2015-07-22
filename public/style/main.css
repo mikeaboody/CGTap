@@ -52,9 +52,14 @@ a.nav-expander.fixed {
 
 .navbar-brand {
   font-size: 40px;
-  font-family: 'Helvetica', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 10px;
+  color: white;
 
+}
+.navbar-default .navbar-brand {
+    color: #FCFCFC;
+    font-weight: 200px;
 }
 /*.btn-group-left {
   float: left;
@@ -78,11 +83,11 @@ a.nav-expander.fixed {
     
 
 .btn-default.raised {
-    box-shadow: 0 3px 0 0 #007299;
+   /* box-shadow: 0 3px 0 0 #007299;*/
 }
 
 .btn-default.raised:active, .btn-group.raised.active {
-    background: #33a6cc;
+/*    background: #33a6cc;*/
     box-shadow: none;
   /*  margin-bottom: -3px;
     margin-top: 3px;*/
@@ -220,6 +225,7 @@ transition: right 0.3s ease-in-out 0s;
 
 .buttons{
   display: inline-block;
+  color: white;
   height:100%;
 }
 
@@ -269,7 +275,7 @@ body.nav-expanded {
 .pie-graph-small-circle{ 
   fill: #D6E3E3
 }
-/*end of off canvas*/
+
 .modal-body {
   height: 500px;
   overflow-y: auto;
