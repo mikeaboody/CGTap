@@ -220,6 +220,7 @@ transition: right 0.3s ease-in-out 0s;
 
 .buttons{
   display: inline-block;
+  color: white;
   height:100%;
 }
 
@@ -269,7 +270,7 @@ body.nav-expanded {
 .pie-graph-small-circle{ 
   fill: #D6E3E3
 }
-/*end of off canvas*/
+
 .modal-body {
   height: 500px;
   overflow-y: auto;
