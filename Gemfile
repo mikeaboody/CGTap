@@ -5,3 +5,4 @@ gem 'sinatra', '>= 1.3'
 gem "activerecord"
 gem "sinatra-activerecord"
 gem "pg"
+gem 'i18n', '~> 0.7.0'
