@@ -9,7 +9,6 @@ require 'sinatra/activerecord'
 require './config/environments' #database configuration
 require './models/time_sheets'  #TimeSheets
 require 'openssl'
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 enable :sessions
 
