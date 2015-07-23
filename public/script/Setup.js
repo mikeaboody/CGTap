@@ -44,12 +44,8 @@ var setupJQuery = function() {
     $(".submit_date input").on("change", function() {
     	drawProgressDonut();
     });
-   //  $("#donut-chart").empty();
-  	// donutChart.draw('#donut-chart', createData());
     drawProgressDonut();
-
 }
-
 
 var loadCalendarEvents = function() {
 	var items = event_json["items"];
@@ -103,7 +99,6 @@ var loadUserData = function() {
 						newTR.currTasks = oldTR.currTasks;
 						newTR.currTaskTypes = oldTR.currTaskTypes;
 						newTR.currSelected = oldTR.currSelected;
-						// tr_map[k] = newTR;
 						addRow(newTR);
 					}
 				} else {
@@ -149,22 +144,4 @@ var verifyValidStorage = function() {
 	}
 	window.localStorage.removeItem(storageVarName);
 	return  false;
-}
-
-
-//currently unused
-var asyncDataRetrieve = function(urls) {
-	var i = 0;
-	result = [];
-	var next = function() {
-		if (i < urls.length) {
-			$.getJSON(urls[i], function(data) {
-				result.push(data);
-				i += 1;
-				next();
-			});
-		}
-	}
-	next();
-	return result;
 }

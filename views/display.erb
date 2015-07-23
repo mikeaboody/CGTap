@@ -3,10 +3,6 @@
 <TABLE BORDER="0" CELLSPACING="1" CELLPADDING="3">
 <CAPTION>Timesheet Data (last 7 days)</CAPTION>
 <TR>
-<!-- 	<TD ALIGN = "center"> ID </TD>
-	<TD ALIGN = "center"> First Name </TD>
-	<TD ALIGN = "center"> Last Name </TD>
-	<TD ALIGN = "center"> Email </TD> -->
   <TD ALIGN = "center"> Project </TD>
   <TD ALIGN = "center"> Task </TD>
   <TD ALIGN = "center"> Time Type </TD>
@@ -15,10 +11,6 @@
 	</TR> 
 	<% @time_sheets.each do |time_sheet| %>
 		<TR>
-<!-- 		<TD ALIGN = "center"> <%= time_sheet.id %> </TD>
-		<TD ALIGN = "center"> <%= time_sheet.first_name %> </TD>
-		<TD ALIGN = "center"> <%= time_sheet.last_name %> </TD>
-		<TD ALIGN = "center"> <%= time_sheet.email %> </TD> -->
     <TD ALIGN = "center"> <%= time_sheet.project_name %> </TD>
     <TD ALIGN = "center"> <%= time_sheet.task_name %> </TD>
     <TD ALIGN = "center"> <%= time_sheet.time_type %> </TD>

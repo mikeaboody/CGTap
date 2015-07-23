@@ -12,7 +12,6 @@ require 'openssl'
 
 enable :sessions
 
-
 def api_client; settings.api_client; end
 
 def calendar_api; settings.calendar; end
@@ -32,7 +31,6 @@ configure do
   client = Google::APIClient.new(
     :application_name => 'Ruby Calendar sample',
     :application_version => '1.0.0')
-  
   secrets = {"web"=>
     {"auth_uri"=>"https://accounts.google.com/o/oauth2/auth", 
     "client_secret"=>ENV["tap_client_secret"], 
@@ -42,19 +40,14 @@ configure do
     "javascript_origins"=>ENV["tap_javascript_origins"].split("::")
     }
   }
-
-
   client_secrets = Google::APIClient::ClientSecrets.new(secrets)
   client.authorization = client_secrets.to_authorization
   client.authorization.scope = 'https://www.googleapis.com/auth/calendar'
- 
-
   # Since we're saving the API definition to the settings, we're only retrieving
   # it once (on server start) and saving it between requests.
   # If this is still an issue, you could serialize the object and load it on
   # subsequent runs.
   calendar = client.discovered_api('calendar', 'v3')
-
   set :api_client, client
   set :calendar, calendar
 end
@@ -79,7 +72,6 @@ get '/oauth2callback' do
   rescue
     redirect to('/error')
   end
-  
 end
 
 get '/' do
