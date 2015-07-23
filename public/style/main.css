@@ -6,13 +6,15 @@ body {
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
 }
-#time_sheet_table {
-position: relative;
 
+#time_sheet_table {
+  position: relative;
 }
+
 ul {
   padding: 10px;
 }
+
 a.nav-expander:hover {
   cursor: pointer;
 }
@@ -24,6 +26,7 @@ a.nav-expander.fixed {
 .nav-expanded a.nav-expander.fixed {
   right: 20em;
 }
+
 .nav-expanded nav {
   right: 0;
 }
@@ -31,7 +34,6 @@ a.nav-expander.fixed {
 #time_sheet_table tbody tr {
   cursor: -webkit-grab;
   cursor: -moz-grab;
-
 }
 
 .title {
@@ -45,6 +47,7 @@ a.nav-expander.fixed {
 .welcome {
   font-size: 14px;
 }
+
 .navbar {
   background-color: #05abd5;
   height: 120px;
@@ -57,41 +60,21 @@ a.nav-expander.fixed {
   color: white;
 
 }
+
 .navbar-default .navbar-brand {
     color: #FCFCFC;
     font-weight: 200px;
 }
-/*.btn-group-left {
-  float: left;
-}
-.btn-group {
-  display: inline;
-}*/
-/*.today {  
-  width: 240px; 
-  height: 135px; 
-  padding: 0.4em; 
-  position: relative; 
-  border-style: solid;
-  border-width: 1px;
 
-}*/
 .ui-effects-transfer { 
   border: 2px 
   dotted gray; 
 }
     
-
-.btn-default.raised {
-   /* box-shadow: 0 3px 0 0 #007299;*/
-}
-
 .btn-default.raised:active, .btn-group.raised.active {
-/*    background: #33a6cc;*/
     box-shadow: none;
-  /*  margin-bottom: -3px;
-    margin-top: 3px;*/
 }
+
 .submit_date {
     margin-left: 6%;
 }
@@ -100,6 +83,7 @@ a.nav-expander.fixed {
   -webkit-transition: @property;
   transition: @property;
 }
+
 .modal-dialog {
   z-index: 1000;
 }
@@ -138,6 +122,7 @@ nav {
   width: 20em;
   z-index: 2000;
 }
+
 .frame {
     height: 70px;
     width: 35px;
@@ -166,6 +151,7 @@ hr {
   background-color: #dddddd; /* Modern Browsers */
   bottom: 15px;
 }
+
 transition: right 0.3s ease-in-out 0s;
 -webkit-transition: right 0.3s ease-in-out 0s;
 -moz-transition: right 0.3s ease-in-out 0s;
@@ -175,9 +161,11 @@ transition: right 0.3s ease-in-out 0s;
   position:relative;
   right: 0;
 }
+
 .shrink {
   width: 80%;
 }
+
 .panel-body {
   position: relative;
 }
@@ -193,14 +181,13 @@ transition: right 0.3s ease-in-out 0s;
 .navshrink {
   padding-right: 300px;
 }
+
 #donutChart {
   width: 110px;
   height: 110px;
-    display:inline-block;
-/*   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);*/
- 
+  display:inline-block; 
 }
+
 #myChart {
   margin-left: 20%;
 }
@@ -211,10 +198,6 @@ transition: right 0.3s ease-in-out 0s;
   width: 98%;
   text-align: center;
 }
-
-/*svg {
-  margin-right: 500px;
-}*/
 
 .bigTimerLabel {
   display: inline-block;
@@ -252,6 +235,7 @@ transition: right 0.3s ease-in-out 0s;
   overflow:hidden;
   position: relative;
 }
+
 body.nav-expanded {
   margin-left: 0em;
   transition: right 0.4s ease-in-out 0s;
@@ -260,7 +244,6 @@ body.nav-expanded {
   -o-transition: right 0.4s ease-in-out 0s;
 }
 
-
 #nav-close {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-weight: 300;
@@ -268,6 +251,7 @@ body.nav-expanded {
   padding-right: 10px;
 
 }
+
 .pie-graph-big-circle{ 
   fill:  #676767
 }
@@ -281,6 +265,7 @@ body.nav-expanded {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
 @-webkit-keyframes spin2 {
     from { -webkit-transform: rotate(0deg);}
     to { -webkit-transform: rotate(360deg);}

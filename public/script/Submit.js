@@ -227,4 +227,3 @@ var reset = function(TRLists) {
 	deleteTRs(submitTRList);
 	saveStorage();
 }
-

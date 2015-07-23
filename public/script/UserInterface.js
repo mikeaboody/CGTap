@@ -447,4 +447,3 @@ $(function() {
 	});
 	$(".datepicker").datepicker('setDate', new Date());
 });
-
