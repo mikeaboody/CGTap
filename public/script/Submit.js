@@ -12,11 +12,6 @@ var submit = function() {
 		return;
 	}
 	deleteTRs(emptyTRList);
-	
-	// if (submitObj_list == null) {
-	// 	swal("Insufficient!", "One of your projects has a bad field.", "error");
-	// 	return;
-	// }
 	var confirmSubmit = function() {
 		$(".welcome").html("Submitting...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
 		postSubmitObjs(submitTRList, function() {
@@ -39,7 +34,6 @@ var submit = function() {
 			}, 500);
 		});
 	}
-
 	var date_selected = $(".submit_date .datepicker").datepicker("getDate");
 	var table_html = "<div>Submitting for " + dateFormat(date_selected) + "</div><br>";
 	if (submitTRList.length > 0) {
@@ -72,8 +66,6 @@ var submit = function() {
 			html: true
 		});
 	}
-	
-	
 }
 
 var createSubmitObj = function(tr) {
@@ -116,10 +108,8 @@ var submitTable = function(submitTRList) {
 
 var insufficientTable = function(insufficientTRList) {
 	var table_html = "<table id='submit_table'class='table table-bordered'>";
-	
 	table_html += "<thead><tr><th>Project</th><th>Task</th><th>Billing Type</th><th>Time</th></tr></thead>";
 	table_html += "<tbody>";
-
 	for (i in insufficientTRList) {
 		var tr = insufficientTRList[i]
 		var proj_name = tr.getSelectedProjectName();
@@ -131,8 +121,6 @@ var insufficientTable = function(insufficientTRList) {
 		var converted_hours = tr.getConvertedHours();
 		var hours = tr.getHours();
 		var minutes = tr.getMinutes();
-		// var incomplete = submitObj.hours <= 0 || submitObj.project_id == "" || submitObj.task_id == "" ||
-		// 		submitObj.task_type == "";
 		var current_tr = "<tr>"
 		if (proj_id == undefined) {
 			current_tr += "<td align='left' class='insufficient_entry'>" + proj_name + "</td>";
@@ -166,9 +154,8 @@ var deleteTRs = function(TRList) {
 		deleteRow(TRList[i]);
 	}
 }
-//instead of returning good and bad submit objs, returns good and bad TR's
+
 var TRClassification = function() {
-	//move the checking into here from createSubmitObj
 	var submitTRList = [];
 	var insufficientTRList = [];
 	var emptyTRList = [];
@@ -207,8 +194,7 @@ var postSubmitObjs = function(submitTRList, success) {
 			}
 			COMMUNICATOR.postToOpenAir(postObj, function() {
 				COMMUNICATOR.postToDatabase(databaseObj, next);
-			});
-			
+			});	
 		} else {
 			success();
 		}
@@ -230,8 +216,6 @@ var totalHours = function(submitTRList) {
 }
 
 var reset = function(TRLists) {
-	// $(".content").hide(1);
-	// $(".welcome").html("Loading...<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span>");
 	if (current_time_tr != null) {
 		stopTimer(current_time_tr);
 	}
@@ -242,9 +226,5 @@ var reset = function(TRLists) {
 	}
 	deleteTRs(submitTRList);
 	saveStorage();
-	// tr_map = {};
-	// $("#time_sheet_table tbody").empty();
-	// $("#time_sheet_table tbody").append("<tr>" + $template_row.html() + "</tr>");
-	// loadUserData();
 }
 

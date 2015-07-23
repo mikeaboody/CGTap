@@ -53,28 +53,21 @@ COMMUNICATOR = {
 		});
 	},
 	getUser: function(success) {
-		// $.getJSON(base + "/employees", success);
 		this.recieveData(base + "/employees", success);
 	},
 	getProjects: function(success) {
-		// $.getJSON(base + "/timeentry/projectlist?id=" + master_user.email, success);
 		this.recieveData(base + "/timeentry/projectlist?id=" + master_user.email, success);
 	},
 	getTasks: function(proj_id, success) {
-		// $.getJSON(base + "/timeentry/tasklist?id=" + proj_id, success);
 		this.recieveData(base + "/timeentry/tasklist?id=" + proj_id, success);
 	},
 	getTimeTypes: function(proj_id, success) {
-		// $.getJSON(base + "/timeentry/timetypelist?id=" + proj_id, success);
 		this.recieveData(base + "/timeentry/timetypelist?id=" + proj_id, success);
 	},
 	postToDatabase: function(postObj, success) {
-		// $.post("/submit", postObj, success, failure);
 		this.pushData("/submit", postObj, success);
-		// success();
 	},
 	postToOpenAir: function(postObj, success) {
-		// $.post(base + "/timeentry/submit", postObj, success, failure);
 		this.pushData(base + "/timeentry/submit", postObj, success);
 	},
 	requestError: function(jqXHR, textStatus, errorThrown, retryObj) {
@@ -304,8 +297,7 @@ var createTR = function(tr) {
 		var newTR = tr;
 		tr_map[newTR.id] = newTR;
 		return newTR.id;
-	}
-	
+	}	
 }
 
 var deleteTR = function(tr) {

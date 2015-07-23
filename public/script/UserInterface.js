@@ -22,7 +22,6 @@ var setupTRUI = function(tr) {
 		   		saveStorage();
 			});
 		});
-		// updateLabel(tr);
 	});
 	tr.$taskJQ().on('change', function() {
    		updateLabel(tr);
@@ -177,9 +176,9 @@ var switchTimer = function(tr) {
 		saveStorage();
 	}
 
-	if (tr_timer == null) { //just starting the timer
+	if (tr_timer == null) {
 		startTimer(tr, updateTimer);
-	} else { //stopping the timer
+	} else {
 		if (current_time_tr == tr) {
 			stopTimer(tr);
 		} else {
@@ -218,8 +217,6 @@ var redirectToTimesheet = function() {
 	window.location.href = url;
 }
 
-// //allow projects to be sortable
-
  $(function() {
     $("#time_sheet_table tbody").sortable({
 		helper:fixHelper,
@@ -229,15 +226,12 @@ var redirectToTimesheet = function() {
 	}).disableSelection();
  });
 
-// }
 var fixHelper = function(e, ui) {
 	ui.children().each(function() {
 		$(this).width($(this).width());
 	});
 	return ui;
 };
-
-
 
 var addRow = function(tr) {
 	var id;
@@ -246,7 +240,6 @@ var addRow = function(tr) {
 	} else {
 		id = createTR();
 	}
-	
 	var myRow = $template_row;
 	var myHTML = "<tr id=" + id + ">" + myRow.html() + "</tr>";
 	if ($("#time_sheet_table tbody tr:last").index() == -1) {
@@ -261,8 +254,6 @@ var addRow = function(tr) {
 	} else {
 		loadTRUI(tr);
 	}
-    
-    // tr_map[id].updateTasks(master_user.projects[0].id);
 }
 
 var addRowFromCalendar = function(calendarEvent) {
@@ -296,10 +287,8 @@ var addAllCalendarEvents = function() {
 			addRowFromCalendar(calendarEvent);
 		}
 	}
-
 }
 
-// //delete a row from projects
 var deleteRow = function(tr) {
 	if (Object.keys(tr_map).length > 1) {
 		if (current_time_tr == tr) {
@@ -351,13 +340,8 @@ var unknownIfSentFailure = function() {
 
 var updateCalendar = function() {
 	$("#event_table").empty();
-	// $("#event_table").append("<thead><th>Event</th><th>Time</th></thead>");
-	// $("#event_table").append("<tbody></tbody>");
 	var date_selected = $(".calendar_date .datepicker").datepicker("getDate");
 	var empty = true;
-	// master_user.events.sort(function(a, b) {
-	// 	return a.start.getTime() - b.start.getTime();
-	// });
 	var keys = Object.keys(master_user.events).sort(function(a, b) {
 		return master_user.events[a].start.getTime() - master_user.events[b].start.getTime();
 	});
@@ -371,19 +355,13 @@ var updateCalendar = function() {
 			var start_minutes = (curr_event.start.getMinutes() < 10) ? ("0" + curr_event.start.getMinutes()) : ("" + curr_event.start.getMinutes());
 			var start_ampm = (start_hours < 12) ? "A.M." : "P.M.";
 			start_hours = (start_hours % 12 == 0) ? 12 : start_hours % 12;
-
 			var end_hours = curr_event.end.getHours() + "";
 			var end_minutes = (curr_event.end.getMinutes() < 10) ? ("0" + curr_event.end.getMinutes()) : ("" + curr_event.end.getMinutes());
 			var end_ampm = (end_hours < 12) ? "A.M." : "P.M.";
 			end_hours = (end_hours % 12 == 0) ? 12 : end_hours % 12;
-
 			var time_string = start_hours + ":" + start_minutes + " " + start_ampm + " - " + end_hours + ":" + end_minutes + " " + end_ampm;
-
 			event_div += "<div><b>" + time_string + "</b></div>";
 			event_div += "<div>" + curr_event.name + "</div>";
-			// if (curr_event.description != undefined) {
-			// 	event_div += "<div class = 'description'>Description:<br>" + curr_event.description + "</div>";
-			// }
 			event_div += "<button class='btn btn-xs btn-default' aria-label='Add'><span class='glyphicon glyphicon-plus' aria-hidden='true'></span></button></div>";
 			$("#event_table").append(event_div);
 		}
@@ -393,14 +371,10 @@ var updateCalendar = function() {
 		var calendarEvent = master_user.events[id];
 		addRowFromCalendar(calendarEvent);
 	});
-
 	if (empty) {
 		$("#event_table").empty();
 		$("#event_table").append("<h5>No calendar events.</h5>");
 	}
-	// if (master_user.events.length == 0) {
-	// 	$(".today").append("<h5>No events today on Google Calendar.</h5>");
-	// }
 }
 
 var dateFormat = function(date) {
@@ -415,17 +389,9 @@ var drawProgressDonut = function() {
   	donutChart.draw('#donutChart', createDonutData());
 }
 
-$('.selectpicker').selectpicker();
-
-//intitializes tooltip
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-});
-
 var allowDrop = function(event) {
 	event.preventDefault();
 }
-
 
 var doDropUpdate = function(event) {
 	event.preventDefault();
@@ -460,6 +426,14 @@ var drag = function(event) {
 	event.dataTransfer.setData("cal-event-data", event.target.id);
 
 }
+
+//extra configuration
+
+$('.selectpicker').selectpicker();
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});
 
 $(function() {
 	$( ".datepicker" ).datepicker({ 
