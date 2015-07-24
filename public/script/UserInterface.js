@@ -294,7 +294,7 @@ var deleteRow = function(tr) {
 		if (current_time_tr == tr) {
 			stopTimer(tr);
 		}
-		deleteTR(tr);
+		tr.delete();
 	} else {
 		swal("Can't Delete Entry!", "You must have one or more projects on the timesheet.", "error");
 	}	

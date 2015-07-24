@@ -208,6 +208,10 @@ function TableRow(id) {
 	this.createSubmitObj = function() {
 		return createSubmitObj(this);
 	};
+	this.delete = function() {
+		this.$getJQuery().remove();
+		delete tr_map[this.id];
+	}
 	this.$getJQuery = function() {
 		return $("#time_sheet_table tbody #" + this.id);
 	};
@@ -299,10 +303,3 @@ var createTR = function(tr) {
 		return newTR.id;
 	}	
 }
-
-var deleteTR = function(tr) {
-	tr.$getJQuery().remove();
-	delete tr_map[tr.id];
-}
-
-
