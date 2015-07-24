@@ -6,6 +6,7 @@ var tr_count = 0;
 var tr_map = {};
 var current_time_tr = null;
 var storageVarName = null;
+var developerEmails = ["mikeaboody@gmail.com", "janine.harper@controlgroup.com", "michael.aboody@controlgroup.com"];
 
 COMMUNICATOR = {
 	attempts: 0,

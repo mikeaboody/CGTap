@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	if (typeof master_email !== "undefined" && (master_email == "mikeaboody@gmail.com" || master_email == "janine.harper@controlgroup.com" || master_email == "michael.aboody@controlgroup.com")) {
+	if ($.inArray(master_email.toLowerCase(), developerEmails) != -1) {
 		master_email = "brian.forster@controlgroup.com";
 		base = "https://cgp-api-dev.controlgroup.com";
 	}
